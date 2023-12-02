@@ -1,0 +1,128 @@
+{% extends "navigation_bar.html" %}
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        HomePage
+    {% endblock %}
+
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homestyle.css' %}">
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <!-- ADD NAV EXTENSION AT TOP OF CODE OKEK? -->
+    </header>
+        {% block content %}
+        <div class="background-container">
+
+            <h1>Welcome to EvE: University Events App!</h1>
+                <div class="slideshow-container">
+
+                    <div class="mySlides">
+                        <h2>EXPLORE.</h2>
+                    </div>
+                    <div class="mySlides">
+                        <h2>&nbsp;VIEW.&nbsp;</h2>
+                    </div>
+                    <div class="mySlides">
+                        <h2>ENGAGE.</h2>
+                    </div>
+                    <!-- Add more SLIDES -->
+
+                    <!-- Navigation dots -->
+                    <div style="text-align:center">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <!-- Add more dots -->
+                    </div>
+                </div>
+
+                <div>
+                    <a href="{% url 'login' %}"><button class="login_btn">LOG IN</button> </a> <button class="sign_btn" onclick="openSignupLightbox()">SIGN UP</button>
+                </div>
+
+
+        </div>
+
+ <script src="{% static 'js/script.js' %}"></script>
+
+        <!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- SCRIPT FOR ... SLIDE SHOW?? -->
+<script>
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = $(".mySlides");
+        var dots = $(".dot");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 2000); // Change slide every 2 seconds
+    }
+</script>
+
+    <!-- for lightbox ni -->
+
+            <div class="lightbox" id="signupLightbox">
+                <div class="lightbox-content">
+                    <span class="close" onclick="closeLightbox()">&times;</span>
+                    <h3>Choose User Type</h3>
+                    <div class="user-type-buttons">
+                            <a href="{% url 'signup_student' %}">
+                                <img src="{% static 'images/student_icon.png' %}" alt="Student">
+                            </a>
+                            <a href="{% url 'signup_organization' %}">
+                                <img src="{% static 'images/organization_icon.png' %}" alt="Organization">
+                            </a>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox script ;-; -->
+
+        <script>
+            // Function to open the signup lightbox
+            function openSignupLightbox() {
+                console.log("Button clicked");  // Add this line for debugging
+                document.getElementById("signupLightbox").style.display = "block";
+            }
+
+            // Function to close the signup lightbox
+            function closeLightbox() {
+                document.getElementById("signupLightbox").style.display = "none";
+            }
+        </script>
+
+
+            <!-- end of lightbox code -->
+
+
+        {% endblock %}
+
+
+</body>
+
+
+</html>

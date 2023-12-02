@@ -1,0 +1,28 @@
+<!--{% load static %}-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" href="static/css/signup.css">-->
+     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <img id="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo">
+    <h2>Login</h2>
+    <form method="post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login </button>
+    </form>
+     <p>Don't have an account? <a href="#">Signup</a></p>
+</body>
+</html>
+
+ <script src="{% static 'js/script.js' %}"></script>
+{% if error_message %}
+<div class="error-message">{{ error_message }}</div>
+{% endif %}

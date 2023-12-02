@@ -1,0 +1,91 @@
+
+
+body{
+    background-color: #FFD6D6;
+    margin-top: 50px;
+    padding: 10px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+img.logo {
+    width: 1.5in;
+    height: 1.5in;
+    border-radius: 50%;
+    object-fit: cover; /* This property ensures the image covers the circular container */
+    margin-bottom: 40px;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 20%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #ffffff;
+    color: #000;
+}
+
+button {
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Adjust the border-radius as needed */
+    color: #FFF;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.userbtn{
+    width: 10%; /* Adjust the width as needed */
+    margin-top:30px;
+    margin-bottom: 10px;
+    background-color: #D34F57;
+}
+/* Optional: Add hover styles for better user experience */
+button.userbtn:hover {
+    background-color: #FF6B78;
+}
+
+.line-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  width:20%;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #FFF; /* Adjust the color of the lines */
+}
+
+.text {
+  padding: 0 10px; /* Adjust the padding around the text */
+  color: #000; /* Adjust the color of the text */
+}
+
+button.orgbtn{
+    width: 15%;
+    margin-top:10px;
+    margin-bottom: 15px;
+    background-color: #EA888E;
+
+}
+
+button.orgbtn:hover{
+    background-color: #FF6B78;
+}
+
+.txtlogin{
+    font-size: 12px; /* Custom font size */
+    font-family: 'Helvetica', sans-serif; /* Custom font family */
+    font-style: italic; /* Optional: Set font style */
+}
+

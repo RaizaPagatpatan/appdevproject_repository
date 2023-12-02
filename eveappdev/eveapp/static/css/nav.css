@@ -1,0 +1,67 @@
+/* Add your styling for the navigation bar here */
+
+
+
+header.navbar {
+    background-color: #59181E;
+    padding: 0px;
+    padding-bottom: 0px;
+
+}
+
+
+.box-ul-nav {
+            width: auto;
+            height: auto;
+            background-color: #F1ACAC;
+            border-radius: none;
+            text-align: center;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            margin: 0;
+            font-family: monospace;
+        }
+.logo{
+    max-width: 5%;
+    border: none;
+    display: block; /* Make sure the logo is a block element */
+    margin: 0 auto; /* Center the logo */
+}
+
+nav {
+    margin-top: 0px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #59181E;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #000;
+}
+
+.user-links {
+    float: right;
+}
+
+
+/* BODY ;-; */
+
+
+

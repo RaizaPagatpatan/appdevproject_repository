@@ -1,0 +1,135 @@
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1{
+    margin:30px;
+}
+
+hr{
+    width:370px;
+    color: #7F0707;
+}
+
+ul{
+    list-style-type: none;
+    text-align:left;
+}
+
+li{
+    margin:30px 30px 0px 0px;
+}
+
+.ulbase li::before{
+    content: '\2713';
+    color:#7F0707;
+    font-weight:bold;
+}
+
+.ulprem li::before{
+    content: '\2713';
+    color:#FFCFCF;
+    font-weight:bold;
+}
+
+.basic{
+    border-radius:40px;
+    background-color:#F98D8D;
+    padding: 20px;
+    align-items: center;
+    text-align:center;
+    color:#7F0707;
+    margin:120px 30px 30px 30px;
+    height:410px;
+    width: 400px;
+    box-shadow: inset 9px 7px 10px rgba(0, 0, 0, 0.1);
+}
+
+.premium{
+    border-radius:40px;
+    background-color:#D34F57;
+    padding: 20px;
+    align-items: center;
+    text-align:center;
+    color:#FFCFCF;
+    margin:40px 30px 30px 30px;
+    height:490px;
+    width: 400px;
+     box-shadow: inset 9px 7px 10px rgba(0, 0, 0, 0.1);
+}
+
+.float_left{
+    float:left;
+}
+
+.float_right{
+    float:right;
+}
+
+.plan_txt{
+    font-family:'Arial',sans-serif;
+    font-size: 65px;
+    margin:150px 70px 70px 70px;
+    width:300px;
+    color: #7F0707;
+    font-weight:bold;
+}
+
+.price_tag{
+    font-size:65px;
+    font-weight:bold;
+    margin:40px 0px 0px 0px;
+    padding:0px;
+}
+
+.mon{
+    font-size: 20px;
+    text-align:center;
+}
+
+.back{
+    margin: 110px 0px 0px 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    color:#7F0707;
+}
+
+.back:hover{
+    border-radius:10px;
+    background-color:#F98D8D;
+    padding: 0px 15px 0px 15px;
+    margin: 120px 0 0 26px;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+button.back_btn{
+    width: 100px;
+    left:0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #D34F57;
+}
+
+/* Optional: Add hover styles for better user experience */
+button.back_btn:hover {
+    background-color: #FF6B78;
+}
