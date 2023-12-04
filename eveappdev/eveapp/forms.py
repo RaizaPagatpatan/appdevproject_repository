@@ -57,13 +57,14 @@ class Verification(forms.ModelForm):
     orgName = forms.ModelChoiceField(
         queryset=Organization.objects.all(),
         widget=forms.HiddenInput,
+        required=False
     )
     email = forms.EmailField(max_length=250)
     details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Applicant Details")
     account_status = forms.CharField(
         widget=forms.HiddenInput,
         initial='P')
-    upload_file = forms.FileField(label="Upload Accreditation Certificate", required=False)
+    upload_file = forms.FileField(label="Upload Accreditation Certificate")
     class Meta:
         model = Account
         fields = ['org_Name', 'orgName', 'email', 'details', 'account_status', 'upload_file']

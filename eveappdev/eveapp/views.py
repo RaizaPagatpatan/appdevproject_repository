@@ -188,13 +188,18 @@ class ShowStudentHome(View):
         # events = Event.objects.all() ++++++ 'events': events,
         return render(request, self.template, {'username': username})
 
+def handle_uploaded_file(f):
+    with open("some/file/name.txt", "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
 
 class Verify(View):
     def post(self, request):
-        form = Verification(request.POST)
+        form = Verification(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('verify_home')
+        return render(request, 'verification_page.html', {'form': form, 'error_message': "Form invalid. Try again."})
 
     def get(self, request):
         form = Verification(initial={'orgName': request.session['user_id']})
