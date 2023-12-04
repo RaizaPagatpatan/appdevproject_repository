@@ -7,24 +7,24 @@ Student = apps.get_model('CreateAccount', 'Student')
 
 
 class LoginForm(forms.Form):
-    email = forms.CharField(widget=forms.TextInput, label="Email")
+    username = forms.CharField(widget=forms.TextInput, label="Username")
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
 
 
-class OrgVerifyForm(forms.ModelForm):
-    orgName = forms.CharField(max_length=100, label="Organization Name")
-    nameApplicant = forms.ModelChoiceField(
-        queryset=Organization.objects.all(),
-        widget=forms.HiddenInput,
-    )
-    applicantPosition = forms.CharField(max_length=100, label="Position of Apllicant")
-
-    event_status = forms.CharField(widget=forms.HiddenInput, initial='P')
-    document = forms.FileField(label="Upload Requirement")
-
-    class Meta:
-        model = Account
-        fields = ['orgName', 'nameApplicant', 'applicantPosition', 'account_status', 'document']
+# class OrgVerifyForm(forms.ModelForm):
+#     orgName = forms.CharField(max_length=100, label="Organization Name")
+#     nameApplicant = forms.ModelChoiceField(
+#         queryset=Organization.objects.all(),
+#         widget=forms.HiddenInput,
+#     )
+#     applicantPosition = forms.CharField(max_length=100, label="Position of Apllicant")
+#
+#     event_status = forms.CharField(widget=forms.HiddenInput, initial='P')
+#     document = forms.FileField(label="Upload Requirement")
+#
+#     class Meta:
+#         model = Account
+#         fields = ['orgName', 'nameApplicant', 'applicantPosition', 'account_status', 'document']
 
 
 class OrgRegisterForm(forms.ModelForm):
@@ -51,3 +51,18 @@ class StudentRegisterForm(forms.ModelForm):
         model = Student
         fields = ['email', 'username', 'password', 'first_name', 'last_name', 'user_type']
 
+class Verification(forms.ModelForm):
+    org_Name = forms.CharField(max_length=100, label="Organization Name")
+    orgName = forms.ModelChoiceField(
+        queryset=Organization.objects.all(),
+        widget=forms.HiddenInput,
+    )
+    email = forms.EmailField(max_length=250)
+    details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Applicant Details")
+    account_status = forms.CharField(
+        widget=forms.HiddenInput,
+        initial='P')
+    upload_file = forms.FileField(label="Upload Accreditation Certificate")
+    class Meta:
+        model = Account
+        fields = ['org_Name', 'orgName', 'email', 'details', 'account_status', 'upload_file']

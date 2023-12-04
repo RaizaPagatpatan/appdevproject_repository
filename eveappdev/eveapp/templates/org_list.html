@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends "navbar_student.html" %}
+{% load static %}
+<html lang="en">
+{% block content %}
+    <main>
+        <section class="events">
+            <div class="ongoing">
+                <h2>School Organizations</h2>
+                {% for org_list in org_lists %}
+                <div class="org_list">
+
+                    <h3>{{ org_list.orgName }}</h3>
+                </div>
+                {% empty %}
+                    <p>No Organizations Registered</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.apps import apps #student
 from django.views import View
@@ -66,6 +67,55 @@ class RegisterOrg(View):
         return render(request, self.template_name, {'form': register, 'error_message': message})
 
 
+# class LoginView(View):
+#     template_name = 'login.html'
+#
+#     def get(self, request):
+#         form = LoginForm()
+#         return render(request, self.template_name, {'form': form, 'error_message': None})
+#
+#     def post(self, request):
+#         error_message = None
+#
+#         form = LoginForm(request.POST)
+#
+#         if form.is_valid():
+#             username = form.cleaned_data.get('username')
+#             password = form.cleaned_data.get('password')
+#
+#             user = None
+#
+#             try:
+#                 user = Student.objects.get(username=username, password=password, user_type="S")
+#                 request.session['type'] = "S"
+#                 request.session['user_id'] = user.user_id
+#                 request.session['username'] = user.first_name
+#                 return redirect('student_home')
+#             except Student.DoesNotExist:
+#                 pass
+#
+#             if not user:
+#                 try:
+#                     user = Organization.objects.get(username=username, password=password, user_type="O")
+#                     request.session['type'] = "O"
+#                     request.session['user_id'] = user.user_id
+#                     request.session['username'] = user.organization_name
+#                     return redirect('org_home')
+#                 except Organization.DoesNotExist:
+#                     pass
+#
+#             if not user:
+#                 try:
+#                     user = Admin.objects.get(username=username, password=password, user_type="A")
+#                 except Admin.DoesNotExist:
+#                     pass
+#
+#             if user:
+#                 return redirect('student_home')
+#             else:
+#                 error_message = "Invalid username or password."
+#
+#         return render(request, self.template_name, {'form': form, 'error_message': error_message})
 class LoginView(View):
     template_name = 'login.html'
 
@@ -89,7 +139,7 @@ class LoginView(View):
                 request.session['type'] = "S"
                 request.session['user_id'] = user.user_id
                 request.session['username'] = user.first_name
-                return redirect('login')
+                return redirect('student_home')
             except Student.DoesNotExist:
                 pass
 
@@ -99,7 +149,7 @@ class LoginView(View):
                     request.session['type'] = "O"
                     request.session['user_id'] = user.user_id
                     request.session['username'] = user.organization_name
-                    return redirect('login')
+                    return redirect('org_home')
                 except Organization.DoesNotExist:
                     pass
 
@@ -110,8 +160,64 @@ class LoginView(View):
                     pass
 
             if user:
-                return redirect('login')
+                return redirect('student_home')
             else:
                 error_message = "Invalid username or password."
 
         return render(request, self.template_name, {'form': form, 'error_message': error_message})
+
+
+class OrgHome(View):
+    template_name = 'org_home.html'
+
+    def get(self, request):
+        user = request.session['user_id']
+        username = request.session['username']
+        # events = Event.objects.filter(organizer=user).values()  'events': events,
+
+        return render(request, self.template_name, { 'username': username})
+
+
+class ShowStudentHome(View):
+    # def get(self, request):
+    #     return HttpResponse("Student Home Page")
+    template = 'student_home.html'
+
+    def get(self, request):
+        username = request.session['username']
+        # events = Event.objects.all() ++++++ 'events': events,
+        return render(request, self.template, {'username': username})
+
+
+class Verify(View):
+    def post(self, request):
+        form = Verification(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('verify_home')
+
+    def get(self,request):
+        form = Verification(initial={'orgName': request.session['user_id']})
+        return render(request, 'verification_page.html', {'form': form})
+
+
+class OrgVerifyView(View):
+    template_name = 'verify_home.html'
+
+    def get(self, request):
+        user = request.session['user_id']
+        username = request.session['username']
+        # events = Event.objects.filter(organizer=user).values()
+        org_lists = Account.objects.filter(orgName=user).values()
+        return render(request, self.template_name, {'org_lists': org_lists, 'username' : username})
+
+
+class OrgList(View):
+    template_name = 'org_list.html'
+
+    def get(self, request):
+        user = request.session['user_id']
+        username = request.session['username']
+        # events = Event.objects.filter(organizer=user).values()  'events': events,
+        org_lists = Account.objects.filter(orgName=user).values()
+        return render(request, self.template_name, {'org_lists': org_lists,'username': username})

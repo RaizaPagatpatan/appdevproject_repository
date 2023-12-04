@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    {% block styles %}
+
+    {% endblock %}
+    <title>{% block title %}
+        {% endblock %}</title>
+
+</head>
+<body>
+
+    <header class="navbar">
+            <div> <img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"> </div>
+        <div class="box-ul-nav">
+
+            <nav>
+                <ul class="navigation">
+                    <li><a href='#'>Events</a></li>
+                    <li><a href='#'>RSVP</a></li>
+                    <li><a href="{% url 'pricing' %}">Pricing</a></li>
+                    <li><a href='#'>Notifications</a></li>
+                    <li><a href="{% url 'verify_home' %}">Verification</a></li>
+                </ul>
+                <div class="user-links">
+
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
