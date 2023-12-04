@@ -196,7 +196,7 @@ class Verify(View):
             form.save()
             return redirect('verify_home')
 
-    def get(self,request):
+    def get(self, request):
         form = Verification(initial={'orgName': request.session['user_id']})
         return render(request, 'verification_page.html', {'form': form})
 
@@ -219,5 +219,5 @@ class OrgList(View):
         user = request.session['user_id']
         username = request.session['username']
         # events = Event.objects.filter(organizer=user).values()  'events': events,
-        org_lists = Account.objects.filter(orgName=user).values()
-        return render(request, self.template_name, {'org_lists': org_lists,'username': username})
+        # org_lists = Account.objects.filter(orgName=user).values() 'org_lists': org_lists,
+        return render(request, self.template_name, {'username': username})

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends "navbar_org.html" %}
 {% load static %}
+{{ form.errors }}
 
 <html lang="en">
 <head>
@@ -9,7 +10,8 @@
 </head>
 <body>
 {% block content %}
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
+
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit">Submit</button>
