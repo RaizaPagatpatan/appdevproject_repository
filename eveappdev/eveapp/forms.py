@@ -1,6 +1,8 @@
 from django import forms
-from .models import Account
+from .models import Account, Event
 from django.apps import apps
+from multiupload.fields import MultiFileField
+
 
 Organization = apps.get_model('CreateAccount', 'Organization')
 Student = apps.get_model('CreateAccount', 'Student')
@@ -9,22 +11,6 @@ Student = apps.get_model('CreateAccount', 'Student')
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput, label="Username")
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
-
-
-# class OrgVerifyForm(forms.ModelForm):
-#     orgName = forms.CharField(max_length=100, label="Organization Name")
-#     nameApplicant = forms.ModelChoiceField(
-#         queryset=Organization.objects.all(),
-#         widget=forms.HiddenInput,
-#     )
-#     applicantPosition = forms.CharField(max_length=100, label="Position of Apllicant")
-#
-#     event_status = forms.CharField(widget=forms.HiddenInput, initial='P')
-#     document = forms.FileField(label="Upload Requirement")
-#
-#     class Meta:
-#         model = Account
-#         fields = ['orgName', 'nameApplicant', 'applicantPosition', 'account_status', 'document']
 
 
 class OrgRegisterForm(forms.ModelForm):
@@ -69,3 +55,21 @@ class Verification(forms.ModelForm):
     class Meta:
         model = Account
         fields = [ 'orgName', 'nameApplicant' , 'email', 'details', 'account_status', 'upload_file']
+
+
+
+class EventForm(forms.ModelForm):
+    eventName = forms.CharField(max_length=100, label="Event Name")
+    organizer = forms.ModelChoiceField(
+        queryset=Organization.objects.all(),
+        widget=forms.HiddenInput,
+    )
+    details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Event Details")
+    start = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}), label="Start Date and Time")
+    end = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}), label="End Date and Time")
+    location = forms.CharField(max_length=100, label="Location")
+    images = MultiFileField(min_num=1, max_num=10, max_file_size=1024*1024*5, label="Event Images", required=False)
+
+    class Meta:
+        model = Event
+        fields = ['eventName', 'organizer', 'details', 'start', 'end', 'location', 'images']

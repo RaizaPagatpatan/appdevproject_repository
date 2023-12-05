@@ -56,10 +56,12 @@ class RegisterOrg(View):
 
         if register.is_valid():
             organization_name = request.POST['organization_name']
+            org_email = request.POST['email']
+
 
             try:
-                Organization.objects.get(organization_name=organization_name)
-                message = 'Organization name is already taken.'
+                Organization.objects.get(organization_name=organization_name, email=org_email)
+                message = 'Organization name and email is already taken.'
             except Organization.DoesNotExist:
                 register.save()
                 return redirect('login')
@@ -67,55 +69,6 @@ class RegisterOrg(View):
         return render(request, self.template_name, {'form': register, 'error_message': message})
 
 
-# class LoginView(View):
-#     template_name = 'login.html'
-#
-#     def get(self, request):
-#         form = LoginForm()
-#         return render(request, self.template_name, {'form': form, 'error_message': None})
-#
-#     def post(self, request):
-#         error_message = None
-#
-#         form = LoginForm(request.POST)
-#
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#
-#             user = None
-#
-#             try:
-#                 user = Student.objects.get(username=username, password=password, user_type="S")
-#                 request.session['type'] = "S"
-#                 request.session['user_id'] = user.user_id
-#                 request.session['username'] = user.first_name
-#                 return redirect('student_home')
-#             except Student.DoesNotExist:
-#                 pass
-#
-#             if not user:
-#                 try:
-#                     user = Organization.objects.get(username=username, password=password, user_type="O")
-#                     request.session['type'] = "O"
-#                     request.session['user_id'] = user.user_id
-#                     request.session['username'] = user.organization_name
-#                     return redirect('org_home')
-#                 except Organization.DoesNotExist:
-#                     pass
-#
-#             if not user:
-#                 try:
-#                     user = Admin.objects.get(username=username, password=password, user_type="A")
-#                 except Admin.DoesNotExist:
-#                     pass
-#
-#             if user:
-#                 return redirect('student_home')
-#             else:
-#                 error_message = "Invalid username or password."
-#
-#         return render(request, self.template_name, {'form': form, 'error_message': error_message})
 class LoginView(View):
     template_name = 'login.html'
 
@@ -226,3 +179,36 @@ class OrgList(View):
         # events = Event.objects.filter(organizer=user).values()  'events': events,
         # org_lists = Account.objects.filter(orgName=user).values() 'org_lists': org_lists,
         return render(request, self.template_name, {'username': username})
+
+
+class AddEvent(View):
+    def post(self, request):
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('org_home')
+
+    def get(self, request):
+        form = EventForm(initial={'organizer': request.session['user_id']})
+        return render(request, 'add_event.html', {'form': form})
+
+
+class OrgEventListView(View):
+    template_name = 'org_eventList.html'
+
+    def get(self, request):
+        user = request.session['user_id']
+        username = request.session['username']
+        events = Event.objects.filter(organizer=user).values()
+        return render(request, self.template_name, {'events': events, 'username' : username})
+
+
+class EventStudentView(View):
+    # def get(self, request):
+    #     return HttpResponse("Student Home Page")
+    template = 'student_eventView.html'
+
+    def get(self, request):
+        username = request.session['username']
+        events = Event.objects.all()
+        return render(request, self.template, {'events': events, 'username': username})

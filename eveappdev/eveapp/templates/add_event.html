@@ -1,0 +1,25 @@
+{% extends "navbar_org.html" %}
+
+{% block title %}
+    Add Event
+{% endblock %}
+
+{% load static %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="left">
+        </div>
+        <div class="right">
+            <h1>Add Event</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

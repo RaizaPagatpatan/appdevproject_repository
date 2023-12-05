@@ -1,0 +1,33 @@
+{% extends "navbar_student.html" %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% load static %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="events">
+            <div class="ongoing">
+                <h2>Ongoing Events</h2>
+                {% for event in events %}
+                <div class="event">
+                    <h3>{{ event.eventName }}</h3>
+                    <p>Organizer: {{ event.organizer }}</p>
+                    <p>Start: {{ event.start }}</p>
+                    <p>End: {{ event.end }}</p>
+                    <p>Location: {{ event.location }}</p>
+                    <p>Details: {{ event.details }}</p>
+                    <p>{{ event.images }}</p>
+                </div>
+                {% empty %}
+                    <p>No events available</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

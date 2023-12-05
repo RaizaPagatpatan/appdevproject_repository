@@ -1,0 +1,54 @@
+{% extends "navbar_org.html" %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% load static %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="button-container">
+                <a href="{% url 'add_event' %}" class="scheduler-button">Add New Event</a>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Details</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Location</th>
+                        <th>Images</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td>{{ event.eventName }}</td>
+                            <td>{{ event.details }}</td>
+                            <td>{{ event.start }}</td>
+                            <td>{{ event.end }}</td>
+                            <td>{{ event.location }}</td>
+                            <td>{{ event.images }}</td>
+
+                            <td class="action-buttons">
+                                <button class="edit-button">Edit</button>
+                                <button class="cancel-button">Cancel</button>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7">No events available</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+{% endblock %}

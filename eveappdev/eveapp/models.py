@@ -21,17 +21,19 @@ class Account(models.Model):
         db_table = "Account"
 
 
+
 class Event(models.Model):
     eventID = models.BigAutoField(primary_key=True)
-    eventName = models.CharField(max_length=150)
+    eventName = models.CharField(max_length=100, verbose_name="Event Name")
     organizer = models.ForeignKey('CreateAccount.Organization', on_delete=models.CASCADE)
-    details = models.CharField(max_length=250)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
-    location = models.TextField()
+    details = models.TextField(verbose_name="Event Details")
+    start = models.DateTimeField(verbose_name="Start Date and Time")
+    end = models.DateTimeField(verbose_name="End Date and Time")
+    location = models.CharField(max_length=100, verbose_name="Location")
+    images = models.FileField(upload_to='event_images/', null=True, blank=True, verbose_name="Event Images")
 
     def __str__(self):
-        return f"{self.eventName}"
+        return self.eventName
 
     class Meta:
         db_table = "Event"

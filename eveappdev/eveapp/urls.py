@@ -14,5 +14,8 @@ urlpatterns = [
     path('verify/', Verify.as_view(), name="verify"),
     path('verify_home/', OrgVerifyView.as_view(), name="verify_home"),
     path('org_list/', OrgList.as_view(), name="org_list"),
+    path('org_event_list/', OrgEventListView.as_view(), name="org_event_list"),
+    path('student_event_view/', EventStudentView.as_view(), name="student_event_view"),
+    path('add_event/', AddEvent.as_view(), name="add_event"),
 
 ]

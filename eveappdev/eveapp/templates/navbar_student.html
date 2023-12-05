@@ -22,7 +22,7 @@
             <nav>
                     <h4 class="welcome">Welcome {{ username }}!</h4>
                 <ul class="navigation">
-                    <li><a href='#'>Events</a></li>
+                    <li><a href="{% url 'student_event_view' %}">Events</a></li>
                     <li><a href="{% url 'org_list' %}">Organizations</a></li>
                     <li><a href="{% url 'pricing' %}">Pricing</a></li>
                     <li><a href='#'>News</a></li>
