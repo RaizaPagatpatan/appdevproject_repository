@@ -9,6 +9,7 @@ urlpatterns = [
     path('signup_organization/', RegisterOrg.as_view(), name="signup_organization"),
     path('signup_student/', RegisterStudent.as_view(), name="signup_student"),
     path('login/', LoginView.as_view(), name="login"),
+    path('logout/', Logout.as_view(), name='logout'),
     path('student_home/', ShowStudentHome.as_view(), name="student_home"),
     path('org_home/', OrgHome.as_view(), name="org_home"),
     path('verify/', Verify.as_view(), name="verify"),

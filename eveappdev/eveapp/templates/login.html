@@ -13,12 +13,19 @@
 <body>
     <img id="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo">
     <h2>Login</h2>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
     <form method="post" >
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Login </button>
     </form>
-     <p>Don't have an account? <a href="#">Signup</a></p>
+
+     <p>Don't have an account? <a href= "#">Signup</a></p>
+
 </body>
 </html>
 

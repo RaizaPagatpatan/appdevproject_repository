@@ -5,6 +5,8 @@ from django.apps import apps #student
 from django.views import View
 
 
+
+
 from .forms import *
 from .models import Account
 # Create your views here.
@@ -68,6 +70,19 @@ class RegisterOrg(View):
 
         return render(request, self.template_name, {'form': register, 'error_message': message})
 
+class Logout(View):
+    def get(self, request):
+        if 'type' in request.session:
+            del request.session['type']
+        if 'user_id' in request.session:
+            del request.session['user_id']
+        if 'username' in request.session:
+            del request.session['username']
+
+            # Logout the user
+        # logout(request)
+
+        return redirect('home_view')
 
 class LoginView(View):
     template_name = 'login.html'
@@ -124,22 +139,30 @@ class OrgHome(View):
     template_name = 'org_home.html'
 
     def get(self, request):
-        user = request.session['user_id']
-        username = request.session['username']
-        # events = Event.objects.filter(organizer=user).values()  'events': events,
+        form = LoginForm()
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            username = request.session['username']
+            # events = Event.objects.filter(organizer=user).values()  'events': events,
 
-        return render(request, self.template_name, { 'username': username})
-
+            return render(request, self.template_name, {'username': username})
+        else:
+            return redirect('login')
 
 class ShowStudentHome(View):
     # def get(self, request):
     #     return HttpResponse("Student Home Page")
-    template = 'student_home.html'
+    template_name = 'student_home.html'
 
     def get(self, request):
-        username = request.session['username']
-        # events = Event.objects.all() ++++++ 'events': events,
-        return render(request, self.template, {'username': username})
+        form = LoginForm()
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            username = request.session['username']
+
+            return render(request, self.template_name, {'username': username})
+        else:
+            return redirect('login')
 
 def handle_uploaded_file(f):
     with open("some/file/name.txt", "wb+") as destination:
