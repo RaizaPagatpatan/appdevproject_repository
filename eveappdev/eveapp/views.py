@@ -16,8 +16,41 @@ Admin = apps.get_model('CreateAccount','Admin')
 Organization = apps.get_model('CreateAccount','Organization')
 
 
-def home_view(request):
-    return render(request, 'home.html')
+class Home(View):
+    template_name = 'home.html'
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_id = request.session['user_id']
+            username = request.session['username']
+
+            # Assuming you have stored the user type in the session
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                return redirect('student_home')  # Redirect to the student home view
+            elif user_type == "O":
+                return redirect('org_home')
+            elif user_type == "A":
+                # Redirect to the admin home view, adjust the view name accordingly
+                return redirect('admin_home')
+
+        else:
+            return render(request, self.template_name)
+
+#
+# def home_view(request):
+#     return render(request, 'home.html')
+#
+#     def get(self, request):
+#         form = LoginForm()
+#         if 'user_id' in request.session and 'username' in request.session:
+#             user = request.session['user_id']
+#             username = request.session['username']
+#             # events = Event.objects.filter(organizer=user).values()  'events': events,
+#
+#             return render(request, self.template_name, {'username': username})
+#         else:
+#             return redirect('login')
 
 
 def pricing(request):
@@ -78,9 +111,6 @@ class Logout(View):
             del request.session['user_id']
         if 'username' in request.session:
             del request.session['username']
-
-            # Logout the user
-        # logout(request)
 
         return redirect('home_view')
 
