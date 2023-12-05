@@ -1,0 +1,71 @@
+{% extends "navbar_org.html" %}
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        Pricing
+    {% endblock %}
+
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pricing.css' %}">
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+
+    <div class="back" onclick="goBack()">
+        <p><i class="arrow left"></i>  Back</p>
+    </div>
+
+    <div>
+        <div>
+            <div class="plan_txt float_left">
+                Choose<br>your<br>plan!
+            </div>
+            <div class="basic float_left">
+                <p><h1>Basic Plan</h1></p>
+                <hr style="border-color: #7F0707;">
+                 <ul class="ulbase">
+                    <li> Access page engagement statistics </li>
+                    <li> Access to in-depth event performance data and attendee insights</li>
+                </ul>
+                <div>
+                    <p class="price_tag"><span>&#8369;</span> 99.00</p>
+                    <p class="mon">per month</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="premium float_left">
+            <p><h1>Premium Plan</h1></p>
+            <hr style="border-color: #FFCFCF;">
+            <ul class="ulprem">
+                <li> All features from the Basic Plan </li>
+                <li> Feature events in app recomendations and search results </li>
+                <li> Showcase events in prominent app sections for increased visibility</li>
+            </ul>
+            <div>
+                    <p class="price_tag"><span>&#8369;</span> 149.00</p>
+                    <p class="mon">per month</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <script>
+         function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    {% endblock %}
+</body>
+</html>
+

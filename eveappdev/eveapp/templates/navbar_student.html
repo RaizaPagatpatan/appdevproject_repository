@@ -16,7 +16,7 @@
 <body>
 
     <header class="navbar">
-            <div> <img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"> </div>
+            <div><a href="{% url 'student_home' %}"><img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"></a></div>
         <div class="box-ul-nav">
 
             <nav>
@@ -24,7 +24,6 @@
                 <ul class="navigation">
                     <li><a href="{% url 'student_event_view' %}">Events</a></li>
                     <li><a href="{% url 'org_list' %}">Organizations</a></li>
-                    <li><a href="{% url 'pricing' %}">Pricing</a></li>
                     <li><a href='#'>News</a></li>
                     <li><a href='#'>Notifications</a></li>
 

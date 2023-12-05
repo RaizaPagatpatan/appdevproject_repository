@@ -37,24 +37,13 @@ class Home(View):
         else:
             return render(request, self.template_name)
 
-#
-# def home_view(request):
-#     return render(request, 'home.html')
-#
-#     def get(self, request):
-#         form = LoginForm()
-#         if 'user_id' in request.session and 'username' in request.session:
-#             user = request.session['user_id']
-#             username = request.session['username']
-#             # events = Event.objects.filter(organizer=user).values()  'events': events,
-#
-#             return render(request, self.template_name, {'username': username})
-#         else:
-#             return redirect('login')
-
 
 def pricing(request):
     return render(request, 'pricing.html')
+
+def pricing_org(request):
+    return render(request, 'pricing_org.html')
+
 
 
 class RegisterStudent(View): #student
