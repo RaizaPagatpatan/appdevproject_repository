@@ -52,13 +52,14 @@ class StudentRegisterForm(forms.ModelForm):
         fields = ['email', 'username', 'password', 'first_name', 'last_name', 'user_type']
 
 class Verification(forms.ModelForm):
-    nameApplicant = forms.CharField(max_length=150, label="Name of Applicant")
-    org_Name = forms.CharField(max_length=100, label="Organization Name")
+
+    # org_Name = forms.CharField(max_length=100, label="Organization Name")
     orgName = forms.ModelChoiceField(
         queryset=Organization.objects.all(),
         widget=forms.HiddenInput,
         required=False
     )
+    nameApplicant = forms.CharField(max_length=150, label="Name of Applicant")
     email = forms.EmailField(max_length=250)
     details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Applicant Details")
     account_status = forms.CharField(
@@ -67,4 +68,4 @@ class Verification(forms.ModelForm):
     upload_file = forms.FileField(label="Upload Accreditation Certificate")
     class Meta:
         model = Account
-        fields = ['org_Name', 'orgName', 'email', 'details', 'account_status', 'upload_file']
+        fields = [ 'orgName', 'nameApplicant' , 'email', 'details', 'account_status', 'upload_file']

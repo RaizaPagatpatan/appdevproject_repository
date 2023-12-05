@@ -20,3 +20,19 @@ class Account(models.Model):
     class Meta:
         db_table = "Account"
 
+
+class Event(models.Model):
+    eventID = models.BigAutoField(primary_key=True)
+    eventName = models.CharField(max_length=150)
+    organizer = models.ForeignKey('CreateAccount.Organization', on_delete=models.CASCADE)
+    details = models.CharField(max_length=250)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    location = models.TextField()
+
+    def __str__(self):
+        return f"{self.eventName}"
+
+    class Meta:
+        db_table = "Event"
+

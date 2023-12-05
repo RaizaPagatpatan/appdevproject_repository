@@ -11,8 +11,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Organization Name</th>
-                        <th>Organization</th>
+                        <th>Name of Applicant</th>
                         <th>Email</th>
                         <th>Details</th>
                         <th>Account Status</th>
@@ -22,8 +21,7 @@
                 <tbody>
                     {% for org_list in org_lists %}
                         <tr>
-                            <td>{{ org_list.org_Name }}</td>
-                            <td>{{ org_list.orgName }}</td>
+                            <td>{{ org_list.nameApplicant }}</td>
                             <td>{{ org_list.email }}</td>
                             <td>{{ org_list.details }}</td>
                             <td>{{ org_list.account_status }}</td>
@@ -36,7 +34,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="7">No requests Pending</td>
+                            <td colspan="8">No requests Pending</td>
                         </tr>
                     {% endfor %}
                 </tbody>
