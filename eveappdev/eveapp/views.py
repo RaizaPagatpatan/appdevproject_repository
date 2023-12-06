@@ -29,9 +29,6 @@ class Home(View):
                 return redirect('student_home')  # Redirect to the student home view
             elif user_type == "O":
                 return redirect('org_home')
-            elif user_type == "A":
-                # Redirect to the admin home view, adjust the view name accordingly
-                return redirect('admin_home')
 
         else:
             return render(request, self.template_name)
@@ -42,7 +39,6 @@ def pricing(request):
 
 def pricing_org(request):
     return render(request, 'pricing_org.html')
-
 
 
 class RegisterStudent(View): #student
@@ -106,6 +102,14 @@ class LoginView(View):
     template_name = 'login.html'
 
     def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                return redirect('student_home')
+            elif user_type == "O":
+                return redirect('org_home')
+
         form = LoginForm()
         return render(request, self.template_name, {'form': form, 'error_message': None})
 
@@ -163,7 +167,14 @@ class OrgHome(View):
             username = request.session['username']
             # events = Event.objects.filter(organizer=user).values()  'events': events,
 
-            return render(request, self.template_name, {'username': username})
+            user_type = request.session.get('type', None)
+
+            if user_type == "O":
+                return render(request, self.template_name, {'username': username})
+            else:
+                return redirect('student_home')
+
+            # return render(request, self.template_name, {'username': username})
         else:
             return redirect('login')
 
@@ -173,14 +184,21 @@ class ShowStudentHome(View):
     template_name = 'student_home.html'
 
     def get(self, request):
-        form = LoginForm()
         if 'user_id' in request.session and 'username' in request.session:
             user = request.session['user_id']
             username = request.session['username']
 
-            return render(request, self.template_name, {'username': username})
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                return render(request, self.template_name, {'username': username})
+            else:
+                return redirect('org_home')
+
+            # return render(request, self.template_name, {'username': username})
         else:
             return redirect('login')
+
 
 def handle_uploaded_file(f):
     with open("some/file/name.txt", "wb+") as destination:
