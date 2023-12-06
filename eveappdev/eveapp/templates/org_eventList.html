@@ -39,7 +39,11 @@
 
                             <td class="action-buttons">
                                 <button class="edit-button">Edit</button>
-                                <button class="cancel-button">Cancel</button>
+                                <form method="post" action="{% url 'org_event_list' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="delete_event_id" value="{{ event.eventID }}">
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     {% empty %}

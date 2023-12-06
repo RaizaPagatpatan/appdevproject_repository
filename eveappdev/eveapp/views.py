@@ -241,16 +241,25 @@ class OrgList(View):
 
         return render(request, self.template_name, {'username': username, 'org_lists': org_lists})
 
+
 class AddEvent(View):
     def post(self, request):
+
         form = EventForm(request.POST, request.FILES)
+        error_messages = "You are not Verified!"
         if form.is_valid():
             form.save()
             return redirect('org_home')
+        else:
+            error_messages = form.errors.values()
+            for message in error_messages:
+                messages.error(request, message)
 
+            return redirect('add_event')
     def get(self, request):
         form = EventForm(initial={'organizer': request.session['user_id']})
         return render(request, 'add_event.html', {'form': form})
+
 
 class OrgEventListView(View):
     template_name = 'org_eventList.html'
@@ -261,6 +270,14 @@ class OrgEventListView(View):
         events = Event.objects.filter(organizer=user).values()
         return render(request, self.template_name, {'events': events, 'username' : username})
 
+    def post(self, request):
+        if 'delete_event_id' in request.POST:
+            event_id = request.POST['delete_event_id']
+            event = get_object_or_404(Event, pk=event_id, organizer=request.session['user_id'])
+            event.delete_event()
+
+        #redirect after delete
+        return redirect('org_event_list')
 
 
 class EventStudentView(View):

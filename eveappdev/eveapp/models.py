@@ -21,7 +21,6 @@ class Account(models.Model):
         db_table = "Account"
 
 
-
 class Event(models.Model):
     eventID = models.BigAutoField(primary_key=True)
     eventName = models.CharField(max_length=100, verbose_name="Event Name")
@@ -34,6 +33,9 @@ class Event(models.Model):
 
     def __str__(self):
         return self.eventName
+
+    def delete_event(self):
+        self.delete()
 
     class Meta:
         db_table = "Event"

@@ -1,0 +1,18 @@
+{% extends "navbar_org.html" %}
+
+{% block title %}
+    Edit Event
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="container">
+            <h2>Edit Event</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </main>
+{% endblock %}
