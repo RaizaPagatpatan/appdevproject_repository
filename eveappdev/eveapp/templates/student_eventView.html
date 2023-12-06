@@ -12,8 +12,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/studenteventview.css' %}">
     {% endblock %}
 
-<!--{% block stylesheet %}
-{% endblock %} //stylesheet???-->
 </head>
 <body>
     {% block content %}
@@ -30,25 +28,68 @@
     </div>
 
     <section class="events">
-        <h2>Ongoing Events</h2>
+        <h2>List of Events</h2>
         <div class="ongoing">
             {% for event in events %}
             <div class="event">
-                <p class="title">{{ event.eventName }}</p>
+                <p class="title">
+                    <a href="#" onclick="openViewEventLightbox('{{ event.eventID }}')">
+                        {{ event.eventName }}
+                    </a>
+                </p>
                 <p>Organizer: {{ event.organizer }}</p>
                 <p>Start: {{ event.start }}</p>
                 <p>End: {{ event.end }}</p>
                 <p>Location: {{ event.location }}</p>
-                <p>{{ event.details }}</p>
-                <p>{{ event.images }}</p>
+                <p>Details: {{ event.details }}</p>
             </div>
             {% empty %}
-                <p>No events available</p>
+                <p><img src="{% static 'images/empty.png' %}" alt="Empty"></p>
             {% endfor %}
         </div>
     </section>
 
+    <!-- Lightbox content for each event added sa org -->
+
+{% for event in events %}
+    <div id="{{ event.eventID }}Lightbox" style="display: none;" class="lightbox">
+        <div class="lightbox-content">
+        {% if event.images %}
+            <img src="{{ event.images.url }}" alt="{{ event.eventName }}">
+        {% else %}
+            <!-- Placeholder image sa empty -->
+            <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+        {% endif %}
+        <!-- Other contents here..... -->
+                <p>{{ event.eventName }}</p>
+                <p>Organizer: {{ event.organizer }}</p>
+                <p>Start: {{ event.start }}</p>
+                <p>End: {{ event.end }}</p>
+                <p>Location: {{ event.location }}</p>
+                <p>Details: {{ event.details }}</p>
+        <button onclick="closeLightbox('{{ event.eventID }}Lightbox')">X</button>
+        </div>
+    </div>
+{% endfor %}
+
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- Lightbox openscript uwu -->
+    <script>
+        // Function to open the event lightbox
+        function openViewEventLightbox(eventID) {
+            console.log("Button clicked");  // Add this line for debugging
+            document.getElementById(eventID + "Lightbox").style.display = "block";
+        }
+
+        // Function to close the event lightbox
+        function closeLightbox(lightboxID) {
+            document.getElementById(lightboxID).style.display = "none";
+        }
+    </script>
+{% endblock %}
 </body>
 
-{% endblock %}
+
 </html>

@@ -35,7 +35,7 @@
                             <td>{{ event.start }}</td>
                             <td>{{ event.end }}</td>
                             <td>{{ event.location }}</td>
-                            <td><img src="{{ event.images.url }}"></td>
+                            <td>{{ event.images }}</td>
 
                             <td class="action-buttons">
                                 <a href="{% url 'edit_event' event_id=event.eventID %}" class="edit-button"><button>Edit</button></a>

@@ -29,7 +29,7 @@ class Event(models.Model):
     start = models.DateTimeField(verbose_name="Start Date and Time")
     end = models.DateTimeField(verbose_name="End Date and Time")
     location = models.CharField(max_length=100, verbose_name="Location")
-    images = models.FileField(upload_to='event_images/', null=True, blank=True, verbose_name="Event Images")
+    images = models.ImageField(upload_to='event_images/', null=True, blank=True, verbose_name="Event Images")
 
     def __str__(self):
         return self.eventName

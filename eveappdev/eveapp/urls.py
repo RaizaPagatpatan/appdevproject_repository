@@ -22,3 +22,5 @@ urlpatterns = [
     path('edit_event/<int:event_id>/', EditEvent.as_view(), name='edit_event'),
 
 ]
+
+

@@ -66,7 +66,7 @@ class EventForm(forms.ModelForm):
     start = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}), label="Start Date and Time")
     end = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}), label="End Date and Time")
     location = forms.CharField(max_length=100, label="Location")
-    images = forms.FileField(label="Event Image", required=False)
+    images = forms.ImageField(label="Event Image", required=False)
     class Meta:
         model = Event
         fields = ['eventName', 'organizer', 'details', 'start', 'end', 'location', 'images']
