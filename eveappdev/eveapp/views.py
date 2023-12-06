@@ -263,20 +263,6 @@ class OrgEventListView(View):
         return render(request, self.template_name, {'events': events, 'username' : username})
 
 
-# class EventStudentView(View):
-#     template = 'student_eventView.html'
-#
-#     def get(self, request):
-#         username = request.session['username']
-#         events = Event.objects.all()
-#         form = OrganizerFilterForm(request.GET)  # Bind the form to the request data
-#
-#         if form.is_valid():
-#             organizer_id = form.cleaned_data.get('organizer')
-#             if organizer_id:
-#                 events = events.filter(organizer_id=organizer_id)
-#
-#         return render(request, self.template, {'events': events, 'username': username, 'form': form})
 
 class EventStudentView(View):
     template = 'student_eventView.html'

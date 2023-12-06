@@ -1,16 +1,24 @@
 {% extends "navbar_student.html" %}
 
-{% block title %}
-    Events
-{% endblock %}
-
 {% load static %}
 
-{% block stylesheet %}
-{% endblock %}
+<head>
 
+    {% block title %}
+    Events
+    {% endblock %}
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/eventUser_style.css' %}">
+    {% endblock %}
+</head>
+
+
+
+<body>
 {% block content %}
     <main>
+        <div class = "filters">
         <form method="get" action="">
             {% csrf_token %}
             {{ form.organizer }}
@@ -18,6 +26,7 @@
             {{ form.date_filter }}
             <button type="submit">Filter</button>
         </form>
+        </div>
 
         <section class="events">
             <div class="ongoing">
@@ -39,3 +48,5 @@
         </section>
     </main>
 {% endblock %}
+    </body>
+

@@ -60,7 +60,7 @@ class Verification(forms.ModelForm):
 class EventForm(forms.ModelForm):
     eventName = forms.CharField(max_length=100, label="Event Name")
     organizer = forms.ModelChoiceField(
-        queryset=Organization.objects.all(),
+        queryset=Organization.objects.filter(account__account_status='A'),
         widget=forms.HiddenInput,
     )
     details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Event Details")
@@ -75,7 +75,7 @@ class EventForm(forms.ModelForm):
 
 
 class OrganizerFilterForm(forms.Form):
-    organizer = forms.ModelChoiceField(queryset=Organization.objects.all(), empty_label="Select Organizer", required=False)
+    organizer = forms.ModelChoiceField(queryset=Organization.objects.filter(account__account_status='A'), empty_label="Select Organizer", required=False)
     eventName = forms.CharField(max_length=100, required=False)
     date_filter = forms.ChoiceField(choices=[
         ('', 'Select Date Filter'),

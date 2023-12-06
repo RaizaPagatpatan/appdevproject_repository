@@ -1,0 +1,66 @@
+/* css/eventUser_style.css */
+
+
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+.event {
+    background-color: #F98D8D;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    text-align: center;
+    max-width: 300px;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+/* Filter styles starttt  */
+.filters {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Form Silter styles*/
+form {
+    display: block;
+    align-items: center;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the filter button */
+button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #0056b3;
+}
