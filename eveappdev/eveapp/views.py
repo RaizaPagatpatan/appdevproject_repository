@@ -235,10 +235,11 @@ class OrgList(View):
     def get(self, request):
         user = request.session['user_id']
         username = request.session['username']
-        # events = Event.objects.filter(organizer=user).values()  'events': events,
-        # org_lists = Account.objects.filter(orgName=user).values() 'org_lists': org_lists,
-        return render(request, self.template_name, {'username': username})
 
+        # allow approved by admin only
+        org_lists = Account.objects.filter(account_status='A')
+
+        return render(request, self.template_name, {'username': username, 'org_lists': org_lists})
 
 class AddEvent(View):
     def post(self, request):

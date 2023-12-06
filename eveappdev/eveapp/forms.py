@@ -57,7 +57,6 @@ class Verification(forms.ModelForm):
         fields = [ 'orgName', 'nameApplicant' , 'email', 'details', 'account_status', 'upload_file']
 
 
-
 class EventForm(forms.ModelForm):
     eventName = forms.CharField(max_length=100, label="Event Name")
     organizer = forms.ModelChoiceField(
