@@ -14,6 +14,8 @@
         <form method="get" action="">
             {% csrf_token %}
             {{ form.organizer }}
+            Search by Event Name: {{ form.eventName }}
+            {{ form.date_filter }}
             <button type="submit">Filter</button>
         </form>
 

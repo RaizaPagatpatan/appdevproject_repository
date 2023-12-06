@@ -77,3 +77,13 @@ class EventForm(forms.ModelForm):
 
 class OrganizerFilterForm(forms.Form):
     organizer = forms.ModelChoiceField(queryset=Organization.objects.all(), empty_label="Select Organizer", required=False)
+    eventName = forms.CharField(max_length=100, required=False)
+    date_filter = forms.ChoiceField(choices=[
+        ('', 'Select Date Filter'),
+        ('this_month', 'This Month'),
+        ('next_month', 'Next Month'),
+        ('this_week', 'This Week'),
+        ('today', 'Today'),
+        ('ongoing', 'Ongoing Events'),
+        ('finished', 'Finished Events'),
+    ], required=False)

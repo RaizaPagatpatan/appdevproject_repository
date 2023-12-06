@@ -4,12 +4,10 @@ from django.shortcuts import render, redirect
 from django.apps import apps #student
 from django.views import View
 from django.contrib.auth import logout
-
-
-
-
 from .forms import *
 from .models import Account
+from datetime import date, timedelta
+from django.db.models import Q
 # Create your views here.
 
 Student = apps.get_model('CreateAccount','Student') #student
@@ -246,6 +244,21 @@ class OrgEventListView(View):
         return render(request, self.template_name, {'events': events, 'username' : username})
 
 
+# class EventStudentView(View):
+#     template = 'student_eventView.html'
+#
+#     def get(self, request):
+#         username = request.session['username']
+#         events = Event.objects.all()
+#         form = OrganizerFilterForm(request.GET)  # Bind the form to the request data
+#
+#         if form.is_valid():
+#             organizer_id = form.cleaned_data.get('organizer')
+#             if organizer_id:
+#                 events = events.filter(organizer_id=organizer_id)
+#
+#         return render(request, self.template, {'events': events, 'username': username, 'form': form})
+
 class EventStudentView(View):
     template = 'student_eventView.html'
 
@@ -256,7 +269,39 @@ class EventStudentView(View):
 
         if form.is_valid():
             organizer_id = form.cleaned_data.get('organizer')
+            event_name = form.cleaned_data.get('eventName')  # Corrected to match the form field name
+            date_filter = form.cleaned_data.get('date_filter')
+
             if organizer_id:
                 events = events.filter(organizer_id=organizer_id)
+
+            if event_name:
+                events = events.filter(eventName__icontains=event_name)  # Corrected to match the model field name
+
+            if date_filter == 'this_month':
+                start_date = date.today().replace(day=1)
+                end_date = (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+                events = events.filter(start__range=[start_date, end_date])
+
+            if date_filter == 'next_month':
+                start_date = date.today().replace(day=1) + timedelta(days=32)
+                end_date = (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+                events = events.filter(start__range=[start_date, end_date])
+
+            elif date_filter == 'this_week':
+                today = date.today()
+                start_date = today - timedelta(days=today.weekday())
+                end_date = start_date + timedelta(days=6)
+                events = events.filter(start__range=[start_date, end_date])
+
+            elif date_filter == 'today':
+                today = date.today()
+                events = events.filter(start__date=today)
+
+            elif date_filter == 'ongoing':
+                events = events.filter(start__lte=date.today(), end__gte=date.today())
+
+            elif date_filter == 'finished':
+                events = events.filter(end__lt=date.today())
 
         return render(request, self.template, {'events': events, 'username': username, 'form': form})
