@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.apps import apps #student
 from django.views import View
 from django.contrib.auth import logout
@@ -243,7 +243,7 @@ class OrgList(View):
 
 class AddEvent(View):
     def post(self, request):
-        form = EventForm(request.POST)
+        form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('org_home')
@@ -251,7 +251,6 @@ class AddEvent(View):
     def get(self, request):
         form = EventForm(initial={'organizer': request.session['user_id']})
         return render(request, 'add_event.html', {'form': form})
-
 
 class OrgEventListView(View):
     template_name = 'org_eventList.html'

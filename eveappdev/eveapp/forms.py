@@ -3,7 +3,6 @@ from .models import Account, Event
 from django.apps import apps
 from multiupload.fields import MultiFileField
 
-
 Organization = apps.get_model('CreateAccount', 'Organization')
 Student = apps.get_model('CreateAccount', 'Student')
 
@@ -54,7 +53,7 @@ class Verification(forms.ModelForm):
     upload_file = forms.FileField(label="Upload Accreditation Certificate")
     class Meta:
         model = Account
-        fields = [ 'orgName', 'nameApplicant' , 'email', 'details', 'account_status', 'upload_file']
+        fields = ['orgName', 'nameApplicant' , 'email', 'details', 'account_status', 'upload_file']
 
 
 class EventForm(forms.ModelForm):
@@ -67,8 +66,7 @@ class EventForm(forms.ModelForm):
     start = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}), label="Start Date and Time")
     end = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}), label="End Date and Time")
     location = forms.CharField(max_length=100, label="Location")
-    images = MultiFileField(min_num=1, max_num=10, max_file_size=1024*1024*5, label="Event Images", required=False)
-
+    images = forms.FileField(label="Event Image", required=False)
     class Meta:
         model = Event
         fields = ['eventName', 'organizer', 'details', 'start', 'end', 'location', 'images']
