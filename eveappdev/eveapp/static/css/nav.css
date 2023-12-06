@@ -4,6 +4,7 @@
 
 header.navbar {
     background-color: #59181E;
+    /*background-color: #000000;*/
     padding: 0px;
     padding-bottom: 0px;
 
@@ -11,18 +12,21 @@ header.navbar {
 
 
 .box-ul-nav {
-            width: auto;
-            height: auto;
-            background-color: #F1ACAC;
-            border-radius: none;
-            text-align: center;
-            padding-top: 2px;
-            padding-bottom: 2px;
-            margin: 0;
-            font-family: monospace;
-        }
+    width: auto;
+    height: auto;
+    background-color: #F1ACAC;
+    border-radius: none;
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 0;
+    font-family: monospace;
+}
+
 .logo{
-    max-width: 5%;
+    width: 5vw;
+    height: auto;
+    /*max-width: 5%;*/
     border: none;
     display: block; /* Make sure the logo is a block element */
     margin: 0 auto; /* Center the logo */

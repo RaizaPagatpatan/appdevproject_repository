@@ -1,0 +1,39 @@
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+h1{
+    color: white;
+    font-size: 50px;
+    font-family: monospace;
+    text-shadow: 2px 2px 4px rgb(66 41 4);
+}
+
+
+h2 {
+    color: white;
+    font-family: monospace;
+    font-size: 30px;
+    border-style: outset;
+    padding: 20px;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+h3{
+    color: black;
+    font-family: monospace;
+    font-size: 30px;
+    padding: 20px;
+}
+

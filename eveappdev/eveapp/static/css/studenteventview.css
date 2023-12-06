@@ -1,0 +1,96 @@
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    margin-bottom: 5vh;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+.filter{
+    font-family: monospace;
+    font-size: 16px;
+    padding-top: 1vh;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    text-align: left;
+
+}
+.filter form{
+    font-size: 15px;
+    padding-left: 5vh;/*calc(5vh + 10px);*/
+    padding-right: 5vh;
+    text-align: center;
+}
+
+.filter form select, input{
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 3vh;
+    margin-right: 4vh;
+    box-sizing: border-box;
+    border: 2px solid #880b0b; /* Set the border color and width */
+    border-radius: 8px; /* Add rounded corners */
+    height: 35px;
+    width: 15vw;
+    background-color: #ffbaba;
+}
+
+.filter button {
+    background-color: maroon; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Style for the submit button on hover */
+.filter button:hover {
+    background-color: #800000; /* Darker maroon on hover */
+}
+
+.events{
+    font-family: monospace;
+    font-size: 18px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.ongoing{
+   /* margin-left: 50px;*/
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Two columns */
+    gap: 10px;
+}
+.ongoing .event{
+    padding: 10px;
+    border-radius:30px;
+    background-color:#f98d8d;
+    width: 400px;
+    min-height: 150px;
+    height: auto;
+    text-align: center;
+
+}
+
+.event .title{
+    padding: 0;
+    color: black;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden; /* Hide any content that overflows the box */
+    text-overflow: ellipsis; /* Display an ellipsis (...) when text is truncated */
+}
+
+.event p:not(.title){
+    color: black;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden; /* Hide any content that overflows the box */
+    text-overflow: ellipsis; /* Display an ellipsis (...) when text is truncated */
+}

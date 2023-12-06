@@ -1,52 +1,54 @@
 {% extends "navbar_student.html" %}
-
 {% load static %}
 
+<html lang="en">
 <head>
-
+    <meta charset="UTF-8">
     {% block title %}
-    Events
+        Events
     {% endblock %}
 
     {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/eventUser_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/studenteventview.css' %}">
     {% endblock %}
+
+<!--{% block stylesheet %}
+{% endblock %} //stylesheet???-->
 </head>
-
-
-
 <body>
-{% block content %}
-    <main>
-        <div class = "filters">
-        <form method="get" action="">
+    {% block content %}
+
+    <div class="filter">
+        <h3> Filters: </h3>
+        <form method="get" action="" class="filterform">
             {% csrf_token %}
-            {{ form.organizer }}
+            Choose Organizer: {{ form.organizer }}
+            Event status: {{ form.date_filter }}
             Search by Event Name: {{ form.eventName }}
-            {{ form.date_filter }}
             <button type="submit">Filter</button>
         </form>
-        </div>
+    </div>
 
-        <section class="events">
-            <div class="ongoing">
-                <h2>Ongoing Events</h2>
-                {% for event in events %}
-                <div class="event">
-                    <h3>{{ event.eventName }}</h3>
-                    <p>Organizer: {{ event.organizer }}</p>
-                    <p>Start: {{ event.start }}</p>
-                    <p>End: {{ event.end }}</p>
-                    <p>Location: {{ event.location }}</p>
-                    <p>Details: {{ event.details }}</p>
-                    <p>{{ event.images }}</p>
-                </div>
-                {% empty %}
-                    <div> <p> <img class="logo" src="{% static 'images/empty.png' %}" alt="EvE Logo"> </p> </div>
-                {% endfor %}
+    <section class="events">
+        <h2>Ongoing Events</h2>
+        <div class="ongoing">
+            {% for event in events %}
+            <div class="event">
+                <p class="title">{{ event.eventName }}</p>
+                <p>Organizer: {{ event.organizer }}</p>
+                <p>Start: {{ event.start }}</p>
+                <p>End: {{ event.end }}</p>
+                <p>Location: {{ event.location }}</p>
+                <p>{{ event.details }}</p>
+                <p>{{ event.images }}</p>
             </div>
-        </section>
-    </main>
-{% endblock %}
-    </body>
+            {% empty %}
+                <p>No events available</p>
+            {% endfor %}
+        </div>
+    </section>
 
+</body>
+
+{% endblock %}
+</html>

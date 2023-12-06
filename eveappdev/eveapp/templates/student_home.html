@@ -1,2 +1,29 @@
 {% extends "navbar_student.html" %}
 {% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        HomePage
+    {% endblock %}
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/studenthome.css' %}">
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <!-- ADD NAV EXTENSION AT TOP OF CODE OKEK? -->
+    </header>
+    {% block content %}
+
+    <h1>Welcome to EvE: University Events App!</h1>
+    <h3> homepage placeholder</h3>
+
+
+    {% endblock %}
+
+</body>
+</html>
