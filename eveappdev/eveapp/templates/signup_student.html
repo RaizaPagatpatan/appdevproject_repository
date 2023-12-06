@@ -16,15 +16,18 @@
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+
+        <button class="userbtn" type="submit">SIGN UP </button>
+
+        </form>
         <div class="line-wrapper">
             <div class="line"></div>
                 <span class="text">or</span>
             <div class="line"></div>
         </div>
-        <button class="userbtn" type="submit">SIGN UP </button>
-        </form>
 
 
+    <a href="{% url 'signup_organization' %}"> <button class="orgbtn">SIGN UP AS ORGANIZATION </button> </a>
     <p class="txtlogin">Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </body>
 </html>

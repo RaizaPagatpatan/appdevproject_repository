@@ -64,6 +64,7 @@ button.userbtn:hover {
   flex: 1;
   height: 1px;
   background-color: #FFF; /* Adjust the color of the lines */
+
 }
 
 .text {
