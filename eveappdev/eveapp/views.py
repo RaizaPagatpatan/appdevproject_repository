@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.apps import apps #student
 from django.views import View
+from django.contrib.auth import logout
 
 
 
@@ -246,11 +247,16 @@ class OrgEventListView(View):
 
 
 class EventStudentView(View):
-    # def get(self, request):
-    #     return HttpResponse("Student Home Page")
     template = 'student_eventView.html'
 
     def get(self, request):
         username = request.session['username']
         events = Event.objects.all()
-        return render(request, self.template, {'events': events, 'username': username})
+        form = OrganizerFilterForm(request.GET)  # Bind the form to the request data
+
+        if form.is_valid():
+            organizer_id = form.cleaned_data.get('organizer')
+            if organizer_id:
+                events = events.filter(organizer_id=organizer_id)
+
+        return render(request, self.template, {'events': events, 'username': username, 'form': form})

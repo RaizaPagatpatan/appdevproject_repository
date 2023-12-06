@@ -73,3 +73,7 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ['eventName', 'organizer', 'details', 'start', 'end', 'location', 'images']
+
+
+class OrganizerFilterForm(forms.Form):
+    organizer = forms.ModelChoiceField(queryset=Organization.objects.all(), empty_label="Select Organizer", required=False)

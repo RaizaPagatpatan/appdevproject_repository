@@ -11,6 +11,12 @@
 
 {% block content %}
     <main>
+        <form method="get" action="">
+            {% csrf_token %}
+            {{ form.organizer }}
+            <button type="submit">Filter</button>
+        </form>
+
         <section class="events">
             <div class="ongoing">
                 <h2>Ongoing Events</h2>
