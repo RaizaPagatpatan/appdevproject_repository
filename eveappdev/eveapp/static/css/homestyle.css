@@ -93,6 +93,7 @@ button.sign_btn{
     margin-top:10px;
     margin-bottom: 15px;
     background-color: #EA888E;
+    transition: background-color 0.5s ease;
     /*background-color: #000000;*/
 }
 
@@ -105,6 +106,7 @@ button.login_btn{
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: #D34F57;
+    transition: background-color 0.5s ease;
 }
 /* Optional: HOVER */
 button.login_btn:hover {

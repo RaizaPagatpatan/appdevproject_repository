@@ -1,0 +1,88 @@
+body{
+    background-color: #ffd6d6;
+    margin: 0;
+    margin-bottom: 5vh;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two columns */
+    gap: 5px;
+
+    border: 3px solid #880b0b; /* Set the border color and width */
+    border-radius: 30px; /* Add rounded corners */
+    margin: 3vh;
+    margin-left: 23%;
+    margin-right: 23%;
+    background-color: #ffbaba;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: auto;
+
+    text-align: left;
+    font-family: monospace;
+}
+.container h1{
+
+    font-size: 24px;
+    padding-left: 5vh;
+    padding-right: 5vh;
+
+}
+
+.first{
+    grid-column: 1;
+    font-size: 15px;
+    padding-left: 5vh;
+    padding-right: 1vh;
+}
+
+.half{
+    grid-column: 2;
+    font-size: 15px;
+    padding-left: 1vh;
+    padding-right: 5vh;
+}
+
+textarea, select, input{
+    padding: 5px;
+    margin-bottom: 3vh;
+    margin-right: 3vh;
+    box-sizing: border-box;
+    border: 2px solid #880b0b; /* Set the border color and width */
+    border-radius: 8px; /* Add rounded corners */
+    height: 35px;
+    width: 15vw;
+    background-color: #fdcdcd;
+}
+
+textarea{
+    height: 200px  ;
+    width: auto;
+
+}
+
+button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: right;
+    background-color: #880b0b; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 120px;
+    transition: background-color 0.5s ease;
+}
+
+button:hover {
+    background-color: #d34f57; /* Darker maroon on hover */
+}

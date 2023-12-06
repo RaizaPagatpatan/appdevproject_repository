@@ -1,26 +1,42 @@
 {% extends "navbar_org.html" %}
-
-{% block title %}
-    Add Event
-{% endblock %}
-
 {% load static %}
 
-{% block stylesheet %}
-{% endblock %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        Add Event
+    {% endblock %}
 
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/addevent.css' %}">
+    {% endblock %}
+</head>
+
+<body>
 {% block content %}
     <div class="container">
-        <div class="left">
-        </div>
-        <div class="right">
-            <h1>Add Event</h1>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
+        <h1>Create Event</h1>
+        <form method="POST" enctype="multipart/form-data" class="first">
+            {% csrf_token %}
+            <div class="firs">
+                Event Name: <br>{{ form.eventName }} <br>
+                Description: <br>{{ form.details }}
+            </div>
+        </form>
+        <form method="POST" enctype="multipart/form-data" class="half">
+            {% csrf_token %}
+            <div class="hal">
+                Location: {{ form.location }}<br>
+                Date Start: {{ form.start }}<br>
+                Date End: {{ form.end }}<br>
+                Upload PubMat: {{ form.images }}<br>
                 {{ form.errors }}
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+                <button type="submit" class="submit">Create</button>
+            </div>
+        </form>
     </div>
 {% endblock %}
+</body>
+
+</html>

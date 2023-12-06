@@ -40,17 +40,18 @@ body{
 }
 
 .filter button {
-    background-color: maroon; /* Set the button background color */
+    background-color: #880b0b; /* Set the button background color */
     color: white; /* Set the button text color */
     padding: 10px 15px; /* Adjust padding as needed */
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.5s ease;
 }
 
 /* Style for the submit button on hover */
 .filter button:hover {
-    background-color: #800000; /* Darker maroon on hover */
+    background-color: #d34f57;
 }
 
 .events{
