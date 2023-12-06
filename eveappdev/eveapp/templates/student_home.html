@@ -1,29 +1,35 @@
 {% extends "navbar_student.html" %}
 {% load static %}
 
-
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
+
     {% block title %}
-        HomePage
+    Student Home
     {% endblock %}
 
     {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/studenthome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/student_homeStyle.css' %}">
     {% endblock %}
 </head>
+
+
 <body>
-    <header>
-        <!-- ADD NAV EXTENSION AT TOP OF CODE OKEK? -->
-    </header>
-    {% block content %}
+{% block content %}
+    <main>
 
-    <h1>Welcome to EvE: University Events App!</h1>
-    <h3> homepage placeholder</h3>
-
-
-    {% endblock %}
-
-</body>
-</html>
+        <section class="bookmarks">
+            <div class="ongoing">
+                <h2>Bookmarked Events</h2>
+                {% for event in events %}
+                <div class="bookmarks">
+                    <h3>{{ event.eventName }}</h3>
+                    <p>Organizer: {{ event.organizer }}</p>
+                </div>
+                {% empty %}
+                    <div> <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p> </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}
+    </body>

@@ -1,0 +1,29 @@
+/* css/student_homeStyle.css */
+
+
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+.bookmarks {
+    background-color: #F98D8D;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    text-align: center;
+    max-width: 300px;
+    height: 500px;
+    white-space: nowrap;
+    display: inline-block;
+    position: fixed; /* fixed right */
+    right: 10px;
+    overflow-y: auto;
+}

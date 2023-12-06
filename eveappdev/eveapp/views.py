@@ -184,8 +184,6 @@ class OrgHome(View):
 
 
 class ShowStudentHome(View):
-    # def get(self, request):
-    #     return HttpResponse("Student Home Page")
     template_name = 'student_home.html'
 
     def get(self, request):
@@ -199,8 +197,6 @@ class ShowStudentHome(View):
                 return render(request, self.template_name, {'username': username})
             else:
                 return redirect('org_home')
-
-            # return render(request, self.template_name, {'username': username})
         else:
             return redirect('login')
 
