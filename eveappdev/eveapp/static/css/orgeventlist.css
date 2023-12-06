@@ -1,0 +1,73 @@
+body{
+    background-color: #ffd6d6;
+    margin: 0;
+    margin-bottom: 5vh;
+    padding: 0px;
+    display: block;
+    text-align: left;
+    justify-content: center;
+    overflow: hidden;
+    font-family: monospace;
+    font-size: 14px;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+.container{
+    margin: 10px;
+    padding: 10px;
+    max-width: 100%; /* Set the maximum width to 100% of the parent container or viewport */
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.scheduler-button{
+    margin: 20px 10px 10px 10px;
+    background-color: #880b0b; /* Set the button background color */
+    color: white; /* Set the button text color */
+    text-decoration: none;
+    padding: 10px 15px; /* Adjust padding as needed */
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+.scheduler-button:hover {
+    background-color: #d34f57;
+}
+
+.container table{
+    background-color: #ffcfcf;
+    margin-top: 20px;
+    width: 100%; /* Make the table take up 100% of the container */
+    border-collapse: collapse;
+}
+
+.container th, .container td {
+    border: 2px solid #000000; /* Add borders to table cells */
+    padding: 8px; /* Add padding for better spacing */
+    text-align: left; /* Align text to the left */
+}
+
+td{
+    max-width: 150px;
+    overflow: hidden;
+    overflow-wrap: break-word; /* Allow the text to wrap within the cell */
+    word-wrap: break-word; /* For compatibility with some browsers */
+}
+.action-buttons button{
+    background-color: #880b0b; /* Set the button background color */
+    margin-top: 5px;
+    width: 70px;
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+.action-buttons button:hover {
+    background-color: #d34f57;
+}

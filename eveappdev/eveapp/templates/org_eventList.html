@@ -1,19 +1,24 @@
 {% extends "navbar_org.html" %}
-
-{% block title %}
-    Events
-{% endblock %}
-
 {% load static %}
 
-{% block stylesheet %}
-{% endblock %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        Events
+    {% endblock %}
 
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/orgeventlist.css' %}">
+    {% endblock %}
+</head>
+
+<body>
 {% block content %}
     <main>
         <div class="container">
             <div class="button-container">
-                <a href="{% url 'add_event' %}" class="scheduler-button">Add New Event</a>
+                <a href="{% url 'add_event' %}" class="scheduler-button">Create New Event</a>
             </div>
             <table>
                 <thead>
@@ -24,7 +29,7 @@
                         <th>End</th>
                         <th>Location</th>
                         <th>Images</th>
-                        <th>Modify</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,3 +61,5 @@
         </div>
     </main>
 {% endblock %}
+</body>
+</html>

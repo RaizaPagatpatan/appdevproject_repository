@@ -17,6 +17,7 @@
 {% block content %}
     <div class="container">
         <h1>Create Event</h1>
+        <!-- 2 column version chuy version LMAO-->
         <form method="POST" enctype="multipart/form-data" class="first">
             {% csrf_token %}
             <div class="firs">
@@ -35,6 +36,20 @@
                 <button type="submit" class="submit">Create</button>
             </div>
         </form>
+        <!-- single col version but ull need to edit the css lol
+        <form method="POST" enctype="multipart/form-data" class="first">
+            {% csrf_token %}
+            <div class="firs">
+                Event Name: <br>{{ form.eventName }} <br>
+                Description: <br>{{ form.details }}
+                Location: {{ form.location }}<br>
+                Date Start: {{ form.start }}<br>
+                Date End: {{ form.end }}<br>
+                Upload PubMat: {{ form.images }}<br>
+                {{ form.errors }}
+                <button type="submit" class="submit">Create</button>
+            </div>
+        </form>-->
     </div>
 {% endblock %}
 </body>
