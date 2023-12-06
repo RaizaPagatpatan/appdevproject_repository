@@ -38,7 +38,7 @@
                             <td>{{ event.images }}</td>
 
                             <td class="action-buttons">
-                                <button class="edit-button">Edit</button>
+                                <a href="{% url 'edit_event' event_id=event.eventID %}" class="edit-button"><button>Edit</button></a>
                                 <form method="post" action="{% url 'org_event_list' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="delete_event_id" value="{{ event.eventID }}">

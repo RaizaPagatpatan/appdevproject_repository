@@ -42,7 +42,7 @@
                     <p>{{ event.images }}</p>
                 </div>
                 {% empty %}
-                    <p>No events available</p>
+                    <div> <p> <img class="logo" src="{% static 'images/empty.png' %}" alt="EvE Logo"> </p> </div>
                 {% endfor %}
             </div>
         </section>

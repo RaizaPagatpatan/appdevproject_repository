@@ -17,6 +17,7 @@ Organization = apps.get_model('CreateAccount','Organization')
 
 class Home(View):
     template_name = 'home.html'
+
     def get(self, request):
         if 'user_id' in request.session and 'username' in request.session:
             user_id = request.session['user_id']
@@ -36,6 +37,7 @@ class Home(View):
 
 def pricing(request):
     return render(request, 'pricing.html')
+
 
 def pricing_org(request):
     return render(request, 'pricing_org.html')
@@ -87,6 +89,7 @@ class RegisterOrg(View):
 
         return render(request, self.template_name, {'form': register, 'error_message': message})
 
+
 class Logout(View):
     def get(self, request):
         if 'type' in request.session:
@@ -97,6 +100,7 @@ class Logout(View):
             del request.session['username']
 
         return redirect('home_view')
+
 
 class LoginView(View):
     template_name = 'login.html'
@@ -178,6 +182,7 @@ class OrgHome(View):
         else:
             return redirect('login')
 
+
 class ShowStudentHome(View):
     # def get(self, request):
     #     return HttpResponse("Student Home Page")
@@ -204,6 +209,7 @@ def handle_uploaded_file(f):
     with open("some/file/name.txt", "wb+") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+
 
 class Verify(View):
     def post(self, request):
@@ -259,6 +265,29 @@ class AddEvent(View):
     def get(self, request):
         form = EventForm(initial={'organizer': request.session['user_id']})
         return render(request, 'add_event.html', {'form': form})
+
+
+class EditEvent(View):
+    template_name = 'edit_event.html'
+
+    def get(self, request, event_id):
+        event = get_object_or_404(Event, pk=event_id, organizer=request.session['user_id'])
+        form = EventForm(instance=event)
+        return render(request, self.template_name, {'form': form, 'event': event})
+
+    def post(self, request, event_id):
+        event = get_object_or_404(Event, pk=event_id, organizer=request.session['user_id'])
+        form = EventForm(request.POST, request.FILES, instance=event)
+
+        if form.is_valid():
+            form.save()
+            return redirect('org_event_list')
+        else:
+            error_messages = form.errors.values()
+            for message in error_messages:
+                messages.error(request, message)
+
+            return redirect('edit_event', event_id=event_id)
 
 
 class OrgEventListView(View):
