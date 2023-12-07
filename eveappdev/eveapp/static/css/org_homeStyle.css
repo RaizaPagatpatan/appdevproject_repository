@@ -1,0 +1,13 @@
+/* css/org_homeStyle.css */
+
+
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}

@@ -172,6 +172,7 @@ class OrgHome(View):
             # events = Event.objects.filter(organizer=user).values()  'events': events,
 
             user_type = request.session.get('type', None)
+            # profile_org = request.session.get['']
 
             if user_type == "O":
                 return render(request, self.template_name, {'username': username})
@@ -251,13 +252,14 @@ class AddEvent(View):
         error_messages = "You are not Verified!"
         if form.is_valid():
             form.save()
-            return redirect('org_home')
+            return redirect('org_event_list')
         else:
             error_messages = form.errors.values()
             for message in error_messages:
                 messages.error(request, message)
 
             return redirect('add_event')
+
     def get(self, request):
         form = EventForm(initial={'organizer': request.session['user_id']})
         return render(request, 'add_event.html', {'form': form})

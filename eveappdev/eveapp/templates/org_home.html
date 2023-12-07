@@ -1,14 +1,67 @@
-<!DOCTYPE html>
 {% extends "navbar_org.html" %}
 
+{% block title %}
+    Org Profile
+{% endblock %}
 
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>mewoewkoewo</title>
-</head>
-<body>
 
-</body>
-</html>
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/org_homeStyle.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="profile">
+            <h1>Profile</h1>
+<!--            <form method="POST" enctype="multipart/form-data">-->
+<!--                {% csrf_token %}-->
+<!--                {{ form.as_p }}-->
+<!--                {{ form.errors }}-->
+<!--                <button type="submit">Update Profile</button> </form> -->
+            {% for p_view in profile_org %}
+                <div class="p_view">
+                <p class="title">
+                    <a href="#" onclick="openViewEventLightbox('{{ p_view.profileID }}')">
+                        {{ p_view.organization }}
+                    </a>
+                </p>
+                <p>Profile Picture: {{ p_view.organizer }}</p>
+                <p>Description: {{ p_view.details }}</p>
+                <p>Email: {{ p_view.email }}</p>
+                <p>Contact: {{ p_view.contact }}</p>
+                </div>
+
+        {% endfor %}
+
+        <!-- Lightbox content for editing a profile content -->
+
+        {% for p_view in profile_org %}
+    <div id="{{ p_view.profileID }}Lightbox" style="display: none;" class="lightbox">
+        <div class="lightbox-content">
+        <!-- Form contents here..... -->
+        <button onclick="closeLightbox('{{ p_view.profileID }}Lightbox')">X</button>
+        </div>
+    </div>
+        {% endfor %}
+
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- Lightbox openscript uwu -->
+    <script>
+        // Function to open the event lightbox
+        function openEditProfileLightbox(profileID) {
+            console.log("Button clicked");  // Add this line for debugging
+            document.getElementById(profileID + "Lightbox").style.display = "block";
+        }
+
+        // Function to close the event lightbox
+        function closeLightbox(lightboxID) {
+            document.getElementById(lightboxID).style.display = "none";
+        }
+    </script>
+
+        </section>
+
+
+{% endblock %}

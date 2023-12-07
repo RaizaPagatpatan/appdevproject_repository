@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account, Event
+from .models import Account, Event, Profile
 from django.apps import apps
 from multiupload.fields import MultiFileField
 
@@ -35,6 +35,7 @@ class StudentRegisterForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ['email', 'username', 'password', 'first_name', 'last_name', 'user_type']
+
 
 class Verification(forms.ModelForm):
 
@@ -84,3 +85,20 @@ class OrganizerFilterForm(forms.Form):
         ('ongoing', 'Ongoing Events'),
         ('finished', 'Finished Events'),
     ], required=False)
+
+
+class ProfileForm(forms.Form):
+    organization = forms.ModelChoiceField(
+        queryset=Organization.objects.filter(account__account_status='A'),
+        widget=forms.HiddenInput,
+    )
+    profile_pic = forms.ImageField(label="Event Image", required=False)
+    details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Description")
+    email = forms.EmailField(max_length=100)
+    contact = forms.CharField(max_length=100)
+
+    class Meta:
+        model = Profile
+        fields = ['organization', 'profile_pic', 'details', 'email', 'contact']
+
+
