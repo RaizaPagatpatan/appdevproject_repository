@@ -35,6 +35,26 @@ class Home(View):
             return render(request, self.template_name)
 
 
+class Services(View):
+    template_name = 'services.html'
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_id = request.session['user_id']
+            username = request.session['username']
+
+            # Assuming you have stored the user type in the session
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                return redirect('student_home')  # Redirect to the student home view
+            elif user_type == "O":
+                return redirect('org_home')
+
+        else:
+            return render(request, self.template_name)
+
+
 def pricing(request):
     return render(request, 'pricing.html')
 
