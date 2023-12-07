@@ -57,7 +57,7 @@ textarea, select, input{
     border: 2px solid #880b0b; /* Set the border color and width */
     border-radius: 8px; /* Add rounded corners */
     height: 35px;
-    width: 15vw;
+    width: 225px;
     background-color: #fdcdcd;
 }
 

@@ -14,52 +14,27 @@
 
 <body>
 {% block content %}
-        <!-- old original
-        <div class="container">
-            <h2>Edit Event</h2>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Save Changes</button>
-            </form>
-        </div>
-        -->
     <div class="container">
         <h1>Edit Event Details</h1>
-        <!-- 2 column version chuy version LMAO-->
-        <form method="POST" enctype="multipart/form-data" class="first">
-            {% csrf_token %}
-            <div class="firs">
-                Event Name: <br>{{ form.eventName }} <br>
-                Description: <br>{{ form.details }}
-            </div>
-        </form>
-        <form method="POST" enctype="multipart/form-data" class="half">
-            {% csrf_token %}
-            <div class="hal">
-                Location: {{ form.location }}<br>
-                Date Start: {{ form.start }}<br>
-                Date End: {{ form.end }}<br>
-                Upload PubMat: {{ form.images }}<br>
-                {{ form.errors }}
-                <button type="submit" class="submit">Save Changes</button>
-            </div>
-        </form>
 
-        <!-- single col version but ull need to edit the css lol
-        <form method="POST" enctype="multipart/form-data" class="first">
-            {% csrf_token %}
-            <div class="firs">
-                Event Name: <br>{{ form.eventName }} <br>
-                Description: <br>{{ form.details }}
-                Location: {{ form.location }}<br>
-                Date Start: {{ form.start }}<br>
-                Date End: {{ form.end }}<br>
-                Upload PubMat: {{ form.images }}<br>
-                {{ form.errors }}
-                <button type="submit" class="submit">Save Chnages</button>
-            </div>
-        </form>-->
+            <form method="POST" enctype="multipart/form-data" class="formgrid">
+                {% csrf_token %}
+                 <div class="section" id="first">
+                    Event Name: <br>{{ form.eventName }} <br>
+                    Description: <br>{{ form.details }}
+                </div>
+                    {{ form.organizer }}
+                <div class="section" id="half">
+                    Location: {{ form.location }}<br>
+                    Date Start: {{ form.start }}<br>
+                    Date End: {{ form.end }}<br>
+                    Upload PubMat: {{ form.images }}<br>
+                    <button type="submit">Save Changes</button>
+                </div>
+                    {{ form.errors }}
+
+            </form>
+
     </div>
 {% endblock %}
 </body>
