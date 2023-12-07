@@ -10,18 +10,18 @@
     {% endblock %}
 
     {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/orgeventlist.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/verifyhome.css' %}">
     {% endblock %}
 </head>
 
 <body>
 {% block content %}
     <main>
-        <div class="container">
-            <div class="button-container">
-                <a href="#">View Verified Orgs</a>
-                <a href="{% url 'verify' %}" >Request Verification</a>
-            </div>
+        <div class="button-container">
+            <a href="#">View Verified Orgs</a>
+            <a href="{% url 'verify' %}" >Request Verification</a>
+        </div>
+        <div class="container1">
             <table>
                 <thead>
                     <tr>
@@ -30,6 +30,7 @@
                         <th>Details</th>
                         <th>Account Status</th>
                         <th>Uploaded File</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,9 +41,7 @@
                             <td>{{ org_list.details }}</td>
                             <td>{{ org_list.account_status }}</td>
                             <td>{{ org_list.upload_file }}</td>
-
                             <td class="action-buttons">
-                                <button class="edit-button">Edit</button>
                                 <button class="cancel-button">Cancel</button>
                             </td>
                         </tr>
