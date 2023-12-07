@@ -1,22 +1,26 @@
-<!DOCTYPE html>
 {% extends "navbar_org.html" %}
 {% load static %}
-{{ form.errors }}
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% block title %}
+        Verification
+    {% endblock %}
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/verifyorg.css' %}">
+    {% endblock %}
 </head>
+
 <body>
 {% block content %}
-            <form method="POST" enctype="multipart/form-data">
-
-                {% csrf_token %}
-                {{ form.as_p }}
-                {{ form.errors }}
-                <button type="submit">Submit</button>
-            </form>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ form.errors }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 {% endblock %}
 </body>
 </html>
