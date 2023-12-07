@@ -10,45 +10,43 @@ body{
     /*height: 50vh; /* Adjust the height as needed */
 }
 
-.container{
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* Two columns */
-    gap: 5px;
-
-    border: 3px solid #880b0b; /* Set the border color and width */
-    border-radius: 30px; /* Add rounded corners */
-    margin: 3vh;
-    margin-left: 23%;
-    margin-right: 23%;
+.container {
+    border: 3px solid #880b0b;
+    border-radius: 30px;
+    margin: 3vh auto;
     background-color: #ffbaba;
     padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: auto;
+    width: 50%;
+    min-width: auto;
 
     text-align: left;
     font-family: monospace;
 }
-.container h1{
 
+.container h1 {
     font-size: 24px;
-    padding-left: 5vh;
-    padding-right: 5vh;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.formgrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 5px;
 
 }
 
-.first{
+.section {
+    font-size: 15px;
+    padding: 10px;
+}
+
+#first {
     grid-column: 1;
-    font-size: 15px;
-    padding-left: 5vh;
-    padding-right: 1vh;
 }
 
-.half{
+#half {
     grid-column: 2;
-    font-size: 15px;
-    padding-left: 1vh;
-    padding-right: 5vh;
 }
 
 textarea, select, input{
