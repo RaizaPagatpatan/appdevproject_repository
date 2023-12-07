@@ -87,15 +87,15 @@ class OrganizerFilterForm(forms.Form):
     ], required=False)
 
 
-class ProfileForm(forms.Form):
+class ProfileForm(forms.ModelForm):
     organization = forms.ModelChoiceField(
         queryset=Organization.objects.filter(account__account_status='A'),
         widget=forms.HiddenInput,
     )
-    profile_pic = forms.ImageField(label="Event Image", required=False)
-    details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Description")
-    email = forms.EmailField(max_length=100)
-    contact = forms.CharField(max_length=100)
+    profile_pic = forms.ImageField(label="Profile Image", required=False)
+    details = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Description", required=False)
+    email = forms.EmailField(max_length=100, required=False)
+    contact = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = Profile

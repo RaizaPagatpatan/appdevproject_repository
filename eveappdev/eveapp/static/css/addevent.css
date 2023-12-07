@@ -9,7 +9,6 @@ body{
     text-align: center;
     /*height: 50vh; /* Adjust the height as needed */
 }
-
 .container {
     border: 3px solid #880b0b;
     border-radius: 30px;
@@ -18,37 +17,29 @@ body{
     padding: 10px;
     width: 50%;
     min-width: auto;
-
     text-align: left;
     font-family: monospace;
 }
-
 .container h1 {
     font-size: 24px;
     padding-left: 10px;
     padding-right: 10px;
 }
-
 .formgrid {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 5px;
-
 }
-
 .section {
     font-size: 15px;
     padding: 10px;
 }
-
 #first {
     grid-column: 1;
 }
-
 #half {
     grid-column: 2;
 }
-
 textarea, select, input{
     padding: 5px;
     margin-bottom: 3vh;
@@ -64,9 +55,7 @@ textarea, select, input{
 textarea{
     height: 200px  ;
     width: auto;
-
 }
-
 button{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -80,7 +69,6 @@ button{
     width: 120px;
     transition: background-color 0.5s ease;
 }
-
 button:hover {
     background-color: #d34f57; /* Darker maroon on hover */
 }

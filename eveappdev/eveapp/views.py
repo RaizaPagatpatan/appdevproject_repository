@@ -165,23 +165,39 @@ class OrgHome(View):
     template_name = 'org_home.html'
 
     def get(self, request):
-        form = LoginForm()
         if 'user_id' in request.session and 'username' in request.session:
             user = request.session['user_id']
             username = request.session['username']
-            # events = Event.objects.filter(organizer=user).values()  'events': events,
-
             user_type = request.session.get('type', None)
-            # profile_org = request.session.get['']
+            profile_org = Profile.objects.filter(organization=user).values()
 
+            # form = ProfileForm()
             if user_type == "O":
-                return render(request, self.template_name, {'username': username})
+                return render(request, self.template_name, {'profile_org': profile_org,'username': username})
             else:
                 return redirect('student_home')
-
-            # return render(request, self.template_name, {'username': username})
         else:
             return redirect('login')
+
+
+class UpdateProfile(View):
+    template = "edit_profile.html"
+    def post(self, request):
+        form = ProfileForm(request.POST, request.FILES)
+        error_messages = "You are not Verified!"
+        if form.is_valid():
+            form.save()
+            return redirect('org_home')
+        else:
+            error_messages = form.errors.values()
+            for message in error_messages:
+                messages.error(request, message)
+
+            return redirect('update_profile')
+
+    def get(self, request):
+        form = ProfileForm(initial={'organization': request.session['user_id']})
+        return render(request, 'edit_profile.html', {'form': form})
 
 
 class ShowStudentHome(View):

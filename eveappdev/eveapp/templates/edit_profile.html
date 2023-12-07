@@ -1,0 +1,33 @@
+{% extends "navbar_org.html" %}
+
+{% block title %}
+    Org Profile Edit
+{% endblock %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/org_homeStyle.css' %}">
+    <!-- Add Bootstrap link if needed -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+{% endblock %}
+
+<body>
+
+    {% block content %}
+        <div class="container">
+                <h1>Update Profile</h1>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                     Update Profile Picture: {{ form.profile_pic }}
+                     {{ form.organization }}
+                     Description: {{ form.details }}
+                     Email: {{ form.email }}
+                     Contact: {{ form.contact }}
+                     {{ form.errors }}
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+    {% endblock %}
+
+</body>

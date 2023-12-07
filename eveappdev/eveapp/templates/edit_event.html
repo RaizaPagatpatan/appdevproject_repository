@@ -6,7 +6,6 @@
     {% block title %}
         Edit Event
     {% endblock %}
-
     {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/addevent.css' %}">
     {% endblock %}
@@ -14,9 +13,9 @@
 
 <body>
 {% block content %}
-    <div class="container">
-        <h1>Edit Event Details</h1>
 
+<div class="container">
+        <h1>Edit Event Details</h1>
             <form method="POST" enctype="multipart/form-data" class="formgrid">
                 {% csrf_token %}
                  <div class="section" id="first">
