@@ -99,6 +99,8 @@ body{
 
 
 
+
+
 /*!!!!!!!LIGHTBOX*/
 
 
@@ -134,4 +136,22 @@ body{
     right: 10px;
     font-size: 20px;
     cursor: pointer;
+}
+
+
+.lightbox button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: right;
+    background-color: #880b0b; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 120px;
+    transition: background-color 0.5s ease;
+}
+.lightbox button:hover {
+    background-color: #d34f57; /* Darker maroon on hover */
 }
