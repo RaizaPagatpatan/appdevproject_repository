@@ -1,0 +1,24 @@
+body{
+    background-color: #ffd6d6;
+    margin: 0;
+    margin-bottom: 5vh;
+    padding: 0px;
+    display: block;
+    text-align: left;
+    justify-content: center;
+    overflow: hidden;
+    font-family: monospace;
+    font-size: 14px;
+
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+.container{
+    padding-top: 2vh;
+    padding-left: 3vw;
+}
+
+h3{
+    font-size: 15px;
+    font-weight: normal;
+}
