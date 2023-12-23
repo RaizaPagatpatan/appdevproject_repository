@@ -8,6 +8,8 @@ from .forms import *
 from .models import Account
 from datetime import date, timedelta
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
+
 # Create your views here.
 
 Student = apps.get_model('CreateAccount','Student') #student
@@ -189,11 +191,10 @@ class OrgHome(View):
             user = request.session['user_id']
             username = request.session['username']
             user_type = request.session.get('type', None)
-            profile_org = Profile.objects.filter(organization=user).values()
+            profile = Profile.objects.get(organization=user)
 
-            # form = ProfileForm()
             if user_type == "O":
-                return render(request, self.template_name, {'profile_org': profile_org,'username': username})
+                return render(request, self.template_name, {'profile': profile, 'username': username})
             else:
                 return redirect('student_home')
         else:
@@ -203,7 +204,16 @@ class OrgHome(View):
 class UpdateProfile(View):
     template = "edit_profile.html"
     def post(self, request):
-        form = ProfileForm(request.POST, request.FILES)
+        try:
+            # Try to get the existing profile instance
+            profile_instance = Profile.objects.get(organization=request.session['user_id'])
+        except Profile.DoesNotExist:
+            # If the profile does not exist, handle it appropriately
+            # For example, you can create a new profile instance
+            profile_instance = None
+
+        form = ProfileForm(request.POST, request.FILES, instance=profile_instance)
+
         error_messages = "You are not Verified!"
         if form.is_valid():
             form.save()
@@ -216,7 +226,13 @@ class UpdateProfile(View):
             return redirect('update_profile')
 
     def get(self, request):
-        form = ProfileForm(initial={'organization': request.session['user_id']})
+        try:
+            profile_instance = Profile.objects.get(organization=request.session['user_id'])
+        except Profile.DoesNotExist:
+            # Handle the case where the profile does not exist
+            profile_instance = None
+
+        form = ProfileForm(initial={'organization': request.session['user_id']}, instance=profile_instance)
         return render(request, 'edit_profile.html', {'form': form})
 
 
@@ -331,7 +347,7 @@ class OrgEventListView(View):
         user = request.session['user_id']
         username = request.session['username']
         events = Event.objects.filter(organizer=user).values()
-        return render(request, self.template_name, {'events': events, 'username' : username})
+        return render(request, self.template_name, {'events': events, 'username': username})
 
     def post(self, request):
         if 'delete_event_id' in request.POST:

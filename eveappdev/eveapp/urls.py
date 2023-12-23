@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
 from .views import *
@@ -23,8 +25,8 @@ urlpatterns = [
     path('student_event_view/', EventStudentView.as_view(), name="student_event_view"),
     path('add_event/', AddEvent.as_view(), name="add_event"),
     path('edit_event/<int:event_id>/', EditEvent.as_view(), name='edit_event'),
-
-
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

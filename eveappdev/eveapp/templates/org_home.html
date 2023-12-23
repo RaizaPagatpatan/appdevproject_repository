@@ -13,22 +13,20 @@
 <body>
 {% block content %}
 <div class="profile">
-    {% for profile in profile_org %}
-    {% if profile_org %}
-        {% if profile.profile_pic.url  %}
-            <img src="{{ profile_org.profile_pic.url }}" alt="{{ profile_org.organization }}">
+
+    {% if profile %}
+        {% if profile.profile_pic %}
+            <img src={{profile.profile_pic.url}} alt="{{ request.session.username }}">
         {% else %}
             <img src="{% static 'images/empty.png' %}" alt="Placeholder">
         {% endif %}
         <!-- Other contents here..... -->
-        <p>Organization: {{ profile.organization }}</p>
+        <p>Organization: {{ request.session.username }}</p>
         <p>Description: {{ profile.details }}</p>
         <p>Email: {{ profile.email }}</p>
         <p>Contact: {{ profile.contact }}</p>
-    {% else %}
-        <p><img src="{% static 'images/empty.png' %}" alt="Empty"></p>
     {% endif %}
-    {% endfor %}
+
 </div>
 
 <a href="{% url 'update_profile' %}"><button>Update Profile</button></a>

@@ -89,7 +89,7 @@ class OrganizerFilterForm(forms.Form):
 
 class ProfileForm(forms.ModelForm):
     organization = forms.ModelChoiceField(
-        queryset=Organization.objects.filter(account__account_status='A'),
+        queryset=Organization.objects.all(),
         widget=forms.HiddenInput,
     )
     profile_pic = forms.ImageField(label="Profile Image", required=False)
