@@ -11,25 +11,25 @@
 {% endblock %}
 
 <body>
-{% block content %}
-<div class="profile">
-
-    {% if profile %}
-        {% if profile.profile_pic %}
-            <img src={{profile.profile_pic.url}} alt="{{ request.session.username }}">
-        {% else %}
-            <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+    {% block content %}
+    <div class="profile">
+        {% if profile %}
+            <div class="pfp">
+                {% if profile.profile_pic %}
+                    <img src={{profile.profile_pic.url}} alt="{{ request.session.username }}">
+                {% else %}
+                    <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                {% endif %}
+            </div>
+            <!-- Other contents here..... -->
+            <p>Organization: {{ request.session.username }}</p>
+            <p>Description: {{ profile.details }}</p>
+            <p>Email: {{ profile.email }}</p>
+            <p>Contact: {{ profile.contact }}</p>
         {% endif %}
-        <!-- Other contents here..... -->
-        <p>Organization: {{ request.session.username }}</p>
-        <p>Description: {{ profile.details }}</p>
-        <p>Email: {{ profile.email }}</p>
-        <p>Contact: {{ profile.contact }}</p>
-    {% endif %}
+    </div>
 
-</div>
-
-<a href="{% url 'update_profile' %}"><button>Update Profile</button></a>
+    <a href="{% url 'update_profile' %}"><button>Update Profile</button></a>
 
 {% endblock %}
 </body>

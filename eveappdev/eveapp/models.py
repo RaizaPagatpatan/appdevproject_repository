@@ -1,4 +1,6 @@
 from django.db import models
+
+
 #
 # # Create your models here.
 #
@@ -43,7 +45,7 @@ class Event(models.Model):
 
 class Profile(models.Model):
     profileID = models.BigAutoField(primary_key=True)
-    organization = models.ForeignKey('CreateAccount.Organization', on_delete=models.CASCADE)
+    organization = models.OneToOneField('CreateAccount.Organization', on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='org_profiles/', null=True, blank=True, verbose_name="Profile Image")
     details = models.TextField(verbose_name="Description")
     email = models.EmailField(max_length=100)

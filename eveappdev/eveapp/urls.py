@@ -25,6 +25,7 @@ urlpatterns = [
     path('student_event_view/', EventStudentView.as_view(), name="student_event_view"),
     path('add_event/', AddEvent.as_view(), name="add_event"),
     path('edit_event/<int:event_id>/', EditEvent.as_view(), name='edit_event'),
+    path('org_profile/<int:org_id>/', ProfileView.as_view(), name='org_profile')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

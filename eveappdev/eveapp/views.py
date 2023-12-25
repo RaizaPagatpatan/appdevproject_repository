@@ -9,6 +9,7 @@ from .models import Account
 from datetime import date, timedelta
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from .models import *
 
 # Create your views here.
 
@@ -288,13 +289,63 @@ class OrgList(View):
     template_name = 'org_list.html'
 
     def get(self, request):
-        user = request.session['user_id']
-        username = request.session['username']
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            username = request.session['username']
 
-        # allow approved by admin only
-        org_lists = Account.objects.filter(account_status='A')
+            user_type = request.session.get('type', None)
+            # allow approved by admin only
+            org_lists = Account.objects.filter(account_status='A')
 
-        return render(request, self.template_name, {'username': username, 'org_lists': org_lists})
+            # Iterate over org_lists and add profile_pic to each organization
+            for org in org_lists:
+                try:
+                    # Try to get the profile associated with the organization
+                    profile = Profile.objects.get(organization=org.orgName.user_id)
+                    # Assign the profile_pic to the org_lists object
+                    org.profile_pic = profile.profile_pic
+                except Profile.DoesNotExist:
+                    # Handle the case where there is no profile for the organization
+                    org.profile_pic = None
+
+            if user_type == "S":
+                return render(request, self.template_name, {'username': username, 'org_lists': org_lists})
+            else:
+                return redirect('org_home')
+        else:
+            return redirect('login')
+
+        # user = request.session['user_id']
+        # username = request.session['username']
+        #
+        # # allow approved by admin only
+        # org_lists = Account.objects.filter(account_status='A')
+        #
+        # return render(request, self.template_name, {'username': username, 'org_lists': org_lists})
+
+
+class ProfileView(View):
+    template = 'student_viewOrgProfile.html'
+
+    def get(self, request, org_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            username = request.session['username']
+
+            user_type = request.session.get('type', None)
+
+            # Use get_object_or_404 to handle the case where the organization doesn't exist
+            organization = get_object_or_404(Organization, pk=org_id)
+
+            # Now, query the Profile using the organization instance
+            org_profile = Profile.objects.get(organization=organization)
+
+            if user_type == "S":
+                return render(request, self.template, {'username': username, 'org_profile': org_profile})
+            else:
+                return redirect('org_home')
+        else:
+            return redirect('login')
 
 
 class AddEvent(View):

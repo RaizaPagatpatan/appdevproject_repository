@@ -1,0 +1,38 @@
+{% extends "navbar_student.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        Profile
+    {% endblock %}
+
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/orgprofileview.css' %}">
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+        <div class="profile">
+
+            {% if org_profile %}
+                <div class="pfp">
+                    {% if org_profile.profile_pic %}
+                        <img src={{org_profile.profile_pic.url}} alt="">
+                    {% else %}
+                        <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                    {% endif %}
+                </div>
+                <!-- Other contents here..... -->
+                <p>Organization: {{ org_profile.organization.organization_name }}</p>
+                <p>Description: {{ org_profile.details }}</p>
+                <p>Email: {{ org_profile.email }}</p>
+                <p>Contact: {{ org_profile.contact }}</p>
+            {% endif %}
+
+        </div>
+        <button>Follow</button>
+    {% endblock %}
+</body>
+</html>

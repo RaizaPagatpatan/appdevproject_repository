@@ -22,3 +22,28 @@ h3{
     font-size: 15px;
     font-weight: normal;
 }
+
+.org_list{
+    padding: 10px;
+    border-radius:30px;
+    background-color:#f98d8d;
+    width: 400px;
+    min-height: 150px;
+    height: auto;
+    text-align: center;
+}
+
+.pfp {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.pfp img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
