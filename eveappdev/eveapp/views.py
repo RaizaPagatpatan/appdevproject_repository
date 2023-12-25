@@ -192,7 +192,12 @@ class OrgHome(View):
             user = request.session['user_id']
             username = request.session['username']
             user_type = request.session.get('type', None)
-            profile = Profile.objects.get(organization=user)
+
+            try:
+                profile = Profile.objects.get(organization_id=user)
+            except Profile.DoesNotExist:
+                # Handle the case where the profile does not exist
+                profile = None
 
             if user_type == "O":
                 return render(request, self.template_name, {'profile': profile, 'username': username})
@@ -337,8 +342,14 @@ class ProfileView(View):
             # Use get_object_or_404 to handle the case where the organization doesn't exist
             organization = get_object_or_404(Organization, pk=org_id)
 
+            try:
+                org_profile = Profile.objects.get(organization=organization)
+            except Profile.DoesNotExist:
+                # Handle the case where the profile does not exist
+                org_profile = None
+
             # Now, query the Profile using the organization instance
-            org_profile = Profile.objects.get(organization=organization)
+
 
             if user_type == "S":
                 return render(request, self.template, {'username': username, 'org_profile': org_profile})

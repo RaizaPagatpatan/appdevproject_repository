@@ -15,25 +15,28 @@
 </head>
 <body>
 {% block content %}
-    <div class="container">
+    <div class="listorgs_contain">
         <h2>Verified School Organizations</h2>
-        {% for org in org_lists %}
-        <div class="org_list">
-            <div class="pfp">
-                {% if org.profile_pic %}
-                    <img src={{org.profile_pic.url}} alt="{{ org.orgName }} Profile Pic">
-                {% else %}
-                    <img src="{% static 'images/empty.png' %}" alt="Placeholder">
-                {% endif %}
+         <div class="container">
+            {% for org in org_lists %}
+            <div class="org_list">
+                <div class="pfp">
+                    {% if org.profile_pic %}
+                        <img src={{org.profile_pic.url}} alt="{{ org.orgName }} Profile Pic">
+                    {% else %}
+                        <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                    {% endif %}
+                </div>
+                <a href="{% url 'org_profile' org_id=org.orgName.user_id %}"><h3>{{ org.orgName }}</h3></a>
+                <a href=""><button>Follow</button></a>
+
+                <!-- WAITING ON PROFILE, PAREHA ON NAKO SA EVENT LIST PARA NICE-->
+                <!-- maybe clickable sad nya naay lightbox mugawas like eventlist-->
             </div>
-            <a href="{% url 'org_profile' org_id=org.orgName.user_id %}"><h3>{{ org.orgName }}</h3></a>
-            <button>Follow</button>
-            <!-- WAITING ON PROFILE, PAREHA ON NAKO SA EVENT LIST PARA NICE-->
-            <!-- maybe clickable sad nya naay lightbox mugawas like eventlist-->
-        </div>
-        {% empty %}
-            <p>No Organizations Registered</p>
-        {% endfor %}
+            {% empty %}
+                <p>No Organizations Registered</p>
+            {% endfor %}
+         </div>
     </div>
 {% endblock %}
 </body>
