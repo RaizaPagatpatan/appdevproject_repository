@@ -1,6 +1,8 @@
 {% extends "navbar_student.html" %}
 {% load static %}
 
+{% load custom_filters %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +30,18 @@
                     {% endif %}
                 </div>
                 <a href="{% url 'org_profile' org_id=org.orgName.user_id %}"><h3>{{ org.orgName }}</h3></a>
-                <a href=""><button>Follow</button></a>
+
+                {%  if request.session.user_id|is_following:org.orgName %}
+                    <form method="post" action="{% url 'unfollow_org_listview' org_id=org.orgName.user_id %}">
+                        {% csrf_token %}
+                        <button type="submit">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'follow_org_listview' org_id=org.orgName.user_id %}">
+                        {% csrf_token %}
+                        <button type="submit">Follow</button>
+                    </form>
+                {% endif %}
 
                 <!-- WAITING ON PROFILE, PAREHA ON NAKO SA EVENT LIST PARA NICE-->
                 <!-- maybe clickable sad nya naay lightbox mugawas like eventlist-->

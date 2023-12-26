@@ -10,6 +10,10 @@ body{
     /*height: 50vh; /* Adjust the height as needed */
 }
 
+#orglabel{
+    font-size: 1.5em;
+}
+
 .profile{
     margin: 2em;
 }
@@ -19,7 +23,6 @@ body{
     height: 150px;
     overflow: hidden;
     border-radius: 50%;
-    padding-bottom: 0.5em;
     margin: 0 auto;
 }
 

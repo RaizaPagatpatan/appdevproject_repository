@@ -359,6 +359,80 @@ class ProfileView(View):
             return redirect('login')
 
 
+class FollowOrganizationView(View):
+    def post(self, request, org_id):
+        organization = Organization.objects.get(pk=org_id)
+
+        # Check if the user is authenticated
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+
+            curr_student = Student.objects.get(pk=user)
+
+            # Check if the user is not already following the organization
+            if not curr_student.following.filter(organization=organization).exists():
+                Follow.objects.create(follower=curr_student, organization=organization)
+
+            return redirect('org_profile', org_id=org_id)
+        else:
+            return redirect('login')
+
+class UnfollowOrganizationView(View):
+    def post(self, request, org_id):
+        organization = Organization.objects.get(pk=org_id)
+
+        # Check if the user is authenticated
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            # Check if the user is following the organization
+            curr_student = Student.objects.get(pk=user)
+            follow_instance = curr_student.following.filter(organization=organization).first()
+            if follow_instance:
+                follow_instance.delete()
+
+            return redirect('org_profile', org_id=org_id)
+        else:
+            return redirect('login')
+
+
+
+class FollowOrgListView(View):
+    def post(self, request, org_id):
+        organization = Organization.objects.get(pk=org_id)
+
+        # Check if the user is authenticated
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+
+            curr_student = Student.objects.get(pk=user)
+
+            # Check if the user is not already following the organization
+            if not curr_student.following.filter(organization=organization).exists():
+                Follow.objects.create(follower=curr_student, organization=organization)
+
+            return redirect('org_list')
+        else:
+            return redirect('login')
+
+class UnfollowOrgListView(View):
+    def post(self, request, org_id):
+        organization = Organization.objects.get(pk=org_id)
+
+        # Check if the user is authenticated
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            # Check if the user is following the organization
+            curr_student = Student.objects.get(pk=user)
+            follow_instance = curr_student.following.filter(organization=organization).first()
+            if follow_instance:
+                follow_instance.delete()
+
+            return redirect('org_list')
+        else:
+            return redirect('login')
+
+
+
 class AddEvent(View):
     def post(self, request):
 

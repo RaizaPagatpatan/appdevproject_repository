@@ -1,4 +1,6 @@
 from django.db import models
+from CreateAccount.models import Organization, Student
+from django.db.models.signals import post_save
 
 
 #
@@ -45,13 +47,32 @@ class Event(models.Model):
 
 class Profile(models.Model):
     profileID = models.BigAutoField(primary_key=True)
-    organization = models.OneToOneField('CreateAccount.Organization', on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='org_profiles/', null=True, blank=True, verbose_name="Profile Image")
     details = models.TextField(verbose_name="Description")
     email = models.EmailField(max_length=100)
     contact = models.CharField(max_length=100)
 
+    organization = models.OneToOneField('CreateAccount.Organization', on_delete=models.CASCADE)
     class Meta:
         db_table = "Profile"
+
+
+#create profile when new org creates account
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        org_profile = Profile(organization=instance)
+        org_profile.save()
+
+
+post_save.connect(create_profile, sender=Organization)
+
+
+class Follow(models.Model):
+    follower = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='following')
+    organization = models.ForeignKey('CreateAccount.Organization', on_delete=models.CASCADE, related_name='followers')
+
+    class Meta:
+        unique_together = ('follower', 'organization')
+        db_table = "Follow"
 
 

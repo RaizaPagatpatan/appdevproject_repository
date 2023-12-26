@@ -22,7 +22,7 @@
                 {% endif %}
             </div>
             <!-- Other contents here..... -->
-            <p>Organization: {{ request.session.username }}</p>
+            <p id="orglabel"><strong>{{ request.session.username }}</strong></p>
             <p>Description: {{ profile.details }}</p>
             <p>Email: {{ profile.email }}</p>
             <p>Contact: {{ profile.contact }}</p>

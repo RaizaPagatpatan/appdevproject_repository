@@ -40,6 +40,9 @@ body{
     cursor: pointer;
 }
 
+#orglabel{
+    font-size: 1.5em;
+}
 
 .profile{
     margin: 2em;

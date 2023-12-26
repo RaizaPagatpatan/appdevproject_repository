@@ -1,6 +1,8 @@
 {% extends "navbar_student.html" %}
 {% load static %}
 
+{% load custom_filters %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,14 +27,32 @@
                     {% endif %}
                 </div>
                 <!-- Other contents here..... -->
-                <p>Organization: {{ org_profile.organization.organization_name }}</p>
+                <p id="orglabel"><strong>{{ org_profile.organization.organization_name }}</strong></p>
                 <p>Description: {{ org_profile.details }}</p>
                 <p>Email: {{ org_profile.email }}</p>
                 <p>Contact: {{ org_profile.contact }}</p>
             {% endif %}
 
         </div>
-        <button>Follow</button>
+
+
+
+        {%  if request.session.user_id|is_following:org_profile.organization %}
+            <form method="post" action="{% url 'unfollow_organization' org_id=org_profile.organization.pk %}">
+                {% csrf_token %}
+                <button type="submit">Unfollow</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'follow_organization' org_id=org_profile.organization.pk %}">
+                {% csrf_token %}
+                <button type="submit">Follow</button>
+            </form>
+        {% endif %}
+
+
+
+
+        <p>Followers</p>
     {% endblock %}
 </body>
 </html>
