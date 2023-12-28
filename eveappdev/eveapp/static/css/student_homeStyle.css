@@ -9,21 +9,124 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-family: monospace;
     /*height: 50vh; /* Adjust the height as needed */
 }
 
-.bookmarks {
-    background-color: #F98D8D;
+#b-title{
+    margin-bottom: 1.2em;
+}
+
+.bookmark-contain {
+    color: #59181E;
+    background-color: #F1ACAC;
     margin: 10px;
-    padding: 20px;
+    padding: 1.5em 1.5em 2.5em 1.5em;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     text-align: center;
     max-width: 300px;
     height: 500px;
+    min-width: 220px;
     white-space: nowrap;
     display: inline-block;
     position: fixed; /* fixed right */
     right: 10px;
-    overflow-y: auto;
+}
+
+.bookmarks{
+    color: white;
+    background-color: #880B0B;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    height: 8em;
+    padding:1em;
+    margin: 0 .8em .4em .8em;
+}
+
+.ongoing{
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 62vh; /* Set a maximum height for the container */
+}
+
+.eve-name{
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* scrollbar css customized*/
+
+/* WebKit (Chrome, Safari) */
+.ongoing::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+.ongoing::-webkit-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* Firefox */
+.ongoing {
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+}
+
+.ongoing::-moz-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+
+/* LIGHTBOX */
+
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.lightbox-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f1acac;
+    padding: 20px;
+    text-align: center;
+}
+
+.lightbox img {
+    max-width: 50%;
+    max-height: 50%;
+    border: 2px solid white; /* waito border */
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.lightbox button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: right;
+    background-color: #880b0b; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 120px;
+    transition: background-color 0.5s ease;
+}
+.lightbox button:hover {
+    background-color: #d34f57; /* Darker maroon on hover */
 }

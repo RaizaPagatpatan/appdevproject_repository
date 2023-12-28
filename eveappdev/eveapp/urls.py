@@ -34,6 +34,8 @@ urlpatterns = [
     path('org_notifications/', OrgNotifView.as_view(), name='org_notifications'),
     path('mark_all_as_read/', MarkAllAsRead.as_view(), name='mark_all_as_read'),
     path('mark_one_notif_as_read/<int:notification_id>/', MarkOneAsRead.as_view(), name='mark_one_notif_as_read'),
+    path('bookmark_event/<int:event_id>/', BookmarkEventView.as_view(), name='bookmark_event'),
+    path('remove_bookmark_event/<int:event_id>/', RemoveBookmarkEventView.as_view(), name='remove_bookmark_event'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

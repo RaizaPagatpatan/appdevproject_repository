@@ -1,5 +1,6 @@
 {% extends "navbar_student.html" %}
 {% load static %}
+{% load custom_filters %}
 
 <head>
 
@@ -16,20 +17,86 @@
 <body>
 {% block content %}
     <main>
-
-        <section class="bookmarks">
+        <section class="bookmark-contain">
+            <h2 id="b-title">Bookmarked Events</h2>
             <div class="ongoing">
-                <h2>Bookmarked Events</h2>
-                {% for event in events %}
-                <div class="bookmarks">
-                    <h3>{{ event.eventName }}</h3>
-                    <p>Organizer: {{ event.organizer }}</p>
-                </div>
-                {% empty %}
-                    <div> <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p> </div>
-                {% endfor %}
+                {% if bookmarks %}
+                    {% for bookmark in bookmarks %}
+                        <a href="#" onclick="openViewEventLightbox('{{ bookmark.event.eventID }}')">
+                            <div class="bookmarks" >
+                                <div class="eve-name">{{ bookmark.event.eventName }}</div>
+                                <div class="deets">
+                                    <p>Organizer: {{ bookmark.event.organizer.organization_name }}</p>
+                                    <p>Starts on: <br>{{ bookmark.event.start }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <div>
+                        <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+                    </div>
+                {% endif%}
             </div>
         </section>
+
+        <!-- Lightbox content for each event added sa org -->
+
+        {% for event in events %}
+            <div id="{{ event.eventID }}Lightbox" style="display: none;" class="lightbox">
+                <div class="lightbox-content">
+                {% if event.images %}
+                    <img src="{{ event.images.url }}" alt="{{ event.eventName }}">
+                {% else %}
+                    <!-- Placeholder image sa empty -->
+                    <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                {% endif %}
+                <!-- Other contents here..... -->
+                        <p>{{ event.eventName }}</p>
+                        <p>Organizer: {{ event.organizer }}</p>
+                        <p>Start: {{ event.start }}</p>
+                        <p>End: {{ event.end }}</p>
+                        <p>Location: {{ event.location }}</p>
+                        <p>Details: {{ event.details }}</p>
+
+                    <div>
+
+                    {%  if request.session.user_id|has_bookmarked:event.eventID %}
+                        <form method="post" action="{% url 'remove_bookmark_event' event_id=event.eventID %}">
+                            {% csrf_token %}
+                            <button type="submit">Remove from bookmarks</button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{% url 'bookmark_event' event_id=event.eventID %}">
+                            {% csrf_token %}
+                            <button type="submit">Add to bookmarks</button>
+                        </form>
+                    {% endif %}
+
+                    <button>RSVP</button>
+
+                    </div>
+                <button onclick="closeLightbox('{{ event.eventID }}Lightbox')">X</button>
+                </div>
+            </div>
+        {% endfor %}
+
+
+
+        <script src="{% static 'js/script.js' %}"></script>
+        <!-- Lightbox openscript uwu -->
+        <script>
+            // Function to open the event lightbox
+            function openViewEventLightbox(eventID) {
+                console.log("Button clicked");  // Add this line for debugging
+                document.getElementById(eventID + "Lightbox").style.display = "block";
+            }
+
+            // Function to close the event lightbox
+            function closeLightbox(lightboxID) {
+                document.getElementById(lightboxID).style.display = "none";
+            }
+        </script>
     </main>
 {% endblock %}
-    </body>
+</body>

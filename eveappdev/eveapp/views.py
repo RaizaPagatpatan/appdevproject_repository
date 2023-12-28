@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.apps import apps #student
 from django.views import View
@@ -251,9 +251,11 @@ class ShowStudentHome(View):
             username = request.session['username']
 
             user_type = request.session.get('type', None)
+            events = Event.objects.all()
 
             if user_type == "S":
-                return render(request, self.template_name, {'username': username})
+                bookmarks = Bookmark.objects.filter(student_user=user)
+                return render(request, self.template_name, {'username': username, 'bookmarks': bookmarks, 'events': events})
             else:
                 return redirect('org_home')
         else:
@@ -440,6 +442,47 @@ class UnfollowOrgListView(View):
                 follow_instance.delete()
 
             return redirect('org_list')
+        else:
+            return redirect('login')
+
+
+class BookmarkEventView(View):
+    def post(self, request, event_id):
+        # Check if the user is authenticated
+        if 'user_id' in request.session and 'username' in request.session:
+            user_id = request.session['user_id']
+            event = get_object_or_404(Event, pk=event_id)
+            s_user = get_object_or_404(Student, pk=user_id)
+
+            # Check if the user has already bookmarked the event
+            bookmark_exists = Bookmark.objects.filter(student_user=s_user, event=event).exists()
+
+            if not bookmark_exists:
+                Bookmark.objects.create(student_user=s_user, event=event)
+
+            # Redirect to the previous page or a default URL if the referrer is not available
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
+        else:
+            return redirect('login')
+
+
+class RemoveBookmarkEventView(View):
+    def post(self, request, event_id):
+        # Check if the user is authenticated
+        if 'user_id' in request.session and 'username' in request.session:
+            user_id = request.session['user_id']
+            event = get_object_or_404(Event, pk=event_id)
+            s_user = get_object_or_404(Student, pk=user_id)
+
+            # Check if the user has already bookmarked the event
+            bookmark_exists = Bookmark.objects.filter(student_user=s_user, event=event).exists()
+
+            if bookmark_exists:
+                # Remove the bookmark
+                Bookmark.objects.filter(student_user=s_user, event=event).delete()
+
+            # Redirect to the previous page or a default URL if the referrer is not available
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
         else:
             return redirect('login')
 

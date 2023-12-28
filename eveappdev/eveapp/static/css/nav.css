@@ -1,7 +1,5 @@
 /* Add your styling for the navigation bar here */
 
-
-
 header.navbar {
     background-color: #59181E;
     /*background-color: #000000;*/
@@ -29,8 +27,15 @@ header.navbar {
     /*max-width: 5%;*/
     border: none;
     display: block; /* Make sure the logo is a block element */
-    margin: 0 auto; /* Center the logo */
+    margin: 0 auto;  /* Center the logo */
+    /*margin: 0;*/
 }
+
+.logo_studentnav{
+     overflow: hidden;
+}
+
+
 
 nav {
     margin-top: 0px;
@@ -64,6 +69,25 @@ nav a:hover {
     float: right;
 }
 
+.notification-link {
+    position: relative;
+    text-decoration: none;
+    color: #000;  /* Adjust the color as needed */
+}
+
+.notification-badge {
+    position: absolute;
+    font-size:.3em;
+    top: -12px;  /* Adjust the vertical position as needed */
+    left: 100px;  /* Adjust the horizontal position as needed */
+    background-color: red;  /* Adjust the background color as needed */
+    color: #fff;  /* Adjust the text color as needed */
+    font-size: 12px;  /* Adjust the font size as needed */
+    border-radius: 50%;
+    padding: .3em .4em;
+    min-height: 1em;
+    min-width: 1.1em;
+}
 
 /* BODY ;-; */
 

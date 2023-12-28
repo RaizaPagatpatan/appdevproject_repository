@@ -1,5 +1,6 @@
 {% extends "navbar_student.html" %}
 {% load static %}
+{% load custom_filters %}
 
 <html lang="en">
 <head>
@@ -69,8 +70,20 @@
                 <p>Details: {{ event.details }}</p>
 
             <div>
-                <button>Add to Bookmarks</button>
-                <button>RSVP</button>
+
+            {%  if request.session.user_id|has_bookmarked:event.eventID %}
+                <form method="post" action="{% url 'remove_bookmark_event' event_id=event.eventID %}">
+                    {% csrf_token %}
+                    <button type="submit">Remove from bookmarks</button>
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'bookmark_event' event_id=event.eventID %}">
+                    {% csrf_token %}
+                    <button type="submit">Add to bookmarks</button>
+                </form>
+            {% endif %}
+
+            <button>RSVP</button>
 
             </div>
         <button onclick="closeLightbox('{{ event.eventID }}Lightbox')">X</button>

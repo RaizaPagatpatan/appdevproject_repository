@@ -30,7 +30,7 @@ body{
     margin-right:25%;
     margin-top:2%;
     border-radius:20px;
-    padding: 0 0 2em 0;
+    padding: 0 1em 2em 0.5em;
     position: relative;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
@@ -125,4 +125,26 @@ body{
 
 .read-btn button:hover {
     background-color: #FDC1C1;
+}
+
+/* scrollbar css customized*/
+
+/* WebKit (Chrome, Safari) */
+.n-list::-webkit-scrollbar {
+    width: 10px; /* Set the width of the scrollbar */
+}
+
+.n-list::-webkit-scrollbar-thumb {
+    background-color: #880B0B; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* Firefox */
+.n-list {
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+}
+
+.n-list::-moz-scrollbar-thumb {
+    background-color: #880B0B; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
 }

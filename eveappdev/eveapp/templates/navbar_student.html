@@ -5,18 +5,25 @@
 <head>
 
     <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
     {% block styles %}
 
     {% endblock %}
-    <title>{% block title %}
-        {% endblock %}</title>
+
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
 
 </head>
 <body>
 
     <header class="navbar">
-            <div><a href="{% url 'student_home' %}"><img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"></a></div>
+
+        <div class="logo_studentnav">
+            <a href="{% url 'student_home' %}"><img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"></a>
+        </div>
+
         <div class="box-ul-nav">
 
             <nav>
@@ -25,7 +32,7 @@
                     <li><a href="{% url 'student_event_view' %}">Events</a></li>
                     <li><a href="{% url 'org_list' %}">Organizations</a></li>
                     <li><a href='#'>News</a></li>
-                    <li><a href='#'>Notifications</a></li>
+                    <li><a href="{% url 'student_notifications' %}">Notifications</a></li>
 
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'logout' %}" class="logout-button">Log Out</a></li>
                 </ul>

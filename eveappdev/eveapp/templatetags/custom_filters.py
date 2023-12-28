@@ -1,5 +1,5 @@
 from django import template
-from eveapp.models import Follow, OrgNotification
+from eveapp.models import Follow, OrgNotification, Bookmark
 
 register = template.Library()
 
@@ -18,3 +18,8 @@ def get_unread_notification_count(user_id):
     else:
         count = ""
     return count
+
+
+@register.filter(name='has_bookmarked')
+def has_bookmarked(user, event):
+    return Bookmark.objects.filter(student_user=user, event=event).exists()

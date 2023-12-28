@@ -102,4 +102,15 @@ class StudentNotification(models.Model):
     def __str__(self):
         return f'{self.user.username}: {self.message}'
 
+class Bookmark(models.Model):
+    student_user = models.ForeignKey(Student, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='event_bookmarks')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "bookmarks"
+
+    def __str__(self):
+        return f'{self.user.username} bookmarked {self.event.title}'
+
 
