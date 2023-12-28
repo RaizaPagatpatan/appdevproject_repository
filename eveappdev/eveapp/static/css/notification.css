@@ -1,0 +1,128 @@
+body{
+    background-color: #ffd6d6;
+    margin: 0;
+    margin-bottom: 5vh;
+    padding: 0px;
+    display: block;
+    text-align: left;
+    justify-content: center;
+    overflow: hidden;
+    font-family: monospace;
+    font-size: 14px;
+    color:#59181E;
+}
+
+#n-title{
+    padding: 1.2em 0 0 1.5em;
+    font-size: 1.7em;
+    font-weight:bold;
+    width:50%;
+}
+
+.n-list{
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 65vh; /* Set a maximum height for the container */
+}
+
+.contain-notif{
+    background-color:#FFE3E3;
+    margin-left: 25%;
+    margin-right:25%;
+    margin-top:2%;
+    border-radius:20px;
+    padding: 0 0 2em 0;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.notifs{
+    border-radius:15px;
+    border: 1px solid transparent;
+    background-color:#FFE3E3;
+    width: 90%
+    max-height: 100px;
+    height: auto;
+    text-align: left;
+    font-family: monospace;
+    font-size: 1.1em;
+    padding: 0.2em 0.2em 0.2em 3em;
+    display: flex;
+    margin: .5em 1em 0 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.notifs:hover{
+     background-color:#FFBEBE;
+}
+
+.msg-contain{
+    flex-grow: 1;
+}
+
+.unread {
+    border-color: #D34F57;
+}
+
+.read {
+    color: #BB6A72;
+}
+
+#time {
+    padding: 0 0 0 1em;
+}
+
+.read #time {
+    color: #BB6A72;
+}
+
+.indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #D34F57;
+    border-radius: 50%;
+    margin:  2em 4em 2em 0;
+    padding:.3em;
+}
+
+#time{
+    padding: 0 0 0 1em;
+    color:#8D343C;
+}
+
+.empty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10em;
+    margin: 5em 5em 5em 5em;
+}
+
+.img-empty{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.read-btn{
+    position: absolute;  /* Position the form absolutely within the relative container */
+    top: 2em;  /* Adjust the top position as needed */
+    right: 3em;  /* Adjust the right position as needed */
+}
+
+.read-btn button {
+    padding: 8px 16px;
+    background-color: #880B0B;
+    color: #fff;
+
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.read-btn button:hover {
+    background-color: #FDC1C1;
+}
