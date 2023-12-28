@@ -30,6 +30,10 @@ urlpatterns = [
     path('unfollow_organization/<int:org_id>/', UnfollowOrganizationView.as_view(), name='unfollow_organization'),
     path('follow_org_listview/<int:org_id>/', FollowOrgListView.as_view(), name='follow_org_listview'),
     path('unfollow_org_listview/<int:org_id>/', UnfollowOrgListView.as_view(), name='unfollow_org_listview'),
+    path('student_notifications/', StudentNotifView.as_view(), name='student_notifications'),
+    path('org_notifications/', OrgNotifView.as_view(), name='org_notifications'),
+    path('mark_all_as_read/', MarkAllAsRead.as_view(), name='mark_all_as_read'),
+    path('mark_one_notif_as_read/<int:notification_id>/', MarkOneAsRead.as_view(), name='mark_one_notif_as_read'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

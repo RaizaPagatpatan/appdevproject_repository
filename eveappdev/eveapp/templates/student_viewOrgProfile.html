@@ -35,8 +35,6 @@
 
         </div>
 
-
-
         {%  if request.session.user_id|is_following:org_profile.organization %}
             <form method="post" action="{% url 'unfollow_organization' org_id=org_profile.organization.pk %}">
                 {% csrf_token %}
@@ -49,10 +47,18 @@
             </form>
         {% endif %}
 
-
-
-
-        <p>Followers</p>
+        <div class="follow_count">
+            {% with follower_count=org_profile.organization.followers.count %}
+                <p>
+                    {{ follower_count }}
+                    {% if follower_count == 1 %}
+                        Follower
+                    {% else %}
+                        Followers
+                    {% endif %}
+                </p>
+            {% endwith %}
+        </div>
     {% endblock %}
 </body>
 </html>

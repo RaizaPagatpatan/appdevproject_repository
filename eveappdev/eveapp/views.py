@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.apps import apps #student
 from django.views import View
@@ -373,6 +373,12 @@ class FollowOrganizationView(View):
             if not curr_student.following.filter(organization=organization).exists():
                 Follow.objects.create(follower=curr_student, organization=organization)
 
+                # Create a notification for the organization
+                OrgNotification.objects.create(
+                    org_user=organization,  #org_user field from the OrgNotification model
+                    message=f'{curr_student.username} started following your organization.',
+                )
+
             return redirect('org_profile', org_id=org_id)
         else:
             return redirect('login')
@@ -410,6 +416,12 @@ class FollowOrgListView(View):
             if not curr_student.following.filter(organization=organization).exists():
                 Follow.objects.create(follower=curr_student, organization=organization)
 
+                # Create a notification for the organization
+                OrgNotification.objects.create(
+                    org_user=organization,  # org_user field from the OrgNotification model
+                    message=f'{curr_student.username} started following your organization.',
+                )
+
             return redirect('org_list')
         else:
             return redirect('login')
@@ -431,6 +443,78 @@ class UnfollowOrgListView(View):
         else:
             return redirect('login')
 
+class MarkOneAsRead(View):
+
+    def post(self, request, notification_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+
+            user_type = request.session.get('type', None)
+
+            if user_type == "O":
+                notification = OrgNotification.objects.get(pk=notification_id)
+                notification.is_read = True
+                notification.save()
+            elif user_type == "S":
+               pass
+
+            return JsonResponse({'status': 'success'})
+        else:
+            return redirect('login')
+
+
+class MarkAllAsRead(View):
+    def post(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+
+            user_type = request.session.get('type', None)
+
+            if user_type == "O":
+                o_notifs = OrgNotification.objects.filter(org_user=user, is_read=False)
+                o_notifs.update(is_read=True)
+                return redirect('org_notifications')
+            elif user_type == "S":
+                s_notifs = StudentNotification.objects.filter(student_user=user, is_read=False)
+                s_notifs.update(is_read=True)
+                return redirect('student_notifications')
+        else:
+            return redirect('login')
+
+
+class StudentNotifView(View):
+    template = 'student_notifs.html'
+    def get(self,request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            username = request.session['username']
+
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                return render(request, self.template, {'username': username})
+            else:
+                return redirect('org_home')
+        else:
+            return redirect('login')
+
+
+class OrgNotifView(View):
+    template = 'org_notifs.html'
+    def get(self,request):
+        if 'user_id' in request.session and 'username' in request.session:
+            org_id = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            if user_type == "O":
+                org_notifications = OrgNotification.objects.filter(org_user=org_id)[:50] #only shows a max of 50 notifs
+
+                # Render the template with the notifications
+                return render(request, self.template, {'notifications': org_notifications})
+            else:
+                return redirect('student_home')
+        else:
+            return redirect('login')
 
 
 class AddEvent(View):

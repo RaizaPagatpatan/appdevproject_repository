@@ -1,5 +1,5 @@
 from django.db import models
-from CreateAccount.models import Organization, Student
+from CreateAccount.models import Organization, Student, User
 from django.db.models.signals import post_save
 
 
@@ -74,5 +74,32 @@ class Follow(models.Model):
     class Meta:
         unique_together = ('follower', 'organization')
         db_table = "Follow"
+
+
+class OrgNotification(models.Model):
+    org_user = models.ForeignKey('CreateAccount.Organization', on_delete=models.CASCADE)
+    message = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-timestamp']
+        db_table = "org_notifications"
+
+    def __str__(self):
+        return f'{self.user.username}: {self.message}'
+
+class StudentNotification(models.Model):
+    student_user = models.ForeignKey(Student, on_delete=models.CASCADE)
+    message = models.CharField(max_length=500)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-timestamp']
+        db_table = "student_notifications"
+
+    def __str__(self):
+        return f'{self.user.username}: {self.message}'
 
 
