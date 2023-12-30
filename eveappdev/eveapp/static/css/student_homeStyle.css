@@ -13,25 +13,92 @@ body{
     /*height: 50vh; /* Adjust the height as needed */
 }
 
+.contain-all{
+    display: flex;
+    justify-content: center;
+}
+
+
+#a-title{
+    margin-bottom: 1.2em;
+}
+
+#e-title{
+    font-size: 1.7em;
+    margin-bottom: 1.2em;
+}
+
 #b-title{
     margin-bottom: 1.2em;
+}
+
+.test{
+    background-color: #F1ACAC;
+}
+
+.main-contain{
+    color: #59181E;
+    padding: 0;
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+    /*border-radius: 30px;*/
+    width:60%;
+    text-align: left;
+    position: fixed;
+    flex:1;
+}
+
+.textpost-contain {
+    color: #59181E;
+    background-color: #F1ACAC;
+    padding: .5em 1.5em 2.5em 1.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /*border-radius: 30px;*/
+    text-align: center;
+    width: 15%;
+    height: 900px;
+    min-width: 100px;
+    white-space: nowrap;
+    display: inline-block;
+    position: fixed; /* fixed right */
+    left:0;
 }
 
 .bookmark-contain {
     color: #59181E;
     background-color: #F1ACAC;
-    margin: 10px;
-    padding: 1.5em 1.5em 2.5em 1.5em;
+    padding: .5em 1.5em 2.5em 1.5em;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
+    /*border-radius: 30px;*/
     text-align: center;
-    max-width: 300px;
-    height: 500px;
-    min-width: 220px;
+    width: 15%;
+    height: 900px;
+    min-width: 100px;
     white-space: nowrap;
     display: inline-block;
     position: fixed; /* fixed right */
-    right: 10px;
+    right:0;
+}
+
+.event{
+    color: white;
+    background-color: #f98d8d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    height: auto;
+    padding:1em;
+    word-wrap: break-word; /* This allows long words to break and wrap onto the next line */
+    overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
+    max-width: 100%;      /* Adjust as needed to limit the width of the text */
+    font-size: 1em;
+    color: #59181E;
+
+    display: block; /* or use "block" if you want each event to take the full width */
+    text-align: center; /* align the content inside each event div to the left */
+    margin: 0 7em .5em 7em ; /* center each event div horizontally */
+}
+
+.ce-link{
+    font-size: 1.3em;
 }
 
 .bookmarks{
@@ -42,11 +109,21 @@ body{
     height: 8em;
     padding:1em;
     margin: 0 .8em .4em .8em;
+    word-wrap: break-word; /* This allows long words to break and wrap onto the next line */
+    overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
+    max-width: 100%;      /* Adjust as needed to limit the width of the text */
+}
+
+.event-con{
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 70vh; /* Set a maximum height for the container */
+    border-radius: 15px;
 }
 
 .ongoing{
     overflow-y: auto; /* Enable vertical scrolling */
-    max-height: 62vh; /* Set a maximum height for the container */
+    max-height: 70vh; /* Set a maximum height for the container */
+    border-radius: 15px;
 }
 
 .eve-name{
@@ -66,6 +143,28 @@ body{
     color: #880B0B;
     background-color: #FFD6D6;
     border: 1px solid #880B0B;
+}
+
+/* ONGOING: scrollbar css customized*/
+
+/* WebKit (Chrome, Safari) */
+.ongoing::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+.ongoing::-webkit-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* Firefox */
+.ongoing {
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+}
+
+.ongoing::-moz-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
 }
 
 /* scrollbar css customized*/

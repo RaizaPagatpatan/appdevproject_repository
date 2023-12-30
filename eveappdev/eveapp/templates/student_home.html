@@ -17,28 +17,70 @@
 <body>
 {% block content %}
     <main>
-        <section class="bookmark-contain">
-            <h2 id="b-title">Bookmarked Events</h2>
-            <div class="ongoing">
-                {% if bookmarks %}
-                    {% for bookmark in bookmarks %}
-                        <a href="#" onclick="openViewEventLightbox('{{ bookmark.event.eventID }}')" class="bookmark-link">
-                            <div class="bookmarks" >
-                                <div class="eve-name">{{ bookmark.event.eventName }}</div>
-                                <div class="deets">
-                                    <p>Organizer: {{ bookmark.event.organizer.organization_name }}</p>
-                                    <p>Starts on: <br>{{ bookmark.event.start }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    {% endfor %}
-                {% else %}
+        <div class="contain-all">
+            <section class="textpost-contain">
+                <h2 id="a-title">Announcements</h2>
+                <div class="announce">
+                    <p>WIP</p>
+
                     <div>
                         <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
                     </div>
-                {% endif%}
-            </div>
-        </section>
+                </div>
+            </section>
+
+            <section class="main-contain">
+                <h2 id="e-title">Events from Organizations You Follow</h2>
+                <div class="event-con">
+                    {% if custom_events %}
+                        {% for ce in custom_events %}
+                            <div class="event">
+                                <p class="title">
+                                    <a href="#" onclick="openViewEventLightbox('{{ ce.eventID }}')" class="ce-link">
+                                        {{ ce.eventName }}
+                                    </a>
+                                </p>
+                                <p>Organizer: {{ ce.organizer }}</p>
+                                <p>Start: {{ ce.start }}</p>
+                                <p>End: {{ ce.end }}</p>
+                                <p>Location: {{ ce.location }}</p>
+                                <p>Details: {{ ce.details }}</p>
+                            </div>
+                            {% endfor %}
+                    {% else %}
+                        <div>
+                            <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+                        </div>
+                    {% endif%}
+                </div>
+            </section>
+
+            <section class="bookmark-contain">
+                <h2 id="b-title">Bookmarked Events</h2>
+                <div class="ongoing">
+                    {% if bookmarks %}
+                        {% for bookmark in bookmarks %}
+                            <a href="#" onclick="openViewEventLightbox('{{ bookmark.event.eventID }}')" class="bookmark-link">
+                                <div class="bookmarks" >
+                                    <div class="eve-name">{{ bookmark.event.eventName }}</div>
+                                    <div class="deets">
+                                        <p>Organizer: {{ bookmark.event.organizer.organization_name }}</p>
+                                        <p>Starts on: <br>
+                                            {{ bookmark.event.start|date:"F j, Y" }}<br>
+                                            {{ bookmark.event.start|time:"g:i A" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+                        </div>
+                    {% endif%}
+                </div>
+            </section>
+        </div>
 
         <!-- Lightbox content for each event added sa org -->
 

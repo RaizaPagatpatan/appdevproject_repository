@@ -271,6 +271,7 @@ class OrgAnnouncementsList(View):
     def get(self, request):
         if 'user_id' in request.session and 'username' in request.session:
             user = request.session['user_id']
+            username = request.session['username']
             user_type = request.session.get('type', None)
 
             text_posts = TextPost.objects.filter(organization=user)
@@ -279,8 +280,8 @@ class OrgAnnouncementsList(View):
             for tp in text_posts:
                 try:
                     # Try to get the profile associated with the organization
-                    profile = Profile.objects.get(organization=tp.organization)
-                    org = Organization.objects.get(username=tp.organization)
+                    profile = Profile.objects.get(organization=user)
+                    org = Organization.objects.get(organization_name=username)
 
                     # Assign the profile_pic to the org_lists object
                     tp.org_name = org.organization_name
@@ -353,15 +354,25 @@ class ShowStudentHome(View):
 
     def get(self, request):
         if 'user_id' in request.session and 'username' in request.session:
-            user = request.session['user_id']
+            s_user = request.session['user_id']
             username = request.session['username']
-
             user_type = request.session.get('type', None)
-            events = Event.objects.all()
 
             if user_type == "S":
-                bookmarks = Bookmark.objects.filter(student_user=user)
-                return render(request, self.template_name, {'username': username, 'bookmarks': bookmarks, 'events': events})
+                events = Event.objects.all()
+                student = Student.objects.get(pk=s_user)
+                followed_orgs = Follow.objects.filter(follower=student).values_list('organization', flat=True)
+                custom_events = Event.objects.filter(organizer__in=followed_orgs)
+
+                # student = get_object_or_404(Student, pk=request.session['user_id'])
+                # following_organizations = Follow.objects.filter(student=student).values_list('organization', flat=True)
+                # events = Event.objects.filter(organizer__in=following_organizations)
+                # return render(request, 'student_events.html', {'events': events})
+
+
+
+                bookmarks = Bookmark.objects.filter(student_user=s_user)
+                return render(request, self.template_name, {'username': username, 'bookmarks': bookmarks, 'custom_events': custom_events, 'events': events})
             else:
                 return redirect('org_home')
         else:
@@ -605,7 +616,9 @@ class MarkOneAsRead(View):
                 notification.is_read = True
                 notification.save()
             elif user_type == "S":
-               pass
+                notification = StudentNotification.objects.get(pk=notification_id)
+                notification.is_read = True
+                notification.save()
 
             return JsonResponse({'status': 'success'})
         else:
@@ -635,13 +648,16 @@ class StudentNotifView(View):
     template = 'student_notifs.html'
     def get(self,request):
         if 'user_id' in request.session and 'username' in request.session:
-            user = request.session['user_id']
             username = request.session['username']
-
+            student_id = request.session['user_id']
             user_type = request.session.get('type', None)
 
             if user_type == "S":
-                return render(request, self.template, {'username': username})
+                student_notifications = StudentNotification.objects.filter(student_user=student_id)[
+                                    :50]  # only shows a max of 50 notifs
+
+                # Render the template with the notifications
+                return render(request, self.template, {'username': username, 'notifications': student_notifications})
             else:
                 return redirect('org_home')
         else:

@@ -4,13 +4,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Notifications</title>
+    <title>Student Notifications</title>
 
     {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/notification.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/notification.css' %}">
     {% endblock %}
 </head>
 <body>
+{% block content %}
+    <div class="contain-notif">
+        <p id = "n-title">Notifications</p>
+        <div class="read-btn">
+            <form method="post" action="{% url 'mark_all_as_read' %}">
+                {% csrf_token %}
+                <button type="submit">Mark All as Read</button>
+            </form>
+        </div>
+        <div class="n-list">
+            {% if notifications %}
+                {% for notification in notifications %}
+                    <div class="notifs {% if notification.is_read %}read{% else %}unread{% endif %}"
+                         data-notification-id="{{ notification.id }}"
+                         onclick="markNotificationAsRead({{ notification.id }}, this)">
+                        <div class="msg-contain">
+                            <p>{{ notification.message }}</p>
+                            <p id="time" class="{% if notification.is_read %}read{% else %}unread{% endif %}">
+                                {{ notification.timestamp }}
+                            </p>
+                        </div>
+                        {% if not notification.is_read %}
+                            <span class="indicator"></span>
+                        {% endif %}
 
+                    </div>
+                {% endfor %}
+             {% else %}
+                <div class="empty">
+                    <img src="{% static 'images/empty.png' %}" alt="Placeholder" class="img-empty">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        function markNotificationAsRead(notificationId, element) {
+            // Get the CSRF token from the cookie
+            const csrftoken = getCookie('csrftoken');
+
+            // Perform AJAX request to mark notification as read
+            $.ajax({
+                url: '/mark_one_notif_as_read/' + notificationId + '/',
+                method: 'POST',
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function (data) {
+                    // Update CSS and remove click event
+                    $(element).removeClass('unread').addClass('read').off('click');
+
+                    // Refresh the page
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error('Error marking notification as read:', error);
+                }
+            });
+        }
+
+        // Function to get the CSRF token from the cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Check if the cookie name matches
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+{% endblock %}
 </body>
 </html>

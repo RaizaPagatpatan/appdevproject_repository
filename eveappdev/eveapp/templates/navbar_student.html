@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load custom_filters %}
 
 <html lang="en">
 <head>
@@ -32,7 +33,20 @@
                     <li><a href="{% url 'student_event_view' %}">Events</a></li>
                     <li><a href="{% url 'org_list' %}">Organizations</a></li>
                     <li><a href='#'>News</a></li>
-                    <li><a href="{% url 'student_notifications' %}">Notifications</a></li>
+                    <li><a href="{% url 'student_notifications' %}">
+                        Notifications
+                        {% if 'user_id' in request.session and 'username' in request.session %}
+                            {% with user_id=request.session.user_id %}
+                                {% with notification_count=user_id|get_unread_notification_count %}
+                                    {% if notification_count %}
+                                        <span class="notification-badge">{{ notification_count }}</span>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endwith %}
+                        {% else %}
+                            <p></p>
+                        {% endif %}
+                    </a></li>
 
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'logout' %}" class="logout-button">Log Out</a></li>
                 </ul>
