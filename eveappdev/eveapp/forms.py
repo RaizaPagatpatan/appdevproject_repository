@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account, Event, Profile
+from .models import Account, Event, Profile, TextPost
 from django.apps import apps
 from multiupload.fields import MultiFileField
 
@@ -102,3 +102,20 @@ class ProfileForm(forms.ModelForm):
         fields = ['organization', 'profile_pic', 'details', 'email', 'contact']
 
 
+class TextPostForm(forms.ModelForm):
+    organization = forms.ModelChoiceField(
+        queryset=Organization.objects.filter(account__account_status='A'),
+        widget=forms.HiddenInput,
+    )
+
+    class Meta:
+        model = TextPost
+        fields = ['organization', 'content']
+        widgets = {
+            'content': forms.Textarea(attrs={'placeholder': "What's new?", 'rows': 5}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(TextPostForm, self).__init__(*args, **kwargs)
+        # Set the maxlength attribute for the 'content' field
+        self.fields['content'].widget.attrs['maxlength'] = 500

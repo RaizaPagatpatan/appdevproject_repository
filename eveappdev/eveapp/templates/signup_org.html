@@ -11,7 +11,7 @@
     <title>Signup</title>
 </head>
 <body>
-    <img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo">
+    <a href="{% url 'home_view' %}"><img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"></a>
     <!--<h2>Signup</h2>-->
     <form method="POST">
         {% csrf_token %}

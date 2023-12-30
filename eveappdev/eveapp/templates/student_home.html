@@ -22,7 +22,7 @@
             <div class="ongoing">
                 {% if bookmarks %}
                     {% for bookmark in bookmarks %}
-                        <a href="#" onclick="openViewEventLightbox('{{ bookmark.event.eventID }}')">
+                        <a href="#" onclick="openViewEventLightbox('{{ bookmark.event.eventID }}')" class="bookmark-link">
                             <div class="bookmarks" >
                                 <div class="eve-name">{{ bookmark.event.eventName }}</div>
                                 <div class="deets">

@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.db import IntegrityError
+from django.db.models.functions import datetime
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.apps import apps #student
@@ -75,16 +77,28 @@ class RegisterStudent(View): #student
 
     def post(self, request):
         register = StudentRegisterForm(request.POST)
-        email = request.POST['email']
         message = 'Registration successful'
-        try:
-            Student.objects.get(email=email)
-            message = 'Email is already taken.'
-        except Student.DoesNotExist:
-            register.save()
-            return redirect('login')
 
-        return render(request, self.template, {'form': register, 'error_message': message})
+        # Modified register: I made the email and username unique in models.py and
+        # handled duplicate error through IntegrityError instead  - lyra
+        try:
+            if register.is_valid():
+                register.save()
+                return redirect('login')
+        except IntegrityError:
+            # Handle the case where email or username is not unique
+            return render(request, self.template, {'error': 'Email or username already exists'})
+
+        # OLD CODE
+        # email = request.POST['email']
+        # try:
+        #     Student.objects.get(email=email)
+        #     message = 'Email is already taken.'
+        # except Student.DoesNotExist:
+        #     register.save()
+        #     return redirect('login')
+
+        return render(request, self.template, {'form': register, 'message': message})
 
 
 class RegisterOrg(View):
@@ -98,19 +112,28 @@ class RegisterOrg(View):
         register = OrgRegisterForm(request.POST)
         message = 'Registration successful'
 
-        if register.is_valid():
-            organization_name = request.POST['organization_name']
-            org_email = request.POST['email']
-
-
-            try:
-                Organization.objects.get(organization_name=organization_name, email=org_email)
-                message = 'Organization name and email is already taken.'
-            except Organization.DoesNotExist:
+        # Modified register: I made the email and username unique in models.py and
+        # handled duplicate error through IntegrityError instead  - lyra
+        try:
+            if register.is_valid():
                 register.save()
                 return redirect('login')
+        except IntegrityError:
+            # Handle the case where email or username is not unique
+            return render(request, self.template_name, {'error': 'Email or username already exists'})
 
-        return render(request, self.template_name, {'form': register, 'error_message': message})
+        # OLD CODE
+        # if register.is_valid():
+        #     organization_name = request.POST['organization_name']
+        #     org_email = request.POST['email']
+        # try:
+        #     Organization.objects.get(organization_name=organization_name, email=org_email)
+        #     message = 'Organization name and email is already taken.'
+        # except Organization.DoesNotExist:
+        #     register.save()
+        #     return redirect('login')
+
+        return render(request, self.template_name, {'form': register, 'message': message})
 
 
 class Logout(View):
@@ -240,6 +263,89 @@ class UpdateProfile(View):
 
         form = ProfileForm(initial={'organization': request.session['user_id']}, instance=profile_instance)
         return render(request, 'edit_profile.html', {'form': form})
+
+
+class OrgAnnouncementsList(View):
+    template = 'org_announcements_list.html'
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            text_posts = TextPost.objects.filter(organization=user)
+
+            # Iterate over org_lists and add profile_pic to each organization
+            for tp in text_posts:
+                try:
+                    # Try to get the profile associated with the organization
+                    profile = Profile.objects.get(organization=tp.organization)
+                    org = Organization.objects.get(username=tp.organization)
+
+                    # Assign the profile_pic to the org_lists object
+                    tp.org_name = org.organization_name
+                    tp.profile_pic = profile.profile_pic
+
+                except Profile.DoesNotExist:
+                    # Handle the case where there is no profile for the organization
+                    tp.profile_pic = None
+
+            if user_type == "O":
+                return render(request, self.template, {'text_posts': text_posts})
+            else:
+                return redirect('student_home')
+        else:
+            return redirect('login')
+
+    def post(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_type = request.session.get('type', None)
+
+            # if user_type == "O":
+            #     if 'delete_textpost_id' in request.POST:
+            #         textpost_id = request.POST['delete_textpost_id']
+            #         textpost = get_object_or_404(TextPost, pk=textpost_id, organization=request.session['user_id'])
+            #         textpost.delete_texpost()
+
+                # redirect after delete
+            return redirect('org_announce_list')
+            # else:
+            #     return redirect('student_home')
+        else:
+            return redirect('login')
+
+
+class CreateTextPost(View):
+    template = 'create_text_post.html'
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_type = request.session.get('type', None)
+
+            form = TextPostForm(initial={'organization': request.session['user_id']})
+
+            if user_type == "O":
+                return render(request, self.template, {'form': form})
+            else:
+                return redirect('student_home')
+
+        else:
+            return redirect('login')
+
+    def post(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_type = request.session.get('type', None)
+
+            form = TextPostForm(request.POST)
+
+            if user_type == "O":
+                if form.is_valid():
+                    form.save()
+                    return redirect('org_announce_list')
+            else:
+                return redirect('student_home')
+        else:
+            return redirect('login')
 
 
 class ShowStudentHome(View):

@@ -1,6 +1,7 @@
 from django.db import models
 from CreateAccount.models import Organization, Student, User
 from django.db.models.signals import post_save
+from django.utils import timezone
 
 
 #
@@ -87,7 +88,7 @@ class OrgNotification(models.Model):
         db_table = "org_notifications"
 
     def __str__(self):
-        return f'{self.user.username}: {self.message}'
+        return f'{self.org_user.username}: {self.message}'
 
 class StudentNotification(models.Model):
     student_user = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -100,7 +101,7 @@ class StudentNotification(models.Model):
         db_table = "student_notifications"
 
     def __str__(self):
-        return f'{self.user.username}: {self.message}'
+        return f'{self.student_user.username}: {self.message}'
 
 class Bookmark(models.Model):
     student_user = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -111,6 +112,19 @@ class Bookmark(models.Model):
         db_table = "bookmarks"
 
     def __str__(self):
-        return f'{self.user.username} bookmarked {self.event.title}'
+        return f'{self.student_user.username} bookmarked {self.event.title}'
+
+
+class TextPost(models.Model):
+    organization = models.ForeignKey('CreateAccount.Organization', on_delete=models.CASCADE)
+    content = models.TextField(verbose_name="Text Content")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "textposts"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'Text Post by {self.organization.username} at {self.created_at}'
 
 

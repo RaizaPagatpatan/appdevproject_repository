@@ -1,0 +1,55 @@
+{% extends "navbar_org.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% block title %}
+        Events
+    {% endblock %}
+
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/organnouncementslist.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <main>
+        <div class="main-container">
+            <p id="p-title">Your Announcements</p>
+            <div class="button-container">
+                <a href="{% url 'create_text_post' %}" class="scheduler-button">Make an Announcement</a>
+            </div>
+
+             <div class="post-container">
+                 {% if text_posts %}
+                    {% for tp in text_posts %}
+                    <div class="org_list">
+                        <div class="post-header">
+                            <div class="pfp">
+                                <img src="{{ tp.profile_pic.url }}" alt="{{ tp.organization.orgName }} Profile Pic">
+                            </div>
+
+                            <div class="info">
+                                <p id="o-name">{{ tp.org_name }}</p>
+                                <p id="date">{{ tp.created_at }}</p>
+                            </div>
+                        </div>
+
+                        <div class="textpost">
+                            <p id="tp-content">{{ tp.content }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                 {% else %}
+                    <div>
+                        <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+                    </div>
+                 {% endif %}
+             </div>
+
+        </div>
+    </main>
+{% endblock %}
+</body>
+</html>

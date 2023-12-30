@@ -6,8 +6,8 @@ from django.db import models
 
 class User(models.Model):
     user_id = models.BigAutoField(primary_key=True)
-    username = models.CharField(max_length=50, default=user_id)
-    email = models.CharField(max_length=100)
+    username = models.CharField(max_length=50, default=user_id, unique=True)
+    email = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=20)
     type = (("S", "Student"), ("O", "Organization"), ("A", "Admin"))
     user_type = models.CharField(max_length=1, choices=type)
