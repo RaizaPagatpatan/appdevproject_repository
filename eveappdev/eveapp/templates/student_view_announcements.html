@@ -1,0 +1,57 @@
+{% extends "navbar_student.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/studentviewannouncements.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+<div class="main-container">
+    <div class="news-header">
+        <p id="p-title">Announcements from organizations you follow</p>
+
+        <div class="filter">
+            <form method="get" action="" class="filterform">
+                {% csrf_token %}
+                Choose Organizer: {{ form.organizer }}
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="post-container">
+         {% if text_posts %}
+            {% for tp in text_posts %}
+            <div class="org_list">
+                <div class="post-header">
+                    <div class="pfp">
+                        <img src="{{ tp.profile_pic.url }}" alt="{{ tp.organization.orgName }} Profile Pic">
+                    </div>
+
+                    <div class="info">
+                        <p id="o-name">{{ tp.organization.organization_name }}</p>
+                        <p id="date">{{ tp.created_at }}</p>
+                    </div>
+                </div>
+
+                <div class="textpost">
+                    <p id="tp-content">{{ tp.content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+         {% else %}
+            <div>
+                <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+            </div>
+         {% endif %}
+     </div>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -38,6 +38,7 @@ urlpatterns = [
     path('remove_bookmark_event/<int:event_id>/', RemoveBookmarkEventView.as_view(), name='remove_bookmark_event'),
     path('org_announce_list/', OrgAnnouncementsList.as_view(), name='org_announce_list'),
     path('create_text_post/', CreateTextPost.as_view(), name='create_text_post'),
+    path('student_view_announcements/', StudentViewAnnouncements.as_view(), name='student_view_announcements'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

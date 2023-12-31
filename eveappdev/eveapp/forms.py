@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account, Event, Profile, TextPost
+from .models import Account, Event, Profile, TextPost, Follow
 from django.apps import apps
 from multiupload.fields import MultiFileField
 
@@ -85,6 +85,13 @@ class OrganizerFilterForm(forms.Form):
         ('ongoing', 'Ongoing Events'),
         ('finished', 'Finished Events'),
     ], required=False)
+
+
+class TextPostFilterForm(forms.Form):
+    organizer = forms.ModelChoiceField(
+                    queryset=Organization.objects.filter(account__account_status='A'),
+                    empty_label="Select Organizer",
+                    required=False)
 
 
 class ProfileForm(forms.ModelForm):

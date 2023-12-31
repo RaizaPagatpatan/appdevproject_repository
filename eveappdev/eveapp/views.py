@@ -298,7 +298,7 @@ class OrgAnnouncementsList(View):
         else:
             return redirect('login')
 
-    def post(self, request):
+    def post(self, request): #for future delete/edit feature
         if 'user_id' in request.session and 'username' in request.session:
             user_type = request.session.get('type', None)
 
@@ -347,6 +347,47 @@ class CreateTextPost(View):
                 return redirect('student_home')
         else:
             return redirect('login')
+
+
+class StudentViewAnnouncements(View):
+    template = "student_view_announcements.html"
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            s_user = request.session['user_id']
+            username = request.session['username']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                student = Student.objects.get(pk=s_user)
+                followed_orgs = Follow.objects.filter(follower=student).values_list('organization', flat=True)
+                custom_tp = TextPost.objects.filter(organization__in=followed_orgs)
+
+                # filter
+                form = TextPostFilterForm(request.GET)
+
+                if form.is_valid():
+                    organizer_id = form.cleaned_data.get('organizer')
+
+                    if organizer_id:
+                        custom_tp = custom_tp.filter(organization=organizer_id)
+
+                for ct in custom_tp:
+                    try:
+                        profile = Profile.objects.get(organization=ct.organization)
+                        ct.profile_pic = profile.profile_pic
+                    except Profile.DoesNotExist:
+                        # Handle the case where there is no profile for the organization
+                        ct.profile_pic = None
+
+
+
+
+                return render(request, self.template,{'username':username,'text_posts':custom_tp,'form':form})
+            else:
+                return redirect('org_home')
+        else:
+            redirect('login')
 
 
 class ShowStudentHome(View):
