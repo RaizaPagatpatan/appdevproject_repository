@@ -364,11 +364,13 @@ class ShowStudentHome(View):
                 followed_orgs = Follow.objects.filter(follower=student).values_list('organization', flat=True)
                 custom_events = Event.objects.filter(organizer__in=followed_orgs)
 
-                # student = get_object_or_404(Student, pk=request.session['user_id'])
-                # following_organizations = Follow.objects.filter(student=student).values_list('organization', flat=True)
-                # events = Event.objects.filter(organizer__in=following_organizations)
-                # return render(request, 'student_events.html', {'events': events})
-
+                for ce in custom_events:
+                    try:
+                        profile = Profile.objects.get(organization=ce.organizer)
+                        ce.profile_pic = profile.profile_pic
+                    except Profile.DoesNotExist:
+                        # Handle the case where there is no profile for the organization
+                        ce.profile_pic = None
 
 
                 bookmarks = Bookmark.objects.filter(student_user=s_user)

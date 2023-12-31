@@ -35,20 +35,40 @@
                     {% if custom_events %}
                         {% for ce in custom_events %}
                             <div class="event">
-                                <p class="title">
-                                    <a href="#" onclick="openViewEventLightbox('{{ ce.eventID }}')" class="ce-link">
-                                        {{ ce.eventName }}
-                                    </a>
-                                </p>
-                                <p>Organizer: {{ ce.organizer }}</p>
-                                <p>Start: {{ ce.start }}</p>
-                                <p>End: {{ ce.end }}</p>
-                                <p>Location: {{ ce.location }}</p>
-                                <p>Details: {{ ce.details }}</p>
+                                <div class="event-header">
+                                    <div class="pfp">
+                                        <img src="{{ ce.profile_pic.url }}" alt="{{ ce.organizer }} Profile Pic">
+                                    </div>
+                                    <div class="info">
+                                        <a href="{% url 'org_profile' org_id=ce.organizer.user_id %}"><p><strong>{{ ce.organizer }}</strong></p></a>
+                                    </div>
+                                </div>
+
+                                <div class="content">
+                                    <div class="pubmat">
+                                        {% if ce.images %}
+                                            <img src="{{ ce.images.url }}" alt="{{ ce.organizer }} pubmat">
+                                        {% else %}
+                                            <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="content-txt">
+                                        <p class="title">
+                                            <a href="#" onclick="openViewEventLightbox('{{ ce.eventID }}')" class="ce-link">
+                                                {{ ce.eventName }}
+                                            </a>
+                                        </p>
+                                        <p>Start: {{ ce.start }}</p>
+                                        <p>End: {{ ce.end }}</p>
+                                        <p>Location: {{ ce.location }}</p>
+                                        <p>Details: {{ ce.details }}</p>
+                                    </div>
+                                </div>
                             </div>
                             {% endfor %}
                     {% else %}
-                        <div>
+                        <div class="placeholder">
                             <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
                         </div>
                     {% endif%}
