@@ -25,7 +25,7 @@
                 {% for notification in notifications %}
                     <div class="notifs {% if notification.is_read %}read{% else %}unread{% endif %}"
                          data-notification-id="{{ notification.id }}"
-                         onclick="markNotificationAsRead({{ notification.id }}, this)">
+                         onclick="markNotificationAsReadAndNavigate({{ notification.id }}, '{{ notification.event_n.eventID }}', '{{ notification.post.id }}', this)">
                         <div class="msg-contain">
                             <p>{{ notification.message }}</p>
                             <p id="time" class="{% if notification.is_read %}read{% else %}unread{% endif %}">
@@ -49,6 +49,17 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
+        function markNotificationAsReadAndNavigate(notificationId, eventN, post, element) {
+            markNotificationAsRead(notificationId, element);
+
+            // Determine the type and navigate to the corresponding URL
+            if (eventN !== null && eventN !== '') {
+                window.location.href = '/n_event_detail/' + eventN + '/';
+            } else if (post !== null && post !== '') {
+                window.location.href = '/post_detail/' + post + '/';
+            }
+        }
+
         function markNotificationAsRead(notificationId, element) {
             // Get the CSRF token from the cookie
             const csrftoken = getCookie('csrftoken');
@@ -61,11 +72,6 @@
                 success: function (data) {
                     // Update CSS and remove click event
                     $(element).removeClass('unread').addClass('read').off('click');
-
-                    // Redirect to the associated post
-                    if (data.post_id) {
-                        window.location.href = '/post_detail/' + data.post_id + '/';
-                    }
                 },
                 error: function (error) {
                     console.error('Error marking notification as read:', error);

@@ -95,6 +95,7 @@ class StudentNotification(models.Model):
     message = models.CharField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+    event_n = models.ForeignKey('Event', on_delete=models.CASCADE, null=True, blank=True)
     post = models.ForeignKey('TextPost', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:

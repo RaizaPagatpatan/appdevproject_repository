@@ -1,0 +1,70 @@
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    margin-bottom: 5vh;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+.event-contain {
+    margin: 1em 30% 1em 30%;
+    padding:1em;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 80vh; /* Set a maximum height for the container */
+}
+
+.inner-con{
+    background-color:#FFE3E3;
+    border-radius:20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column; /* Set flex direction to column */
+    align-items: left;
+    padding: 1em;
+}
+
+.event-contain-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f1acac;
+    padding: 20px;
+    text-align: center;
+}
+
+.inner-con img {
+    max-width: 50%;
+    max-height: 50%;
+    border: 2px solid white; /* waito border */
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.event-contain button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: right;
+    background-color: #880b0b; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 120px;
+    transition: background-color 0.5s ease;
+}
+.event-contain button:hover {
+    background-color: #d34f57; /* Darker maroon on hover */
+}

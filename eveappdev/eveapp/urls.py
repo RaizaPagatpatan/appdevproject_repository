@@ -32,6 +32,7 @@ urlpatterns = [
     path('unfollow_org_listview/<int:org_id>/', UnfollowOrgListView.as_view(), name='unfollow_org_listview'),
     path('student_notifications/', StudentNotifView.as_view(), name='student_notifications'),
     path('post_detail/<int:textpost_id>/', PostDetailView.as_view(), name='post_detail'),
+    path('n_event_detail/<int:event_id>/', NEventDetailView.as_view(), name='n_event_detail'),
     path('org_notifications/', OrgNotifView.as_view(), name='org_notifications'),
     path('mark_all_as_read/', MarkAllAsRead.as_view(), name='mark_all_as_read'),
     path('mark_one_notif_as_read/<int:notification_id>/', MarkOneAsRead.as_view(), name='mark_one_notif_as_read'),

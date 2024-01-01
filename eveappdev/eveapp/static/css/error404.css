@@ -1,0 +1,29 @@
+body{
+    background-color: #FFD6D6;
+    margin:0;
+    margin-bottom: 5vh;
+    padding: 0px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: monospace;
+    /*height: 50vh; /* Adjust the height as needed */
+}
+
+h1{
+    color: #7F0707;
+    padding-left:1em;
+}
+
+.content{
+    margin: 0 auto;
+    padding: 4% 2em 2em 2em;
+}
+
+.content img {
+    width: 25em;  /* Set the maximum width to the container width */
+    height: auto;     /* Maintain the aspect ratio */
+    display: block;   /* Remove extra space under the image */
+    margin: 0 auto;
+}

@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.db import IntegrityError
 from django.db.models.functions import datetime
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.apps import apps #student
 from django.views import View
@@ -19,6 +19,9 @@ Student = apps.get_model('CreateAccount','Student') #student
 Admin = apps.get_model('CreateAccount','Admin')
 Organization = apps.get_model('CreateAccount','Organization')
 
+
+# def custom_404(request, exception):
+#     return render(request, 'student_404.html', status=404)
 
 class Home(View):
     template_name = 'home.html'
@@ -700,7 +703,7 @@ class RemoveBookmarkEventView(View):
         else:
             return redirect('login')
 
-# path('post_detail/<int:textpost_id>/', PostDetailView.as_view(), name='post_detail'),
+
 class PostDetailView(View):
     template = 'post_detail.html'
 
@@ -726,6 +729,35 @@ class PostDetailView(View):
         else:
             return redirect('login')
 
+
+class NEventDetailView(View):
+    template = "student_view_event_detail.html"
+
+    def get(self, request, event_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            username = request.session['username']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                try:
+                    event = get_object_or_404(Event, eventID=event_id)
+                except Http404:
+                    # Handle the 404 error here (e.g., redirect to a custom error page)
+                    return render(request, 'student_404.html', {'username': username})
+
+                try:
+                    profile = Profile.objects.get(organization=event.organizer)
+                    event.profile_pic = profile.profile_pic
+                except Profile.DoesNotExist:
+                    # Handle the case where there is no profile for the organization
+                    event.profile_pic = None
+
+                return render(request, self.template, {'event': event, 'username': username})
+            else:
+                return redirect('org_home')
+
+        else:
+            return redirect('login')
 
 
 class MarkOneAsRead(View):
@@ -820,18 +852,42 @@ class OrgNotifView(View):
 
 class AddEvent(View):
     def post(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_type = request.session.get('type', None)
 
-        form = EventForm(request.POST, request.FILES)
-        error_messages = "You are not Verified!"
-        if form.is_valid():
-            form.save()
-            return redirect('org_event_list')
+            form = EventForm(request.POST, request.FILES)
+
+            if user_type == "O":
+                error_messages = "You are not Verified!"
+                if form.is_valid():
+                    event = form.save()
+
+                    # Notify followers of the organization
+                    self.notify_followers(event.organizer, event)
+
+                    return redirect('org_event_list')
+                else:
+                    error_messages = form.errors.values()
+                    for message in error_messages:
+                        messages.error(request, message)
+
+                    return redirect('add_event')
+            else:
+                return redirect('student_home')
+
         else:
-            error_messages = form.errors.values()
-            for message in error_messages:
-                messages.error(request, message)
+            return redirect('login')
 
-            return redirect('add_event')
+    def notify_followers(self, organization, event):
+        followers = organization.followers.all()
+
+        for follower in followers:
+            notification = StudentNotification(
+                student_user=follower.follower,
+                message=f"The organization {organization.organization_name} has made a new post: {event.eventName}: {event.details[:8]}....",
+                event_n=event,  # Associate the post with the notification
+            )
+            notification.save()
 
     def get(self, request):
         form = EventForm(initial={'organizer': request.session['user_id']})

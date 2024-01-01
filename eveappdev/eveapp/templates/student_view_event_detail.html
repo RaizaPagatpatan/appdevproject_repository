@@ -1,0 +1,53 @@
+{% extends "navbar_student.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/studentvieweventdetail.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <div class="event-contain">
+        {% if event %}
+            <div class="inner-con">
+                {% if event.images %}
+                    <img src="{{ event.images.url }}" alt="{{ event.eventName }}">
+                {% else %}
+                    <!-- Placeholder image sa empty -->
+                    <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                {% endif %}
+
+                <p>{{ event.eventName }}</p>
+                <p>Organizer: {{ event.organizer }}</p>
+                <p>Start: {{ event.start }}</p>
+                <p>End: {{ event.end }}</p>
+                <p>Location: {{ event.location }}</p>
+                <p>Details: {{ event.details }}</p>
+
+                <div>
+                    {%  if request.session.user_id|has_bookmarked:event.eventID %}
+                        <form method="post" action="{% url 'remove_bookmark_event' event_id=event.eventID %}">
+                            {% csrf_token %}
+                            <button type="submit">Remove from bookmarks</button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{% url 'bookmark_event' event_id=event.eventID %}">
+                            {% csrf_token %}
+                            <button type="submit">Add to bookmarks</button>
+                        </form>
+                    {% endif %}
+
+                    <button>RSVP</button>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+</body>
+</html>
