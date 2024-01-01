@@ -34,6 +34,29 @@
                                 <p id="o-name">{{ tp.org_name }}</p>
                                 <p id="date">{{ tp.created_at }}</p>
                             </div>
+
+                            <div class="options-container">
+                              <div class="options-button" onclick="toggleOptions()">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                              </div>
+
+                              <div class="options-menu">
+                                <div class="option">
+                                    <button><a href="{% url 'edit_text_post' textpost_id=tp.id %}" class="edit-button">Edit Post</a></button>
+                                </div>
+                                  <hr>
+                                <div class="option">
+                                    <form method="post" action="{% url 'org_announce_list' %}" onsubmit="return confirmDelete()">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="delete_textpost_id" value="{{ tp.id }}">
+                                        <button type="submit" class="delete-button">Delete Post</button>
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
+
                         </div>
 
                         <div class="textpost">
@@ -47,9 +70,46 @@
                     </div>
                  {% endif %}
              </div>
-
         </div>
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        let currentOptionsMenu = null;
+
+        function toggleOptions() {
+            const optionsMenu = event.currentTarget.nextElementSibling;
+
+            // Close the previously open options menu
+            if (currentOptionsMenu && currentOptionsMenu !== optionsMenu) {
+                currentOptionsMenu.classList.remove('show');
+            }
+
+            // Toggle the options menu of the clicked post
+            optionsMenu.classList.toggle('show');
+            currentOptionsMenu = optionsMenu;
+        }
+
+        // Close the menu if the user clicks outside of it
+        document.addEventListener('click', function (event) {
+            const optionsContainer = document.querySelector('.options-container');
+            const optionsMenus = document.querySelectorAll('.options-menu');
+
+            if (!optionsContainer.contains(event.target)) {
+                // Loop through all options menus and close them if they are not contained in the clicked element's parent hierarchy
+                optionsMenus.forEach(function (optionsMenu) {
+                    if (!optionsMenu.closest('.org_list').contains(event.target)) {
+                        optionsMenu.classList.remove('show');
+                    }
+                });
+            }
+        });
+
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this post?");
+        }
+    </script>
 {% endblock %}
 </body>
 </html>

@@ -274,44 +274,86 @@ class OrgAnnouncementsList(View):
             username = request.session['username']
             user_type = request.session.get('type', None)
 
-            text_posts = TextPost.objects.filter(organization=user)
-
-            # Iterate over org_lists and add profile_pic to each organization
-            for tp in text_posts:
-                try:
-                    # Try to get the profile associated with the organization
-                    profile = Profile.objects.get(organization=user)
-                    org = Organization.objects.get(organization_name=username)
-
-                    # Assign the profile_pic to the org_lists object
-                    tp.org_name = org.organization_name
-                    tp.profile_pic = profile.profile_pic
-
-                except Profile.DoesNotExist:
-                    # Handle the case where there is no profile for the organization
-                    tp.profile_pic = None
-
             if user_type == "O":
+                text_posts = TextPost.objects.filter(organization=user)
+
+                # Iterate over org_lists and add profile_pic to each organization
+                for tp in text_posts:
+                    try:
+                        # Try to get the profile associated with the organization
+                        profile = Profile.objects.get(organization=user)
+                        org = Organization.objects.get(organization_name=username)
+
+                        # Assign the profile_pic to the org_lists object
+                        tp.org_name = org.organization_name
+                        tp.profile_pic = profile.profile_pic
+
+                    except Profile.DoesNotExist:
+                        # Handle the case where there is no profile for the organization
+                        tp.profile_pic = None
+
                 return render(request, self.template, {'text_posts': text_posts})
             else:
                 return redirect('student_home')
         else:
             return redirect('login')
 
-    def post(self, request): #for future delete/edit feature
+    def post(self, request):
         if 'user_id' in request.session and 'username' in request.session:
             user_type = request.session.get('type', None)
 
-            # if user_type == "O":
-            #     if 'delete_textpost_id' in request.POST:
-            #         textpost_id = request.POST['delete_textpost_id']
-            #         textpost = get_object_or_404(TextPost, pk=textpost_id, organization=request.session['user_id'])
-            #         textpost.delete_texpost()
+            if user_type == "O":
+                if 'delete_textpost_id' in request.POST:
+                    textpost_id = request.POST['delete_textpost_id']
+                    textpost = get_object_or_404(TextPost, pk=textpost_id, organization=request.session['user_id'])
+                    textpost.delete_textpost()
 
                 # redirect after delete
-            return redirect('org_announce_list')
-            # else:
-            #     return redirect('student_home')
+                return redirect('org_announce_list')
+            else:
+                return redirect('student_home')
+        else:
+            return redirect('login')
+
+
+class EditTextPost(View):
+    template = 'edit_announcement.html'
+
+    def get(self, request, textpost_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            o_user = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            if user_type == "O":
+                textpost = get_object_or_404(TextPost, pk=textpost_id, organization=o_user)
+                form = TextPostForm(instance=textpost)
+                return render(request, self.template, {'form': form, 'textpost': textpost})
+            else:
+                return redirect('student_home')
+
+        else:
+            return redirect('login')
+
+    def post(self, request, textpost_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            o_user = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            if user_type == "O":
+                textpost = get_object_or_404(TextPost, pk=textpost_id, organization=o_user)
+                form = TextPostForm(request.POST, instance=textpost)
+
+                if form.is_valid():
+                    form.save()
+                    return redirect('org_announce_list')
+                else:
+                    error_messages = form.errors.values()
+                    for message in error_messages:
+                        messages.error(request, message)
+
+                    return redirect('edit_text_post', textpost_id=textpost_id)
+            else:
+                return redirect('student_home')
         else:
             return redirect('login')
 

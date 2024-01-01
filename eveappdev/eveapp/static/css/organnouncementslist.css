@@ -70,7 +70,7 @@ body{
     max-height: 65vh; /* Set a maximum height for the container */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three columns, each occupying 1 space worth */
-    gap: 1.2em;
+    gap: 1em;
 }
 
 .org_list{
@@ -80,7 +80,11 @@ body{
     display: flex;
     flex-direction: column; /* Set flex direction to column */
     align-items: left;
+    min-height: 9em;
     padding: 1em;
+    word-wrap: break-word; /* Break long words to prevent stretching */
+    overflow: hidden;     /* Hide any content that exceeds the dimensions of the container */
+    max-width: 100%;      /* Set the maximum width to 100% of the container */
 }
 
 .pfp {
@@ -123,6 +127,91 @@ body{
     background-color: #d34f57;
 }
 
+.options-container {
+    position: relative;
+    right: -10.5em;
+    top: .5em;
+}
+
+.options-button {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: .5em 1.1em .5em 1.1em; /* Adjust the padding to increase the click area */
+    border-radius: 50%; /* Make it circular */
+    transition: background-color 0.3s ease; /* Add a smooth transition for the background color change */
+    margin-left: -1em;
+}
+
+.options-button:hover {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    background-color: #F4CCCC;
+}
+
+.dot {
+    width: 4px;
+    height: 4px;
+    background-color: #333;
+    margin: 1.5px 0;
+    border-radius: 50%;
+}
+
+.options-menu {
+    display: none;
+    position: absolute;
+    top: 65%;
+    left: -9.5em;
+    width: 8em;
+    text-align:center;
+    padding:1em 1em .5em 1em;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: #59181E;
+    background-color:#FFE3E3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.option {
+    margin-bottom:.5em;
+    cursor: pointer;
+}
+
+hr{
+   border: .001em solid #59181E;
+}
+
+.option button{
+    color: #59181E;
+    font-size: 1em;
+    background-color: #FFE3E3;
+    border: none;
+    cursor: pointer;
+}
+
+.option button:hover{
+    color: #89343C;
+    font-size: 1.05em;
+}
+
+.option a{
+    text-decoration: none;
+    color: #59181E;
+}
+
+.option a:hover{
+    color: #89343C;
+    font-size: 1.05em;
+}
+
+.options-menu.show {
+    display: block;
+}
 
 /* scrollbar css customized*/
 

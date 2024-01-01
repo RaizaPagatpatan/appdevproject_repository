@@ -127,4 +127,7 @@ class TextPost(models.Model):
     def __str__(self):
         return f'Text Post by {self.organization.username} at {self.created_at}'
 
+    def delete_textpost(self):
+        self.delete()
+
 

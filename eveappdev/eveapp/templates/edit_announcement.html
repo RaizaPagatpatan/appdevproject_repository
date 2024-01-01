@@ -1,0 +1,55 @@
+{% extends "navbar_org.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        Events
+    {% endblock %}
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/create_text_post.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <div class="container">
+        <h1>Edit announcement</h1>
+        <p id="chara-limit">Character limit: 500</p>
+        <form method="POST" enctype="multipart/form-data" class="formgrid">
+            {% csrf_token %}
+             <div class="section" id="first">
+                {{ form.organization }}
+                {{ form.content }}
+                 <span id="wordCountMessage"></span>
+            </div>
+            <div class="section" id="half">
+                <button type="submit">Post</button>
+            </div>
+                {{ form.errors }}
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var contentInput = document.getElementById("id_content"); // Assuming 'content' is the ID of your textarea
+
+        contentInput.addEventListener("input", function () {
+            var maxLength = parseInt(contentInput.getAttribute("maxlength"));
+            var currentLength = contentInput.value.length;
+
+            var wordCountMessage = document.getElementById("wordCountMessage");
+            if (currentLength >= maxLength) {
+                wordCountMessage.innerHTML = "You have reached the maximum character limit";
+            } else {
+                wordCountMessage.innerHTML = "";
+            }
+        });
+    });
+    </script>
+{% endblock %}
+</body>
+</html>
