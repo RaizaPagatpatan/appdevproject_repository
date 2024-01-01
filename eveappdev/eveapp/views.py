@@ -383,12 +383,27 @@ class CreateTextPost(View):
 
             if user_type == "O":
                 if form.is_valid():
-                    form.save()
+                    text_post = form.save()
+
+                    # Notify followers of the organization
+                    self.notify_followers(text_post.organization, text_post)
+
                     return redirect('org_announce_list')
             else:
                 return redirect('student_home')
         else:
             return redirect('login')
+
+    def notify_followers(self, organization, text_post):
+        followers = organization.followers.all()
+
+        for follower in followers:
+            notification = StudentNotification(
+                student_user=follower.follower,
+                message=f"The organization {organization.organization_name} has made a new post: {text_post.content[:8]}....",
+                post=text_post,  # Associate the post with the notification
+            )
+            notification.save()
 
 
 class StudentViewAnnouncements(View):
@@ -421,9 +436,6 @@ class StudentViewAnnouncements(View):
                     except Profile.DoesNotExist:
                         # Handle the case where there is no profile for the organization
                         ct.profile_pic = None
-
-
-
 
                 return render(request, self.template,{'username':username,'text_posts':custom_tp,'form':form})
             else:
@@ -688,6 +700,34 @@ class RemoveBookmarkEventView(View):
         else:
             return redirect('login')
 
+# path('post_detail/<int:textpost_id>/', PostDetailView.as_view(), name='post_detail'),
+class PostDetailView(View):
+    template = 'post_detail.html'
+
+    def get(self, request, textpost_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            username = request.session['username']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                text_post = get_object_or_404(TextPost, id=textpost_id)
+
+                try:
+                    profile = Profile.objects.get(organization=text_post.organization)
+                    text_post.profile_pic = profile.profile_pic
+                except Profile.DoesNotExist:
+                    # Handle the case where there is no profile for the organization
+                    text_post.profile_pic = None
+
+                return render(request, self.template, {'text_post': text_post, 'username': username})
+            else:
+                return redirect('org_home')
+
+        else:
+            return redirect('login')
+
+
+
 class MarkOneAsRead(View):
 
     def post(self, request, notification_id):
@@ -697,15 +737,26 @@ class MarkOneAsRead(View):
             user_type = request.session.get('type', None)
 
             if user_type == "O":
-                notification = OrgNotification.objects.get(pk=notification_id)
-                notification.is_read = True
-                notification.save()
-            elif user_type == "S":
-                notification = StudentNotification.objects.get(pk=notification_id)
+                notification = get_object_or_404(OrgNotification, id=notification_id)
                 notification.is_read = True
                 notification.save()
 
-            return JsonResponse({'status': 'success'})
+                return JsonResponse({'status': 'success'})
+            elif user_type == "S":
+                notification = get_object_or_404(StudentNotification, id=notification_id)
+                notification.is_read = True
+                notification.save()
+
+                # Redirect to the associated post
+                # if notification.post:
+                #     return redirect('post_detail', textpost_id=notification.post.id)
+                # else:
+                #     # Handle the case where the post is not available
+                #     return HttpResponse("Post not found.")
+                # Return the post ID in the JSON response
+                return JsonResponse(
+                    {'status': 'success', 'post_id': notification.post.id if notification.post else None})
+
         else:
             return redirect('login')
 

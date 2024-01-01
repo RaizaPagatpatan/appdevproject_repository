@@ -38,9 +38,9 @@
                         Notifications
                         {% if 'user_id' in request.session and 'username' in request.session %}
                             {% with user_id=request.session.user_id %}
-                                {% with notification_count=user_id|get_unread_notification_count %}
+                                {% with notification_count=user_id|student_get_unread_notification_count %}
                                     {% if notification_count %}
-                                        <span class="notification-badge">{{ notification_count }}</span>
+                                        <span class="student-notification-badge">{{ notification_count }}</span>
                                     {% endif %}
                                 {% endwith %}
                             {% endwith %}

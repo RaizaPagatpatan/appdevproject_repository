@@ -119,7 +119,7 @@ body{
     max-height: 57vh; /* Set a maximum height for the container */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three columns, each occupying 1 space worth */
-    gap: 1.2em;
+    gap: 1em;
 }
 
 .org_list{
@@ -129,7 +129,11 @@ body{
     display: flex;
     flex-direction: column; /* Set flex direction to column */
     align-items: left;
+    min-height: 9em;
     padding: 1em;
+    word-wrap: break-word; /* Break long words to prevent stretching */
+    overflow: hidden;     /* Hide any content that exceeds the dimensions of the container */
+    max-width: 100%;      /* Set the maximum width to 100% of the container */
 }
 
 .pfp {

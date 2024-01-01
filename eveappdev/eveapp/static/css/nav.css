@@ -77,12 +77,24 @@ nav a:hover {
 
 .notification-badge {
     position: absolute;
-    font-size:.3em;
     top: -12px;  /* Adjust the vertical position as needed */
     left: 100px;  /* Adjust the horizontal position as needed */
     background-color: red;  /* Adjust the background color as needed */
     color: #fff;  /* Adjust the text color as needed */
     font-size: 12px;  /* Adjust the font size as needed */
+    border-radius: 50%;
+    padding: .3em .4em;
+    min-height: 1em;
+    min-width: 1.1em;
+}
+
+.student-notification-badge {
+    position: absolute;
+    font-size:12px;
+    top: 15.5%;  /* Adjust the vertical position as needed */
+    left: 68.5%;  /* Adjust the horizontal position as needed */
+    background-color: red;  /* Adjust the background color as needed */
+    color: #fff;  /* Adjust the text color as needed */
     border-radius: 50%;
     padding: .3em .4em;
     min-height: 1em;

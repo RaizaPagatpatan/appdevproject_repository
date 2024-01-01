@@ -1,0 +1,46 @@
+{% extends "navbar_student.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/post_detail.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <div class="post-container">
+         {% if text_post %}
+            <div class="org_list">
+                <div class="post-header">
+                    {% if text_post.profile_pic %}
+                        <div class="pfp">
+                            <img src="{{ text_post.profile_pic.url }}" alt="{{ text_post.organization.orgName }} Profile Pic">
+                        </div>
+                    {% else %}
+                        <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+                    {% endif %}
+
+                    <div class="info">
+                        <p id="o-name">{{ text_post.organization.organization_name }}</p>
+                        <p id="date">{{ text_post.created_at }}</p>
+                    </div>
+                </div>
+
+                <div class="textpost">
+                    <p id="tp-content">{{ text_post.content }}</p>
+                </div>
+            </div>
+         {% else %}
+            <div>
+                <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+            </div>
+         {% endif %}
+     </div>
+
+{% endblock %}
+</body>
+</html>

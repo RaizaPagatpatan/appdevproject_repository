@@ -62,8 +62,10 @@
                     // Update CSS and remove click event
                     $(element).removeClass('unread').addClass('read').off('click');
 
-                    // Refresh the page
-                    location.reload();
+                    // Redirect to the associated post
+                    if (data.post_id) {
+                        window.location.href = '/post_detail/' + data.post_id + '/';
+                    }
                 },
                 error: function (error) {
                     console.error('Error marking notification as read:', error);

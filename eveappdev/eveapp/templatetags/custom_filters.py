@@ -1,5 +1,5 @@
 from django import template
-from eveapp.models import Follow, OrgNotification, Bookmark
+from eveapp.models import Follow, OrgNotification, Bookmark, StudentNotification
 
 register = template.Library()
 
@@ -11,6 +11,17 @@ def is_following(user, organization):
 @register.filter
 def get_unread_notification_count(user_id):
     ctr = OrgNotification.objects.filter(org_user=user_id, is_read=False).count()
+    if ctr > 20:
+        count = "20+"
+    elif ctr > 0:
+        count = str(ctr)
+    else:
+        count = ""
+    return count
+
+@register.filter
+def student_get_unread_notification_count(user_id):
+    ctr = StudentNotification.objects.filter(student_user=user_id, is_read=False).count()
     if ctr > 20:
         count = "20+"
     elif ctr > 0:
