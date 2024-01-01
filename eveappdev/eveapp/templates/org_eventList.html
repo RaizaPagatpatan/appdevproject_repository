@@ -44,7 +44,7 @@
 
                             <td class="action-buttons">
                                 <a href="{% url 'edit_event' event_id=event.eventID %}" class="edit-button"><button>Edit</button></a>
-                                <form method="post" action="{% url 'org_event_list' %}">
+                                <form method="post" action="{% url 'org_event_list' %}" onsubmit="return confirmDelete()">
                                     {% csrf_token %}
                                     <input type="hidden" name="delete_event_id" value="{{ event.eventID }}">
                                     <button type="submit" class="delete-button">Delete</button>
@@ -60,6 +60,14 @@
             </table>
         </div>
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this post?");
+        }
+    </script>
 {% endblock %}
 </body>
 </html>
