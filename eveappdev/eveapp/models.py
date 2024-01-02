@@ -35,6 +35,8 @@ class Event(models.Model):
     end = models.DateTimeField(verbose_name="End Date and Time")
     location = models.CharField(max_length=100, verbose_name="Location")
     images = models.ImageField(upload_to='event_images/', null=True, blank=True, verbose_name="Event Images")
+    rsvp_yes = models.ManyToManyField(Student, related_name='event_rsvp_yes', blank=True)
+    rsvp_no = models.ManyToManyField(Student, related_name='event_rsvp_no', blank=True)
 
     def __str__(self):
         return self.eventName

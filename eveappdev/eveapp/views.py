@@ -704,6 +704,102 @@ class RemoveBookmarkEventView(View):
             return redirect('login')
 
 
+class RSVPView(View):
+
+    def post(self, request, event_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            s_user = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                event = get_object_or_404(Event, pk=event_id)
+
+                # Retrieve data from the AJAX request
+                rsvp_option_name = request.POST.get('rsvpOptionName', '')
+                rsvp_option_value = request.POST.get('rsvpOptionValue', '')
+
+                if rsvp_option_name == 'rsvpOption' and rsvp_option_value in ['yes', 'no']:
+                    if rsvp_option_value == 'yes':
+                        if not event.rsvp_yes.filter(user_id=s_user).exists():
+                            event.rsvp_yes.add(s_user)
+                        if event.rsvp_no.filter(user_id=s_user).exists():
+                            event.rsvp_no.remove(s_user)
+                    elif rsvp_option_value == 'no':
+                        if not event.rsvp_no.filter(user_id=s_user).exists():
+                            event.rsvp_no.add(s_user)
+                        if event.rsvp_yes.filter(user_id=s_user).exists():
+                            event.rsvp_yes.remove(s_user)
+
+
+
+
+                # response = request.POST.get('rsvpOption')
+                #
+                # if response == 'yes':
+                #     if not event.rsvp_yes.filter(user_id=s_user).exists():
+                #         event.rsvp_yes.add(s_user)
+                #     if event.rsvp_no.filter(user_id=s_user).exists():
+                #         event.rsvp_no.remove(s_user)
+                # elif response == 'no':
+                #     if not event.rsvp_no.filter(user_id=s_user).exists():
+                #         event.rsvp_no.add(s_user)
+                #     if event.rsvp_yes.filter(user_id=s_user).exists():
+                        event.rsvp_yes.remove(s_user)
+
+                # Redirect to the previous page or a default URL if the referrer is not available
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
+            else:
+                return redirect('org_home')
+        else:
+            return redirect('login')
+
+
+class RSVPYes(View):
+
+    def post(self, request, event_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            s_user = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                event = get_object_or_404(Event, pk=event_id)
+
+                if not event.rsvp_yes.filter(user_id=s_user).exists():
+                    event.rsvp_yes.add(s_user)
+                if event.rsvp_no.filter(user_id=s_user).exists():
+                    event.rsvp_no.remove(s_user)
+
+                return JsonResponse({'message': 'RSVP successful'})
+                # return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
+            else:
+                return redirect('org_home')
+        else:
+            return redirect('login')
+
+
+class RSVPNo(View):
+
+    def post(self, request, event_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            s_user = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                event = get_object_or_404(Event, pk=event_id)
+
+                if not event.rsvp_no.filter(user_id=s_user).exists():
+                    event.rsvp_no.add(s_user)
+                if event.rsvp_yes.filter(user_id=s_user).exists():
+                    event.rsvp_yes.remove(s_user)
+
+                return JsonResponse({'message': 'RSVP successful'})
+                # return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
+            else:
+                return redirect('org_home')
+        else:
+            return redirect('login')
+
+
 class PostDetailView(View):
     template = 'post_detail.html'
 
@@ -884,7 +980,7 @@ class AddEvent(View):
         for follower in followers:
             notification = StudentNotification(
                 student_user=follower.follower,
-                message=f"The organization {organization.organization_name} has made a new post: {event.eventName}: {event.details[:8]}....",
+                message=f"The organization {organization.organization_name} has a new event! {event.eventName}: {event.details[:8]}....",
                 event_n=event,  # Associate the post with the notification
             )
             notification.save()

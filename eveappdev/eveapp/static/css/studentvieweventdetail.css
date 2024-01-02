@@ -68,3 +68,111 @@ body{
 .event-contain button:hover {
     background-color: #d34f57; /* Darker maroon on hover */
 }
+
+
+/* RSVP Buttons */
+
+.yesclass_txt button{
+    background-color: #12ED7A; /* green-ish*/
+    color: #116311; /* darker green*/
+}
+
+.yesclass_txt button:hover {
+    background-color: #63F3A8; /* green-ish*/
+    color: #147714; /* darker green*/
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.noclass_txt button{
+    background-color:  #FF0047; /* pinkish */
+    color: #470014;
+}
+
+.noclass_txt button:hover {
+    background-color:#FF1A5A;
+    color: #64001C;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+     font-weight: bold;
+}
+
+.yesclass button{
+    background-color: #12ED7A; /* green-ish*/
+    color: #116311; /* darker green*/
+
+}
+
+.yesclass button:hover {
+    background-color: #63F3A8; /* green-ish*/
+    color: #147714; /* darker green*/
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.noclass button{
+    background-color: #FF0047; /* pinkish */
+    color: #470014;
+}
+
+.noclass button:hover {
+    background-color:#FF1A5A;
+    color: #64001C;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+     font-weight: bold;
+}
+
+.non button{
+    background-color: white;
+    color: black;
+}
+
+.non button:hover{
+    background-color: #E7E4E8;
+    color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+/*********************/
+.options-container {
+    width: 30%;
+    max-width: 30%;
+}
+
+.dot {
+    width: 4px;
+    height: 4px;
+    background-color: #333;
+    margin: 1.5px 0;
+    border-radius: 50%;
+}
+
+.options-menu {
+    display: none;
+    position: absolute;
+    left: 21.5em;
+    top: 75%;
+    right: 10em;
+    width: 8em;
+    text-align:center;
+    padding:1em 1em .5em 1em;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: #59181E;
+    background-color:#FFE3E3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.option {
+    margin-bottom:.5em;
+    cursor: pointer;
+}
+
+hr{
+   border: .001em solid #59181E;
+}
+
+.options-menu.show {
+    display: block;
+}
