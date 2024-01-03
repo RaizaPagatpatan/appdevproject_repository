@@ -470,9 +470,26 @@ class ShowStudentHome(View):
                         # Handle the case where there is no profile for the organization
                         ce.profile_pic = None
 
+                custom_tp = TextPost.objects.filter(organization__in=followed_orgs)
 
-                bookmarks = Bookmark.objects.filter(student_user=s_user)
-                return render(request, self.template_name, {'username': username, 'bookmarks': bookmarks, 'custom_events': custom_events, 'events': events})
+                for ct in custom_tp:
+                    try:
+                        profile = Profile.objects.get(organization=ct.organization)
+                        ct.profile_pic = profile.profile_pic
+                    except Profile.DoesNotExist:
+                        # Handle the case where there is no profile for the organization
+                        ct.profile_pic = None
+
+                bookmarks = Bookmark.objects.filter(student_user=s_user)[:10]
+
+                context = {
+                    'username': username,
+                    'bookmarks': bookmarks,
+                    'custom_events': custom_events,
+                    'events': events,
+                    'text_posts': custom_tp,
+                }
+                return render(request, self.template_name, context)
             else:
                 return redirect('org_home')
         else:

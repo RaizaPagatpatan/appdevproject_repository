@@ -20,7 +20,7 @@ body{
 
 
 #a-title{
-    margin-bottom: 1.2em;
+    margin-bottom: .9em;
 }
 
 #e-title{
@@ -29,7 +29,7 @@ body{
 }
 
 #b-title{
-    margin-bottom: 1.2em;
+    margin-bottom: .9em;
 }
 
 .test{
@@ -193,11 +193,52 @@ a:hover {
 }
 
 .ongoing{
+    padding-top: .5em;
     overflow-y: auto; /* Enable vertical scrolling */
-    max-height: 70vh; /* Set a maximum height for the container */
+    max-height: 65vh; /* Set a maximum height for the container */
     border-radius: 15px;
 }
 
+/********************/
+.announce{
+    padding-top: .5em;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 65vh; /* Set a maximum height for the container */
+    border-radius: 15px;
+}
+
+.announce-header{
+    height: 6em;
+    border-bottom: 2px solid #880B0B;
+}
+
+.announce-deets{
+    color: white;
+    background-color: #880B0B;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    height: 15em;
+    padding: 0.5em 1em 1em 1em;
+    margin: 0em .8em .4em .8em;
+
+
+}
+
+.announce-deets p{
+    overflow-wrap: break-word;
+    overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
+    max-width: 100%;      /* Adjust as needed to limit the width of the text */
+}
+
+.tp-txt{
+    text-align:left;
+    height:3em;
+    overflow-wrap: break-word;
+    overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
+    max-width: 100%;      /* Adjust as needed to limit the width of the text */
+}
+
+/***********************/
 .eve-name{
     font-weight: bold;
     font-size: 1.1em;
@@ -217,7 +258,7 @@ a:hover {
     border: 1px solid #880B0B;
 }
 
-/* ONGOING: scrollbar css customized*/
+/* START--ONGOING: scrollbar css customized*/
 
 /* WebKit (Chrome, Safari) */
 .ongoing::-webkit-scrollbar {
@@ -260,7 +301,98 @@ a:hover {
     background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
     border-radius: 6px; /* Set the border radius of the thumb */
 }
+/* END--0NGOING: scrollbar css customized*/
 
+/* START--ANNOUNCE: scrollbar css customized*/
+
+/* WebKit (Chrome, Safari) */
+.announce::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+.announce::-webkit-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* Firefox */
+.announce {
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+}
+
+.announce::-moz-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* scrollbar css customized*/
+
+/* WebKit (Chrome, Safari) */
+.announce::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+.announce::-webkit-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* Firefox */
+.announce {
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+}
+
+.announce::-moz-scrollbar-thumb {
+    background-color: #FFD6D6; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+/* END--ANNOUNCE: scrollbar css customized*/
+
+
+/* START--EVENT-CON: scrollbar css customized*/
+
+/* WebKit (Chrome, Safari) */
+.event-con::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+.event-con::-webkit-scrollbar-thumb {
+    background-color: #880B0B; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* Firefox */
+.event-con {
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+}
+
+.event-con::-moz-scrollbar-thumb {
+    background-color: #880B0B; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* scrollbar css customized*/
+
+/* WebKit (Chrome, Safari) */
+.event-con::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+}
+
+.event-con::-webkit-scrollbar-thumb {
+    background-color: #880B0B; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+
+/* Firefox */
+.event-con {
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+}
+
+.event-con::-moz-scrollbar-thumb {
+    background-color: #880B0B;; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the thumb */
+}
+/* END--EVENT-CON: scrollbar css customized*/
 
 /* LIGHTBOX */
 
@@ -378,6 +510,12 @@ a:hover {
     color: black;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     font-weight: bold;
+}
+
+.deets{
+    word-wrap: break-word; /* This allows long words to break and wrap onto the next line */
+    overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
+    max-width: 100%;      /* Adjust as needed to limit the width of the text */
 }
 
 /*********************/

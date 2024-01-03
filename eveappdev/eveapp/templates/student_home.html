@@ -19,13 +19,26 @@
     <main>
         <div class="contain-all">
             <section class="textpost-contain">
-                <h2 id="a-title">Announcements</h2>
+                <div class="announce-header">
+                    <h2 id="a-title">Recent Announcements</h2>
+                    <p><a href="{% url 'student_view_announcements' %}">View All Announcements</a></p>
+                </div>
                 <div class="announce">
-                    <p>WIP</p>
-
-                    <div>
-                        <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
-                    </div>
+                    {% if text_posts %}
+                        {% for tp in text_posts %}
+                            <div class="announce-deets">
+                                <p>{{ tp.organization }}</p>
+                                <p>{{ tp.created_at }}</p><hr>
+                                <div class="tp-txt">
+                                    {{ tp.content }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <p> <img class="emptyImg" src="{% static 'images/empty.png' %}" alt="Empty" width="25%"> </p>
+                        </div>
+                    {% endif%}
                 </div>
             </section>
 
@@ -41,7 +54,9 @@
                                             <img src="{{ ce.profile_pic.url }}" alt="{{ ce.organizer }} Profile Pic">
                                         </div>
                                     {% else %}
-                                        <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                                        <div class="pfp">
+                                            <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                                        </div>
                                     {% endif %}
                                     <div class="info">
                                         <a href="{% url 'org_profile' org_id=ce.organizer.user_id %}"><p><strong>{{ ce.organizer }}</strong></p></a>
@@ -80,7 +95,10 @@
             </section>
 
             <section class="bookmark-contain">
-                <h2 id="b-title">Bookmarked Events</h2>
+                <div class="announce-header">
+                    <h2 id="b-title">Bookmarked Events</h2>
+                    <p><a href="#">View All Bookmarks</a></p>
+                </div>
                 <div class="ongoing">
                     {% if bookmarks %}
                         {% for bookmark in bookmarks %}

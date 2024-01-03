@@ -56,6 +56,7 @@ class RSVP(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        ordering = ['-timestamp']
         unique_together = ('student', 'event')  # Ensures a student can only RSVP once to an event
 
 
@@ -90,6 +91,7 @@ class Follow(models.Model):
     class Meta:
         unique_together = ('follower', 'organization')
         db_table = "Follow"
+        ordering = ['-timestamp']
 
 
 class OrgNotification(models.Model):
@@ -127,6 +129,7 @@ class Bookmark(models.Model):
 
     class Meta:
         db_table = "bookmarks"
+        ordering = ['event__start']
 
     def __str__(self):
         return f'{self.student_user.username} bookmarked {self.event.title}'
