@@ -36,9 +36,13 @@
                         {% for ce in custom_events %}
                             <div class="event">
                                 <div class="event-header">
-                                    <div class="pfp">
-                                        <img src="{{ ce.profile_pic.url }}" alt="{{ ce.organizer }} Profile Pic">
-                                    </div>
+                                    {% if ce.profile_pic %}
+                                        <div class="pfp">
+                                            <img src="{{ ce.profile_pic.url }}" alt="{{ ce.organizer }} Profile Pic">
+                                        </div>
+                                    {% else %}
+                                        <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                                    {% endif %}
                                     <div class="info">
                                         <a href="{% url 'org_profile' org_id=ce.organizer.user_id %}"><p><strong>{{ ce.organizer }}</strong></p></a>
                                     </div>
@@ -138,16 +142,20 @@
 
                         <div class="options-container">
                         <div class="options-button
-                                {% if event.rsvp_yes.exists %} yesclass_txt
-                                {% elif event.rsvp_no.exists %} noclass_txt
-                                {% else %} non_txt {% endif %}"
+                                {% if request.session.user_id|has_rsvped_going:event %}
+                                    yesclass_txt
+                                {% elif request.session.user_id|has_rsvped_not_going:event %}
+                                    noclass_txt
+                                {% else %}
+                                    non_txt
+                                {% endif %}"
                                 onclick="toggleOptions()">
                             <button id="rsvpButtonText">
-                                {% if event.rsvp_yes.exists %}
+                                {% if request.session.user_id|has_rsvped_going:event %}
                                     Going
-                                {% elif event.rsvp_no.exists %}
+                                {% elif request.session.user_id|has_rsvped_not_going:event %}
                                     Not Going
-                                {% else%}
+                                {% else %}
                                     RSVP
                                 {% endif %}
                             </button>
@@ -155,8 +163,11 @@
 
                             <div class="options-menu">
                                 <div class="option
-                                    {% if event.rsvp_yes.exists %} yesclass
-                                    {% else %} non {% endif %}"
+                                    {% if request.session.user_id|has_rsvped_going:event %}
+                                        yesclass
+                                    {% else %}
+                                        non
+                                    {% endif %}"
                                     onclick="RSVPyes({{ event.eventID }}, this)">
                                     <button id="gobtn">Going</button>
                                 </div>
@@ -164,8 +175,11 @@
                                 <hr>
 
                                 <div class="option
-                                    {% if event.rsvp_no.exists %} noclass
-                                    {% else %} non {% endif %}"
+                                    {% if request.session.user_id|has_rsvped_not_going:event %}
+                                        noclass
+                                    {% else %}
+                                        non
+                                    {% endif %}"
                                     onclick="RSVPno({{ event.eventID }}, this)">
                                     <button>Not Going</button>
                                 </div>
