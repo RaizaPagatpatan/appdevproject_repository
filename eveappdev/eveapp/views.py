@@ -990,6 +990,33 @@ class AddEvent(View):
         return render(request, 'add_event.html', {'form': form})
 
 
+class OrgViewRSVPCount(View):
+    template = 'org_view_rsvps.html'
+
+    def get(self, request, event_id):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_type = request.session.get('type', None)
+
+            if user_type == 'O':
+                event = get_object_or_404(Event, pk=event_id)
+
+                # Get RSVP counts
+                going_count = event.rsvp_yes.count()
+                not_going_count = event.rsvp_no.count()
+
+                context = {
+                    'event': event,
+                    'going_count': going_count,
+                    'not_going_count': not_going_count,
+                }
+
+                return render(request, self.template, context)
+            else:
+                return redirect('student_home')
+        else:
+            return redirect('login')
+
+
 class EditEvent(View):
     template_name = 'edit_event.html'
 

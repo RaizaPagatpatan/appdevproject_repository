@@ -44,6 +44,7 @@ urlpatterns = [
     path('student_view_announcements/', StudentViewAnnouncements.as_view(), name='student_view_announcements'),
     path('rsvp_yes/<int:event_id>/',  RSVPYes.as_view(), name='rsvp_yes'),
     path('rsvp_no/<int:event_id>/', RSVPNo.as_view(), name='rsvp_no'),
+    path('org_view_rsvps/<int:event_id>/', OrgViewRSVPCount.as_view(), name='org_view_rsvps'),
 
 ]
 
