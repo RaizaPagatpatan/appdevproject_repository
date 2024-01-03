@@ -7,16 +7,49 @@
     <title>Title</title>
 
     {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/addevent.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/org_view_rsvps.css' %}">
     {% endblock %}
 </head>
 <body>
 {% block content %}
-    <div>
-        <p>RSVP Counts:</p>
-        <p>Going: {{ going_count }}</p>
-        <p>Not Going: {{ not_going_count }}</p>
-    </div>
+    <main class="main-con">
+        <h1>Your Event</h1>
+        <div class="event-con">
+            {% if event %}
+                <div class="event">
+                    <div class="event-header">
+                        <div class="info">
+                            <a href="{% url 'org_profile' org_id=event.organizer.user_id %}"><p><strong>{{ event.organizer }}</strong></p></a>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div class="pubmat">
+                            {% if event.images %}
+                                <img src="{{ event.images.url }}" alt="{{ event.organizer }} pubmat">
+                            {% else %}
+                                <img src="{% static 'images/empty.png' %}" alt="Placeholder">
+                            {% endif %}
+                        </div>
+
+                        <div class="content-txt">
+                            <p class="title">{{ event.eventName }}</p>
+                            <p>Start: {{ event.start }}</p>
+                            <p>End: {{ event.end }}</p>
+                            <p>Location: {{ event.location }}</p>
+                            <p>Details: {{ event.details }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+            <p>RSVP Counts:</p>
+            <p>Going: {{ going_count }}</p>
+            <p>Not Going: {{ not_going_count }}</p>
+        </div>
+    </main>
 {% endblock %}
 </body>
 </html>
