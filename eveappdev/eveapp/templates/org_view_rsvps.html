@@ -1,0 +1,22 @@
+{% extends "navbar_org.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/addevent.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <div>
+        <p>RSVP Counts:</p>
+        <p>Going: {{ going_count }}</p>
+        <p>Not Going: {{ not_going_count }}</p>
+    </div>
+{% endblock %}
+</body>
+</html>
