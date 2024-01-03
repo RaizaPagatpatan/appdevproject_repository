@@ -45,6 +45,8 @@ urlpatterns = [
     path('rsvp_yes/<int:event_id>/',  RSVPYes.as_view(), name='rsvp_yes'),
     path('rsvp_no/<int:event_id>/', RSVPNo.as_view(), name='rsvp_no'),
     path('org_view_rsvps/<int:event_id>/', OrgViewRSVPCount.as_view(), name='org_view_rsvps'),
+    path('org_dashboard/', OrgDashboardView.as_view(), name='org_dashboard'),
+    path('org_dashboard_followers/', OrgDashboardFollowersView.as_view(), name='org_dashboard_followers'),
 
 ]
 

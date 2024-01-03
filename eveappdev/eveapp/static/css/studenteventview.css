@@ -66,7 +66,7 @@ body{
    /* margin-left: 50px;*/
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Two columns */
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
     gap: 10px;
 }
 .ongoing .event{

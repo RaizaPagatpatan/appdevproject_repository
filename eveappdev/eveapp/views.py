@@ -990,6 +990,71 @@ class AddEvent(View):
         return render(request, 'add_event.html', {'form': form})
 
 
+class OrgDashboardView(View):
+    template = 'org_dashboard.html'
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            user_type = request.session.get('type', None)
+
+            if user_type == 'O':
+                data = self.get_last_28_days_data(request)
+
+                context = {
+                    'bookmarks_count': data['bookmarks_count'],
+                    'rsvps_count': data['rsvps_count'],
+                    'follows_count': data['follows_count'],
+                }
+
+                return render(request, self.template, context)
+            else:
+                return redirect('student_home')
+        else:
+            return redirect('login')
+
+    def get_last_28_days_data(self, request):
+        # Calculate the date 28 days ago from today
+        end_date = timezone.now()
+        start_date = end_date - timezone.timedelta(days=28)
+
+        o_user = request.session['user_id']
+
+        events_made = Event.objects.filter(organizer=o_user)
+
+        # Count bookmarks in the last 28 days
+        bookmarks_count = Bookmark.objects.filter(event__in=events_made, created_at__range=[start_date, end_date]).count()
+
+        # Count RSVPs in the last 28 days
+        rsvps_count = RSVP.objects.filter(event__in=events_made, timestamp__range=[start_date, end_date]).count()
+
+        # Count follows in the last 28 days
+        follows_count = Follow.objects.filter(organization=o_user, timestamp__range=[start_date, end_date]).count()
+
+        return {
+            'bookmarks_count': bookmarks_count,
+            'rsvps_count': rsvps_count,
+            'follows_count': follows_count,
+        }
+
+
+class OrgDashboardFollowersView(View):
+    template = 'org_dashboard_followers.html'
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            o_user = request.session['user_id']
+            user_type = request.session.get('type', None)
+
+            if user_type == 'O':
+                followers_count = Follow.objects.filter(organization=o_user).count()
+
+                return render(request, self.template, {'followers_count': followers_count})
+            else:
+                return redirect('student_home')
+        else:
+            return redirect('login')
+
+
 class OrgViewRSVPCount(View):
     template = 'org_view_rsvps.html'
 

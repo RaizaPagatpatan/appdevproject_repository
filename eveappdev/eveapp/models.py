@@ -35,7 +35,8 @@ class Event(models.Model):
     end = models.DateTimeField(verbose_name="End Date and Time")
     location = models.CharField(max_length=100, verbose_name="Location")
     images = models.ImageField(upload_to='event_images/', null=True, blank=True, verbose_name="Event Images")
-    rsvp_yes = models.ManyToManyField(Student, related_name='event_rsvp_yes', blank=True)
+
+    rsvp_yes = models.ManyToManyField(Student, through='RSVP', related_name='event_rsvp_yes', blank=True)
     rsvp_no = models.ManyToManyField(Student, related_name='event_rsvp_no', blank=True)
 
     def __str__(self):
@@ -46,6 +47,16 @@ class Event(models.Model):
 
     class Meta:
         db_table = "Event"
+
+
+class RSVP(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('student', 'event')  # Ensures a student can only RSVP once to an event
 
 
 class Profile(models.Model):
@@ -73,6 +84,8 @@ post_save.connect(create_profile, sender=Organization)
 class Follow(models.Model):
     follower = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='following')
     organization = models.ForeignKey('CreateAccount.Organization', on_delete=models.CASCADE, related_name='followers')
+
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ('follower', 'organization')

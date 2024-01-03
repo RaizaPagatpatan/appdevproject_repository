@@ -1,0 +1,42 @@
+{% extends "navbar_org.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/org_dashboard.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <main>
+        <div class="sidebar">
+            <h2>DASHBOARD</h2>
+            <ul>
+                <li><a href="{% url 'org_dashboard' %}">Overview</a></li>
+                <li><a href="{% url 'org_dashboard_followers' %}">Followers</a></li>
+            </ul>
+        </div>
+
+        <div class="content-class">
+            <class class="header">
+                <h3>Followers</h3>
+            </class>
+
+            <div class="gen-data">
+                <ul>
+                    <li id="t-follow">
+                        <p>Total Followers</p>
+                        <p class="val">{{ followers_count }}</p>
+                    </li><hr>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+</body>
+</html>
