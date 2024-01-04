@@ -9,6 +9,8 @@ body{
     font-family: monospace;
 }
 
+
+
 .ban1{
     background-image: url('/static/images/servic_ban1.png'); /* Set the path to your background image */
     background-size: cover; /* Cover the entire container */
@@ -45,17 +47,31 @@ h3{
     padding: 2%;
     color: #59181E;
     background-color:#FFCFCF;
-    height: 350px;
+    /* height: 350px; */
     align-items: center;
+}
+
+.services-content {
+    height: 300px;
+}
+@media screen and (max-width: 50rem) {
+    .services-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
 }
 
 .forstudents{
     padding: 2%;
+    /* height: 350px; */
     color: #FFCFCF;
     background-color:#59181E;
-    height: 350px;
     align-items: center;
 }
+
 
 .create{
     height:30%;
@@ -78,3 +94,4 @@ h3{
 .desc{
     font-size:20px;
 }
+
