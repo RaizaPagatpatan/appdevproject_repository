@@ -5,8 +5,9 @@ header.navbar {
     /*background-color: #000000;*/
     padding: 0px;
     padding-bottom: 0px;
-
+    position: relative;
 }
+
 
 
 .box-ul-nav {
@@ -39,6 +40,7 @@ header.navbar {
 
 nav {
     margin-top: 0px;
+
 }
 
 nav ul {
@@ -53,12 +55,15 @@ nav li {
     margin: 0 10px;
     padding-left: 25px;
     padding-right: 25px;
+    
+   
 }
 
 nav a {
     text-decoration: none;
     color: #59181E;
     font-size: 14px;
+  
 }
 
 nav a:hover {
@@ -105,3 +110,28 @@ nav a:hover {
 
 
 
+@media screen and (max-width: 50rem) {
+    .box-ul-nav {
+        position: absolute;
+        width: 80%;
+        height: 100vh;
+        z-index: 100;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav a {
+        font-size: 1.5rem;
+    }
+
+    nav li {
+        margin-top: 0.8rem;
+    }
+
+    .logo {
+        width: 4rem
+    }
+}

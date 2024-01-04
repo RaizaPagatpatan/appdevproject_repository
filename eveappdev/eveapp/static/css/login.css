@@ -46,3 +46,23 @@ button {
 button:hover {
     background-color: #FF6B78; /* Darker green color on hover, change as needed */
 }
+
+@media screen and (max-width: 50rem) {
+    .login-form p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-form p input {
+        width: 80%;
+        margin-top: 0.5rem;
+    }
+
+    button {
+        width: auto;
+    }
+}
+
+    
