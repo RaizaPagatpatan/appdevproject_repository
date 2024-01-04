@@ -8,7 +8,9 @@ header.navbar {
     position: relative;
 }
 
-
+.navbar .ic-menu {
+    display: none;
+}
 
 .box-ul-nav {
     width: auto;
@@ -115,7 +117,13 @@ nav a:hover {
         position: absolute;
         width: 80%;
         height: 100vh;
+        left: 0;
         z-index: 100;
+        transition: .5s;
+    }
+
+    .box-ul-nav.active{
+        left: -100%;
     }
 
     nav ul {
@@ -134,4 +142,15 @@ nav a:hover {
     .logo {
         width: 4rem
     }
+
+    .navbar .ic-menu {
+        display: block;
+        position: absolute;
+        height: 70%;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 1rem;
+        cursor: pointer;
+    }
 }
+
