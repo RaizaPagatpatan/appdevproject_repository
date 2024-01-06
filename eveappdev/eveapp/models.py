@@ -99,6 +99,8 @@ class OrgNotification(models.Model):
     message = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+    followed = models.ForeignKey('Follow', on_delete=models.CASCADE, null=True, blank=True)
+    rsvped = models.ForeignKey('RSVP', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         ordering = ['-timestamp']

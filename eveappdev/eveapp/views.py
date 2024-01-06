@@ -607,17 +607,21 @@ class FollowOrganizationView(View):
 
             # Check if the user is not already following the organization
             if not curr_student.following.filter(organization=organization).exists():
-                Follow.objects.create(follower=curr_student, organization=organization)
+                follow = Follow.objects.create(follower=curr_student, organization=organization)
 
-                # Create a notification for the organization
-                OrgNotification.objects.create(
-                    org_user=organization,  #org_user field from the OrgNotification model
-                    message=f'{curr_student.username} started following your organization.',
-                )
+                self.notify_org(organization, curr_student, follow)
 
             return redirect('org_profile', org_id=org_id)
         else:
             return redirect('login')
+
+    def notify_org(self, organization, curr_student, follow):
+            notification = OrgNotification(
+                org_user=organization,
+                message=f'{curr_student.username} started following your organization.',
+                followed=follow,
+            )
+            notification.save()
 
 class UnfollowOrganizationView(View):
     def post(self, request, org_id):
@@ -637,7 +641,6 @@ class UnfollowOrganizationView(View):
             return redirect('login')
 
 
-
 class FollowOrgListView(View):
     def post(self, request, org_id):
         organization = Organization.objects.get(pk=org_id)
@@ -650,17 +653,22 @@ class FollowOrgListView(View):
 
             # Check if the user is not already following the organization
             if not curr_student.following.filter(organization=organization).exists():
-                Follow.objects.create(follower=curr_student, organization=organization)
+                follow = Follow.objects.create(follower=curr_student, organization=organization)
 
-                # Create a notification for the organization
-                OrgNotification.objects.create(
-                    org_user=organization,  # org_user field from the OrgNotification model
-                    message=f'{curr_student.username} started following your organization.',
-                )
+                self.notify_org(organization, curr_student, follow)
 
             return redirect('org_list')
         else:
             return redirect('login')
+
+    def notify_org(self, organization, curr_student, follow):
+            notification = OrgNotification(
+                org_user=organization,
+                message=f'{curr_student.username} started following your organization.',
+                followed=follow,
+            )
+            notification.save()
+
 
 class UnfollowOrgListView(View):
     def post(self, request, org_id):
