@@ -51,7 +51,7 @@ class Event(models.Model):
 
 class RSVP(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='rsvped_events')
 
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -109,6 +109,7 @@ class OrgNotification(models.Model):
     def __str__(self):
         return f'{self.org_user.username}: {self.message}'
 
+
 class StudentNotification(models.Model):
     student_user = models.ForeignKey(Student, on_delete=models.CASCADE)
     message = models.CharField(max_length=500)
@@ -123,6 +124,7 @@ class StudentNotification(models.Model):
 
     def __str__(self):
         return f'{self.student_user.username}: {self.message}'
+
 
 class Bookmark(models.Model):
     student_user = models.ForeignKey(Student, on_delete=models.CASCADE)

@@ -4,6 +4,7 @@ from django.db.models.functions import datetime
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.apps import apps #student
+from django.urls import reverse
 from django.views import View
 from django.contrib.auth import logout
 from .forms import *
@@ -727,56 +728,56 @@ class RemoveBookmarkEventView(View):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
         else:
             return redirect('login')
-
-
-class RSVPView(View):
-
-    def post(self, request, event_id):
-        if 'user_id' in request.session and 'username' in request.session:
-            s_user = request.session['user_id']
-            user_type = request.session.get('type', None)
-
-            if user_type == "S":
-                event = get_object_or_404(Event, pk=event_id)
-
-                # Retrieve data from the AJAX request
-                rsvp_option_name = request.POST.get('rsvpOptionName', '')
-                rsvp_option_value = request.POST.get('rsvpOptionValue', '')
-
-                if rsvp_option_name == 'rsvpOption' and rsvp_option_value in ['yes', 'no']:
-                    if rsvp_option_value == 'yes':
-                        if not event.rsvp_yes.filter(user_id=s_user).exists():
-                            event.rsvp_yes.add(s_user)
-                        if event.rsvp_no.filter(user_id=s_user).exists():
-                            event.rsvp_no.remove(s_user)
-                    elif rsvp_option_value == 'no':
-                        if not event.rsvp_no.filter(user_id=s_user).exists():
-                            event.rsvp_no.add(s_user)
-                        if event.rsvp_yes.filter(user_id=s_user).exists():
-                            event.rsvp_yes.remove(s_user)
-
-
-
-
-                # response = request.POST.get('rsvpOption')
-                #
-                # if response == 'yes':
-                #     if not event.rsvp_yes.filter(user_id=s_user).exists():
-                #         event.rsvp_yes.add(s_user)
-                #     if event.rsvp_no.filter(user_id=s_user).exists():
-                #         event.rsvp_no.remove(s_user)
-                # elif response == 'no':
-                #     if not event.rsvp_no.filter(user_id=s_user).exists():
-                #         event.rsvp_no.add(s_user)
-                #     if event.rsvp_yes.filter(user_id=s_user).exists():
-                        event.rsvp_yes.remove(s_user)
-
-                # Redirect to the previous page or a default URL if the referrer is not available
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
-            else:
-                return redirect('org_home')
-        else:
-            return redirect('login')
+#
+# NOT USED ANYWHERE (This class can be removed)
+# class RSVPView(View):
+#
+#     def post(self, request, event_id):
+#         if 'user_id' in request.session and 'username' in request.session:
+#             s_user = request.session['user_id']
+#             user_type = request.session.get('type', None)
+#
+#             if user_type == "S":
+#                 event = get_object_or_404(Event, pk=event_id)
+#
+#                 # Retrieve data from the AJAX request
+#                 rsvp_option_name = request.POST.get('rsvpOptionName', '')
+#                 rsvp_option_value = request.POST.get('rsvpOptionValue', '')
+#
+#                 if rsvp_option_name == 'rsvpOption' and rsvp_option_value in ['yes', 'no']:
+#                     if rsvp_option_value == 'yes':
+#                         if not event.rsvp_yes.filter(user_id=s_user).exists():
+#                             event.rsvp_yes.add(s_user)
+#                         if event.rsvp_no.filter(user_id=s_user).exists():
+#                             event.rsvp_no.remove(s_user)
+#                     elif rsvp_option_value == 'no':
+#                         if not event.rsvp_no.filter(user_id=s_user).exists():
+#                             event.rsvp_no.add(s_user)
+#                         if event.rsvp_yes.filter(user_id=s_user).exists():
+#                             event.rsvp_yes.remove(s_user)
+#
+#
+#
+#
+#                 # response = request.POST.get('rsvpOption')
+#                 #
+#                 # if response == 'yes':
+#                 #     if not event.rsvp_yes.filter(user_id=s_user).exists():
+#                 #         event.rsvp_yes.add(s_user)
+#                 #     if event.rsvp_no.filter(user_id=s_user).exists():
+#                 #         event.rsvp_no.remove(s_user)
+#                 # elif response == 'no':
+#                 #     if not event.rsvp_no.filter(user_id=s_user).exists():
+#                 #         event.rsvp_no.add(s_user)
+#                 #     if event.rsvp_yes.filter(user_id=s_user).exists():
+#                         event.rsvp_yes.remove(s_user)
+#
+#                 # Redirect to the previous page or a default URL if the referrer is not available
+#                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'student_event_view'))
+#             else:
+#                 return redirect('org_home')
+#         else:
+#             return redirect('login')
 
 
 class RSVPYes(View):
@@ -874,6 +875,128 @@ class NEventDetailView(View):
                     event.profile_pic = None
 
                 return render(request, self.template, {'event': event, 'username': username})
+            else:
+                return redirect('org_home')
+
+        else:
+            return redirect('login')
+
+
+class StudentBookmarksView(View):
+    template = 'student_bookmark_view.html'
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            s_user = request.session['user_id']
+            username = request.session['username']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                student = Student.objects.get(pk=s_user)
+                events = Event.objects.filter(event_bookmarks__student_user=student) #bookmarked events
+
+                form = OrganizerFilterForm(request.GET)  # Bind the form to the request data
+
+                if form.is_valid():
+                    organizer_id = form.cleaned_data.get('organizer')
+                    event_name = form.cleaned_data.get('eventName')  # Corrected to match the form field name
+                    date_filter = form.cleaned_data.get('date_filter')
+
+                    if organizer_id:
+                        events = events.filter(organizer_id=organizer_id)
+
+                    if event_name:
+                        events = events.filter(
+                            eventName__icontains=event_name)  # Corrected to match the model field name
+
+                    if date_filter == 'this_month':
+                        start_date = date.today().replace(day=1)
+                        end_date = (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+                        events = events.filter(start__range=[start_date, end_date])
+
+                    if date_filter == 'next_month':
+                        start_date = date.today().replace(day=1) + timedelta(days=32)
+                        end_date = (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+                        events = events.filter(start__range=[start_date, end_date])
+
+                    elif date_filter == 'this_week':
+                        today = date.today()
+                        start_date = today - timedelta(days=today.weekday())
+                        end_date = start_date + timedelta(days=6)
+                        events = events.filter(start__range=[start_date, end_date])
+
+                    elif date_filter == 'today':
+                        today = date.today()
+                        events = events.filter(start__date=today)
+
+                    elif date_filter == 'ongoing':
+                        events = events.filter(start__lte=date.today(), end__gte=date.today())
+
+                    elif date_filter == 'finished':
+                        events = events.filter(end__lt=date.today())
+
+                return render(request, self.template, {'events': events, 'username': username, 'form': form})
+            else:
+                return redirect('org_home')
+
+        else:
+            return redirect('login')
+
+
+class StudentRSVPSView(View):
+    template = 'student_rsvps_view.html'
+
+    def get(self, request):
+        if 'user_id' in request.session and 'username' in request.session:
+            s_user = request.session['user_id']
+            username = request.session['username']
+            user_type = request.session.get('type', None)
+
+            if user_type == "S":
+                student = Student.objects.get(pk=s_user)
+                events = Event.objects.filter(rsvped_events__student=student) #RSVP'd events
+
+                form = OrganizerFilterForm(request.GET)  # Bind the form to the request data
+
+                if form.is_valid():
+                    organizer_id = form.cleaned_data.get('organizer')
+                    event_name = form.cleaned_data.get('eventName')  # Corrected to match the form field name
+                    date_filter = form.cleaned_data.get('date_filter')
+
+                    if organizer_id:
+                        events = events.filter(organizer_id=organizer_id)
+
+                    if event_name:
+                        events = events.filter(
+                            eventName__icontains=event_name)  # Corrected to match the model field name
+
+                    if date_filter == 'this_month':
+                        start_date = date.today().replace(day=1)
+                        end_date = (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+                        events = events.filter(start__range=[start_date, end_date])
+
+                    if date_filter == 'next_month':
+                        start_date = date.today().replace(day=1) + timedelta(days=32)
+                        end_date = (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+                        events = events.filter(start__range=[start_date, end_date])
+
+                    elif date_filter == 'this_week':
+                        today = date.today()
+                        start_date = today - timedelta(days=today.weekday())
+                        end_date = start_date + timedelta(days=6)
+                        events = events.filter(start__range=[start_date, end_date])
+
+                    elif date_filter == 'today':
+                        today = date.today()
+                        events = events.filter(start__date=today)
+
+                    elif date_filter == 'ongoing':
+                        events = events.filter(start__lte=date.today(), end__gte=date.today())
+
+                    elif date_filter == 'finished':
+                        events = events.filter(end__lt=date.today())
+
+                return render(request, self.template, {'events': events, 'username': username, 'form': form})
             else:
                 return redirect('org_home')
 

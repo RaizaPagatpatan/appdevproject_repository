@@ -6,11 +6,11 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}
-        All Events
+        Bookmarks
     {% endblock %}
 
     {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/studenteventview.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/studenteventview.css' %}">
     {% endblock %}
 
 </head>
@@ -29,7 +29,7 @@
     </div>
 
     <section class="events">
-        <h2>List of All Events</h2>
+        <h2>Your Bookmarked Events</h2>
 
         <div class="ongoing">
             {% for event in events %}

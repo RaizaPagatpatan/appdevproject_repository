@@ -31,6 +31,8 @@
                     <h4 class="welcome">Welcome {{ username }}!</h4>
                 <ul class="navigation">
                     <li><a href="{% url 'student_event_view' %}">Events</a></li>
+                    <li><a href="{% url 'student_view_rsvps' %}">RSVP'd Events</a></li>
+                    <li><a href="{% url 'student_view_bookmarks' %}">Bookmarks</a></li>
                     <li><a href="{% url 'org_list' %}">Organizations</a></li>
                     <li><a href="{% url 'student_view_announcements' %}">Updates from Orgs</a></li>
                     <li><a href="#">News</a></li> <!--I added 'Updates from Orgs in case News is actually a different feature'-->
