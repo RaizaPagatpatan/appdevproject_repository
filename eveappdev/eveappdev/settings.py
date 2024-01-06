@@ -26,22 +26,19 @@ SECRET_KEY = 'django-insecure-#5noqt^(a2r&gn!ss&4g-bo5!2i$%3t8p!j2=)p9prvo*q0*0j
 DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ["*"]
-# vercel_app/settings.py
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
-# vercel_app/settings.py
-WSGI_APPLICATION = 'vercel_app.wsgi.app'
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#
-# CORS_ALLOWED_ORIGINS = [
-#     "http://127.0.0.1:4040 ",
-#     "http://localhost:8000 "
-# ]
-#
-# CSRF_TRUSTED_ORIGINS = [
-#     "http://127.0.0.1:4040",
-#     "http://localhost:8000"
-# ]
+ALLOWED_HOSTS = ["*"]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:4040 ",
+    "http://localhost:8000 "
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:4040",
+    "http://localhost:8000"
+]
 
 # CORS_ALLOWED_ORIGINS = True
 
