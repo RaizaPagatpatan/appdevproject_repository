@@ -462,6 +462,7 @@ class ShowStudentHome(View):
                 student = Student.objects.get(pk=s_user)
                 followed_orgs = Follow.objects.filter(follower=student).values_list('organization', flat=True)
                 custom_events = Event.objects.filter(organizer__in=followed_orgs)
+                now = timezone.now()
 
                 for ce in custom_events:
                     try:
@@ -489,6 +490,7 @@ class ShowStudentHome(View):
                     'custom_events': custom_events,
                     'events': events,
                     'text_posts': custom_tp,
+                    'now': now,
                 }
                 return render(request, self.template_name, context)
             else:
@@ -861,6 +863,7 @@ class NEventDetailView(View):
             user_type = request.session.get('type', None)
 
             if user_type == "S":
+                now = timezone.now()
                 try:
                     event = get_object_or_404(Event, eventID=event_id)
                 except Http404:
@@ -874,7 +877,7 @@ class NEventDetailView(View):
                     # Handle the case where there is no profile for the organization
                     event.profile_pic = None
 
-                return render(request, self.template, {'event': event, 'username': username})
+                return render(request, self.template, {'event': event, 'username': username, 'now': now})
             else:
                 return redirect('org_home')
 
@@ -890,6 +893,7 @@ class StudentBookmarksView(View):
             s_user = request.session['user_id']
             username = request.session['username']
             user_type = request.session.get('type', None)
+            now = timezone.now()
 
             if user_type == "S":
                 student = Student.objects.get(pk=s_user)
@@ -935,7 +939,7 @@ class StudentBookmarksView(View):
                     elif date_filter == 'finished':
                         events = events.filter(end__lt=date.today())
 
-                return render(request, self.template, {'events': events, 'username': username, 'form': form})
+                return render(request, self.template, {'events': events, 'username': username, 'form': form, 'now': now})
             else:
                 return redirect('org_home')
 
@@ -951,6 +955,7 @@ class StudentRSVPSView(View):
             s_user = request.session['user_id']
             username = request.session['username']
             user_type = request.session.get('type', None)
+            now = timezone.now()
 
             if user_type == "S":
                 student = Student.objects.get(pk=s_user)
@@ -996,7 +1001,7 @@ class StudentRSVPSView(View):
                     elif date_filter == 'finished':
                         events = events.filter(end__lt=date.today())
 
-                return render(request, self.template, {'events': events, 'username': username, 'form': form})
+                return render(request, self.template, {'events': events, 'username': username, 'form': form, 'now': now})
             else:
                 return redirect('org_home')
 
@@ -1279,6 +1284,7 @@ class EventStudentView(View):
         username = request.session['username']
         events = Event.objects.all()
         form = OrganizerFilterForm(request.GET)  # Bind the form to the request data
+        now = timezone.now()
 
         if form.is_valid():
             organizer_id = form.cleaned_data.get('organizer')
@@ -1317,4 +1323,4 @@ class EventStudentView(View):
             elif date_filter == 'finished':
                 events = events.filter(end__lt=date.today())
 
-        return render(request, self.template, {'events': events, 'username': username, 'form': form})
+        return render(request, self.template, {'events': events, 'username': username, 'form': form, 'now': now})

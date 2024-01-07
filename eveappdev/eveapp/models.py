@@ -39,6 +39,8 @@ class Event(models.Model):
     rsvp_yes = models.ManyToManyField(Student, through='RSVP', related_name='event_rsvp_yes', blank=True)
     rsvp_no = models.ManyToManyField(Student, related_name='event_rsvp_no', blank=True)
 
+    timestamp = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.eventName
 
@@ -46,6 +48,7 @@ class Event(models.Model):
         self.delete()
 
     class Meta:
+        ordering = ['-timestamp']
         db_table = "Event"
 
 

@@ -47,20 +47,45 @@
                     <div class="options-container">
                         <div class="options-button
                                 {% if request.session.user_id|has_rsvped_going:event %}
-                                    yesclass_txt
+                                    {% if event.end < now %}
+                                        doneclass_txt
+                                    {% else %}
+                                        yesclass_txt
+                                    {% endif %}
                                 {% elif request.session.user_id|has_rsvped_not_going:event %}
-                                    noclass_txt
+                                    {% if event.end < now %}
+                                        doneclass_txt
+                                    {% else %}
+                                        noclass_txt
+                                    {% endif %}
                                 {% else %}
-                                    non_txt
+                                    {% if event.end < now %}
+                                        doneclass_txt
+                                    {% else %}
+                                        non_txt
+                                    {% endif %}
                                 {% endif %}"
                                 onclick="toggleOptions()">
-                            <button id="rsvpButtonText">
+                            <button id="rsvpButtonText" {% if event.end < now %}disabled{% endif %}>
                                 {% if request.session.user_id|has_rsvped_going:event %}
-                                    Going
+                                    {% if event.end < now %}
+                                        Went
+                                    {% else %}
+                                        Going
+                                    {% endif %}
                                 {% elif request.session.user_id|has_rsvped_not_going:event %}
-                                    Not Going
+                                    {% if event.end < now %}
+                                        Did not attend
+                                    {% else %}
+                                        Not Going
+                                    {% endif %}
+
                                 {% else %}
-                                    RSVP
+                                    {% if event.end < now %}
+                                        Event Ended
+                                    {% else %}
+                                        RSVP
+                                    {% endif %}
                                 {% endif %}
                             </button>
                         </div>

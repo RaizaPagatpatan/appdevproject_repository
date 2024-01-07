@@ -116,6 +116,16 @@
     font-weight: bold;
 }
 
+.doneclass_txt button{
+    background-color: #BF9595;
+    color: #59181E;
+}
+
+.doneclass_txt button:hover{
+    background-color: #BF9595;
+    color: #59181E;
+}
+
 .deets{
     word-wrap: break-word; /* This allows long words to break and wrap onto the next line */
     overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
