@@ -97,7 +97,7 @@
                                 {% else %}
                                     non
                                 {% endif %}"
-                                onclick="RSVPyes({{ event.eventID }}, this)">
+                                onclick="RSVPyes({{ event.eventID }},{{ event.organizer.user_id  }} , this)">
                                 <button id="gobtn">Going</button>
                             </div>
 
@@ -169,12 +169,12 @@
             }
         });
 
-        function RSVPyes(eventId, element) {
+        function RSVPyes(eventId, orgID, element) {
             // Get the CSRF token from the cookie
             const csrftoken = getCookie('csrftoken');
 
             $.ajax({
-                url: '/rsvp_yes/' + eventId + '/',
+                url: '/rsvp_yes/' + orgID + '/' + eventId + '/',
                 method: 'POST',
                 headers: { 'X-CSRFToken': csrftoken },
                 success: function (data) {
