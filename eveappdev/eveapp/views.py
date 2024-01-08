@@ -1182,10 +1182,18 @@ class OrgViewRSVPCount(View):
                 going_count = event.rsvp_yes.count()
                 not_going_count = event.rsvp_no.count()
 
+                # Get name of attendees
+                attendees = RSVP.objects.filter(event_id=event_id)
+
+                for attendee in attendees:
+                    attendee.name = f"{attendee.student.last_name}, {attendee.student.first_name}"
+                    attendee.email = attendee.student.email
+
                 context = {
                     'event': event,
                     'going_count': going_count,
                     'not_going_count': not_going_count,
+                    'attendees': attendees,
                 }
 
                 return render(request, self.template, context)
