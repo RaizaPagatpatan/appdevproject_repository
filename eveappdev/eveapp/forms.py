@@ -1,6 +1,9 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from .models import Account, Event, Profile, TextPost, Follow
 from django.apps import apps
+from django.utils import timezone  # Import timezone module
 from multiupload.fields import MultiFileField
 
 Organization = apps.get_model('CreateAccount', 'Organization')
@@ -68,6 +71,17 @@ class EventForm(forms.ModelForm):
     end = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}), label="End Date and Time")
     location = forms.CharField(max_length=100, label="Location")
     images = forms.ImageField(label="Event Image", required=False)
+
+    def clean_start(self):
+        start_date = self.cleaned_data.get('start')
+
+        if start_date:
+            # Ensure start date is not in the past
+            if start_date < timezone.now():
+                raise forms.ValidationError("Start date cannot be in the past.")
+
+        return start_date
+
     class Meta:
         model = Event
         fields = ['eventName', 'organizer', 'details', 'start', 'end', 'location', 'images']
