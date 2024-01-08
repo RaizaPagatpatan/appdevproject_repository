@@ -133,6 +133,16 @@ body{
     font-weight: bold;
 }
 
+.doneclass_txt button{
+    background-color: #BF9595;
+    color: #59181E;
+}
+
+.doneclass_txt button:hover{
+    background-color: #BF9595;
+    color: #59181E;
+}
+
 /*********************/
 .options-container {
     width: 30%;
