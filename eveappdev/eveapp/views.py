@@ -1061,6 +1061,7 @@ class OrgNotifView(View):
 
 class AddEvent(View):
     def post(self, request):
+
         if 'user_id' in request.session and 'username' in request.session:
             user_type = request.session.get('type', None)
 
