@@ -1081,7 +1081,7 @@ class AddEvent(View):
                     for message in error_messages:
                         messages.error(request, message)
 
-                    return redirect('add_event')
+                    return render(request, 'add_event.html', {'form': form, 'error_message': error_messages})
             else:
                 return redirect('student_home')
 
