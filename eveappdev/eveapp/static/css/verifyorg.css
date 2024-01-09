@@ -8,6 +8,7 @@ body{
     align-items: center;
     text-align: center;
     /*height: 50vh; /* Adjust the height as needed */
+    overflow: hidden;
 }
 .container {
     border: 3px solid #880b0b;
@@ -15,7 +16,7 @@ body{
     margin: 3vh auto;
     background-color: #ffbaba;
     padding: 10px;
-    width: 50%;
+    width: 30%;
     min-width: auto;
     text-align: left;
     font-family: monospace;
@@ -25,20 +26,15 @@ body{
     padding-left: 10px;
     padding-right: 10px;
 }
-.formgrid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 5px;
-}
+
 .section {
     font-size: 15px;
     padding: 10px;
 }
-#first {
-    grid-column: 1;
-}
-#half {
-    grid-column: 2;
+p{
+    margin:0px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 textarea, select, input{
     padding: 5px;
@@ -56,10 +52,13 @@ textarea{
     height: 200px  ;
     width: auto;
 }
+.btnCon {
+    text-align: right;
+}
+
 button{
     margin-top: 10px;
     margin-bottom: 10px;
-    float: right;
     background-color: #880b0b; /* Set the button background color */
     color: white; /* Set the button text color */
     padding: 10px 15px; /* Adjust padding as needed */
