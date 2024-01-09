@@ -1,3 +1,26 @@
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.event-con {
+    flex-basis: calc(50% - 0.5em); /* Adjust the width of the first column */
+    overflow-y: auto;
+    max-height: 70vh;
+    border-radius: 15px;
+    margin-right: 0.5em; /* Adjust the gap between columns */
+}
+
+.content-class {
+    flex-basis: calc(50% - 0.5em); /* Adjust the width of the second column */
+    margin: 2em 0 0 0.5em; /* Adjust the margin for separation */
+    padding: 0 2em;
+}
+
+/* The rest of your CSS remains unchanged */
+
+
+
 body{
     background-color: #FFD6D6;
     margin:0;
@@ -73,3 +96,68 @@ body{
 .info{
     font-size:1.1em;
 }
+
+
+/***** CONTENT-CLASS START *****/
+main .content-class{
+    margin: 2em 0 0 2em;
+    padding: 0 2em;
+}
+
+hr{
+    border: .1px solid #880B0B;
+    margin-top: -1em;
+}
+
+.header{
+    display: flex;
+    align-items: left;
+}
+
+.header p{
+    margin: auto;
+    margin-left: 2.1em;
+    margin-top: 2.3em;
+    font-size: 1.2em;
+    color:#965A60;
+}
+
+.content-class h3{
+    font-size:1.9em;
+    margin: 1.2em 0;
+    text-align: left;
+}
+
+.gen-data{
+    width: 70%;
+    margin: auto;
+    border: 4px solid #880B0B;
+    background-color: #FFEBEB;
+    border-radius: 30px;
+    padding: 1em 2em 1.9em 2em;
+    font-weight: bold;
+}
+
+.gen-data ul{
+    margin: 0;
+    padding: 0;
+}
+
+.gen-data li{
+    list-style: none;
+    text-align: left;
+    font-size: 1.3em;
+    margin-bottom: .3em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gen-data li .val{
+    float: right;
+}
+
+#t-follow{
+    font-size: 1.5em;
+}
+
+/***** CONTENT-CLASS END *****/

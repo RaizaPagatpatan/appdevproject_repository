@@ -43,36 +43,44 @@
                 </div>
             {% endif %}
         </div>
+        <!-- end of div event-con-->
+        <div class="content-class">
+            <div class="gen-data">
+                <div class="rsvp-counts">
+                    <ul>
+                    <li><p class="val">RSVP COUNT</p> </li> <hr>
+                    <li> <p class="val">Going: {{ going_count }}</p> </li>
+                    <li> <p class="val">Not Going: {{ not_going_count }}</p> </li>
+                    </ul>
+                </div>
+            </div>
+            <br>
 
-        <div>
-            <p>RSVP Counts:</p>
-            <p>Going: {{ going_count }}</p>
-            <p>Not Going: {{ not_going_count }}</p>
-        </div>
-
-        <div class="attend">
-            <p>Attendees:</p>
-            {% if attendees %}
-                 <table>
-                     <thead>
-                        <tr>
-                            <th>NAME</th>
-                            <th>EMAIL</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-                         {% for attendee in attendees %}
-                         <tr>
-                             <td>{{ attendee.name }}</td>
-                             <td>{{ attendee.email }}</td>
-                         </tr>
-                         {% endfor %}
-                     </tbody>
-                 </table>
-            {% else %}
-                <p>The attendee list is currently empty.</p>
-            {% endif %}
-
+            <div class="gen-data">
+                <div class="attend">
+                    <p class="val">Attendees:</p>
+                    {% if attendees %}
+                         <table>
+                             <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>EMAIL</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 {% for attendee in attendees %}
+                                 <tr>
+                                     <td>{{ attendee.name }}</td>
+                                     <td>{{ attendee.email }}</td>
+                                 </tr>
+                                 {% endfor %}
+                             </tbody>
+                         </table>
+                    {% else %}
+                        <p class="val">The attendee list is currently empty.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </main>
 {% endblock %}
