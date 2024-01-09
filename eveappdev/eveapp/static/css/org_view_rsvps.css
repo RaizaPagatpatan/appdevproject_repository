@@ -368,5 +368,9 @@ hr{
 table{
     width: 100%;
     font-size: 1.1em;
+    border: 2px solid #000000;
 }
 
+th, td{
+    border: 2px solid #000000;
+}
