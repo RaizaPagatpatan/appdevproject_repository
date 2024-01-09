@@ -20,7 +20,9 @@
             <h1>Add Event</h1>
             <form method="POST" enctype="multipart/form-data" class="formgrid">
                 {% csrf_token %}
-                {{ form.errors }}
+                <div class="error">
+                    {{ form.errors }}
+                </div>
                  <div class="section" id="first">
                     Event Name: <br>{{ form.eventName }} <br>
                     Description: <br>{{ form.details }}
@@ -33,7 +35,6 @@
                     Upload PubMat: {{ form.images }}<br>
                     <button type="submit">Create</button>
                 </div>
-                    {{ form.errors }}
             </form>
         </div>
 {% endblock %}
