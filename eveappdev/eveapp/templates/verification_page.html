@@ -18,7 +18,9 @@
             {% csrf_token %}
             {{ form.as_p }}
             {{ form.errors }}
-            <button type="submit">Submit</button>
+            <div class="btnCon">
+                <button type="submit">Submit</button>
+            </div>
         </form>
     </div>
 {% endblock %}
