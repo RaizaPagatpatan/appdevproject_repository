@@ -8,6 +8,7 @@ body{
     text-align: center;
     font-family: monospace;
     color: #59181E;
+    overflow: hidden;
     /*height: 50vh; /* Adjust the height as needed */
 }
 

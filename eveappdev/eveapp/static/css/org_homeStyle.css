@@ -14,123 +14,6 @@ body{
     margin-top: 15vh;
 }
 
-.container {
-    border: 3px solid #880b0b;
-    border-radius: 30px;
-    margin: 3vh auto;
-    background-color: #ffbaba;
-    padding: 10px;
-    width: 50%;
-    min-width: auto;
-    text-align: left;
-    font-family: monospace;
-}
-
-.container h1 {
-    font-size: 24px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.formgrid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 5px;
-}
-
-.section {
-    font-size: 15px;
-    padding: 10px;
-}
-#first {
-    grid-column: 1;
-}
-#half {
-    grid-column: 2;
-}
-
-textarea, select, input{
-    padding: 5px;
-    margin-bottom: 3vh;
-    margin-right: 3vh;
-    box-sizing: border-box;
-    border: 2px solid #880b0b; /* Set the border color and width */
-    border-radius: 8px; /* Add rounded corners */
-    height: 35px;
-    width: 225px;
-    background-color: #fdcdcd;
-}
-
-input[type="checkbox"]{
-    margin: 0px;
-    padding: 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 20px; /* Set the width and height for the checkbox */
-    height: 20px;
-    border: 2px solid #333; /* Border color for the checkbox */
-    background-color: #fff; /* Background color when not checked */
-}
-
-#half a{
-    display: block;
-    width: 300px; /* Adjust the width as needed */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-button{
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-right: 30px;
-    float: right;
-    background-color: #880b0b; /* Set the button background color */
-    color: white; /* Set the button text color */
-    padding: 10px 15px; /* Adjust padding as needed */
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    width: 120px;
-    transition: background-color 0.5s ease;
-}
-button:hover {
-    background-color: #d34f57; /* Darker maroon on hover */
-}
-
-textarea{
-    height: 275px;
-    width: auto;
-}
-
-
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-}
-
-.lightbox-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #f1acac;
-    padding: 20px;
-    text-align: center;
-}
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
 #orglabel{
     font-size: 1.5em;
 }
@@ -163,6 +46,8 @@ button{
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.5s ease;
+    text-align: center;
+    margin-top: 15px; /* Adjust the margin as needed */
 }
 
 /* Style for the submit button on hover */
