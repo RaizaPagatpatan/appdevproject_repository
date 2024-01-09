@@ -6,14 +6,16 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-family: monospace;
     /*height: 50vh; /* Adjust the height as needed */
 }
 
 #logo {
-    width: 1in;
-    height: 1in;
+    width: 1.5in;
+    height: auto;
     border-radius: 50%;
     object-fit: cover; /* This property ensures the image covers the circular container */
+    margin-bottom: 10vh;
 }
 
 form input[type="text"],
@@ -34,10 +36,10 @@ button {
     padding: 10px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     border-radius: 20px; /* Adjust the border-radius as needed */
-    background-color: #FFFFFF;
-    color: #000000;
+    background-color: #EA888E;
+    color: #FFFFFF;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -47,22 +49,3 @@ button:hover {
     background-color: #FF6B78; /* Darker green color on hover, change as needed */
 }
 
-@media screen and (max-width: 50rem) {
-    .login-form p {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .login-form p input {
-        width: 80%;
-        margin-top: 0.5rem;
-    }
-
-    button {
-        width: auto;
-    }
-}
-
-    

@@ -8,23 +8,22 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
-    /*height: 50vh; /* Adjust the height as needed */
+    /*height: 10vh; /* Adjust the height as needed */
 }
 
-
 .background-container {
-    background-image: url('/static/images/backgroundOnboarding.png'); /* Set the path to your background image */
-    background-size: cover; /* Cover the entire container */
-    background-position: center; /* Center the background image */
-    min-height: 50vh; /* Set a minimum height to cover the entire viewport */
-    /*max-height: calc(100vh - 62px);*/
-    /* i wanna edit it that it fits in one page on the viewport kay muextend sa ako and thats weird*/
+    margin: 0px;
+    padding: 0px;
+    background-image: url('/static/images/backgroundOnboarding.png');
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*overflow: hidden;*/
-}
-
+    overflow: hidden;
+    height: 85vh;
+    /* max-height: calc(100vh - 65px);*/
+ }
 h1{
     color: white;
     font-size: 50px;
@@ -34,14 +33,13 @@ h1{
 
 /* Style for the slideshow container */
 .slideshow-container {
-    max-width: 600px;
+    max-width: 500px;
     position: relative;
-    margin-top: 200px;
+    margin-top: 120px;
     margin-bottom: 60px;
     margin-left: auto;
     margin-right: auto;
 }
-
 
 
 /* Hide the slides by default */
@@ -82,16 +80,17 @@ ul {
 button {
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     border-radius: 20px;
     color: #FFF;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 button.sign_btn{
     width: 100%;
-    margin-top:10px;
-    margin-bottom: 15px;
+    margin-top:0px;
+    margin-bottom: 10vh;
     background-color: #EA888E;
     transition: background-color 0.5s ease;
     /*background-color: #000000;*/

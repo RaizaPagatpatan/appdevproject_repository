@@ -45,7 +45,7 @@ li{
     align-items: center;
     text-align:center;
     color:#7F0707;
-    margin:120px 10px 10px 10px;
+    margin: 10vh 10px 10px 10px;
     height:410px;
     width: 400px;
     box-shadow: inset 9px 7px 10px rgba(0, 0, 0, 0.1);
@@ -58,7 +58,7 @@ li{
     align-items: center;
     text-align:center;
     color:#FFCFCF;
-    margin: 60px 10px 10px 10px;
+    margin: 3vh 10px 10px 10px;
     height:450px;
     width: 400px;
     box-shadow: inset 9px 7px 10px rgba(0, 0, 0, 0.1);

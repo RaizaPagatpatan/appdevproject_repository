@@ -11,6 +11,10 @@ body{
     /*height: 50vh; /* Adjust the height as needed */
 }
 
+.thing{
+    margin-top:10vh;
+}
+
 .filter{
     font-family: monospace;
     font-size: 16px;
@@ -111,6 +115,9 @@ body{
   background-color: red;
 }
 
+.ongoing .emptyimg {
+    grid-column: span 1; /* Set the image to span 1 column */
+}
 /*!!!!!!!LIGHTBOX*/
 
 .lightbox {

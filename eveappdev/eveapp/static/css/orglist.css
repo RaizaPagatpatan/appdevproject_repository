@@ -9,8 +9,11 @@ body{
     overflow: hidden;
     font-family: monospace;
     font-size: 14px;
-
     /*height: 50vh; /* Adjust the height as needed */
+}
+
+.thing{
+    margin-top:10vh;
 }
 
 .listorgs_contain{
@@ -61,3 +64,32 @@ h3{
     border-radius: 50%;
 }
 
+.follow button {
+    background-color: #880b0b; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+/* Style for the submit button on hover */
+.follow button:hover {
+    background-color: #d34f57;
+}
+
+.unfollow button {
+    background-color: #3c3f40; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+/* Style for the submit button on hover */
+.unfollow button:hover {
+    background-color: #5f6466;
+}

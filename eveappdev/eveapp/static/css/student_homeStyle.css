@@ -13,6 +13,10 @@ body{
     /*height: 50vh; /* Adjust the height as needed */
 }
 
+.thing{
+    margin-top: 13vh;
+}
+
 .contain-all{
     display: flex;
     justify-content: center;
@@ -221,7 +225,6 @@ a:hover {
     padding: 0.5em 1em 1em 1em;
     margin: 0em .8em .4em .8em;
 
-
 }
 
 .announce-deets p{
@@ -231,11 +234,12 @@ a:hover {
 }
 
 .tp-txt{
-    text-align:left;
-    height:3em;
-    overflow-wrap: break-word;
-    overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
-    max-width: 100%;      /* Adjust as needed to limit the width of the text */
+    text-align: left;
+      height: 3em;
+      width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 }
 
 /***********************/

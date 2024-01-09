@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% extends "navigation_bar.html" %}
+
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        About Us
+    {% endblock %}
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/aboutus.css' %}">
+    {% endblock %}
+</head>
+<body>
+    {%  block content %}
+
+    <div class="creators">
+        <h2>THE CREATORS</h2>
+        <div class="gridc">
+    <!-- Grid items -->
+            <div class="gridi">
+                <img class="create" src="{% static 'images/creator1.jpg' %}" alt="'create' symbol">
+                <p class="desc">Raiza Pagatpatan</p>
+            </div>
+            <div class="gridi">
+                <img class="create" src="{% static 'images/creator2.jpg' %}" alt="'view' symbol">
+                <p class="desc">Lyra Joyce Versoza</p>
+            </div>
+            <div class="gridi">
+                <img class="create" src="{% static 'images/creator3.jpg' %}" alt="'view' symbol">
+                <p class="desc">Calista Venus Williams</p>
+            </div>
+        </div>
+    </div>
+    <div class="contact">
+        <h4>Call us: 09990909333</h4><br>
+        <h4>Email us: adminEvE@email.com</h4><br>
+        <h4>Find us: 21-3, B. Navarro St., Cebu City </h4>
+
+    </div>
+
+    {% endblock content %}
+</body>
+</html>

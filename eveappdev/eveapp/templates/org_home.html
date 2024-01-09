@@ -12,6 +12,7 @@
 
 <body>
     {% block content %}
+    <div class="thing">
     <div class="profile">
         {% if profile %}
             <div class="pfp">
@@ -30,6 +31,6 @@
     </div>
 
     <a href="{% url 'update_profile' %}"><button>Update Profile</button></a>
-
+</div>
 {% endblock %}
 </body>

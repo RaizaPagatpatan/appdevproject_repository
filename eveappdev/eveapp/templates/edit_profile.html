@@ -13,17 +13,16 @@
 {% endblock %}
 
 <body>
-
     {% block content %}
         <div class="container">
                 <h1>Update Profile</h1>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                     Update Profile Picture: {{ form.profile_pic }}
+                     Update Profile Picture: {{ form.profile_pic }}<br>
                      {{ form.organization }}
-                     Description: {{ form.details }}
-                     Email: {{ form.email }}
-                     Contact: {{ form.contact }}
+                     Description: {{ form.details }} <br>
+                     Email: {{ form.email }} <br>
+                     Contact: {{ form.contact }} <br>
                      {{ form.errors }}
                     <button type="submit">Submit</button>
                 </form>

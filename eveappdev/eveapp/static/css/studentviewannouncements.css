@@ -105,6 +105,7 @@ body{
 
 .main-container{
     margin:1.5em;
+    margin-top: 15vh;
 }
 
 .post-header{
@@ -176,7 +177,13 @@ body{
     background-color: #d34f57;
 }
 
-
+.post-container .emptyimg{
+    grid-column: span 1; /* Set the image to span 1 column */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
 /* scrollbar css customized*/
 
 /* WebKit (Chrome, Safari) */

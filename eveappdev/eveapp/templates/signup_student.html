@@ -8,14 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--<link rel="stylesheet" href="static/css/signup.css">-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
-    <title>Signup</title>
+    <title>Student SignUp</title>
 </head>
 <body>
     <a href="{% url 'home_view' %}"><img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"></a>
     <!--<h2>Signup</h2>-->
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+         {{ form.email }} <br>
+        {{ form.username }} <br>
+        {{ form.password }} <br>
+         {{ form.first_name }} <br>
+        {{ form.last_name }} <br>
+        {{ form.user_type }}
 
         <button class="userbtn" type="submit">SIGN UP </button>
 

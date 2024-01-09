@@ -35,7 +35,7 @@
                     <li><a href="{% url 'student_view_bookmarks' %}">Bookmarks</a></li>
                     <li><a href="{% url 'org_list' %}">Organizations</a></li>
                     <li><a href="{% url 'student_view_announcements' %}">Updates from Orgs</a></li>
-                    <li><a href="#">News</a></li> <!--I added 'Updates from Orgs in case News is actually a different feature'-->
+<!--                    <li><a href="#">News</a></li> &lt;!&ndash;I added 'Updates from Orgs in case News is actually a different feature'&ndash;&gt;-->
                     <li><a href="{% url 'student_notifications' %}">
                         Notifications
                         {% if 'user_id' in request.session and 'username' in request.session %}

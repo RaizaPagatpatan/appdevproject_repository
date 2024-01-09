@@ -5,8 +5,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {% block title %}
-        HomePage
+     {% block title %}
+     Home
     {% endblock %}
 
 
@@ -14,13 +14,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/homestyle.css' %}">
     {% endblock %}
 </head>
-<body>
-    <header>
-        <!-- ADD NAV EXTENSION AT TOP OF CODE OKEK? -->
-    </header>
-        {% block content %}
-        <div class="background-container">
 
+
+<body>
+{% block content %}
+        <div class="background-container">
             <h1>Welcome to EvE: University Events App!</h1>
                 <div class="slideshow-container">
 

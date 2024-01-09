@@ -7,15 +7,20 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-family: monospace;
     /*height: 50vh; /* Adjust the height as needed */
 }
 
+.thing{
+    margin-top: 20vh;
+}
 #orglabel{
     font-size: 1.5em;
 }
 
 .profile{
     margin: 2em;
+    font-size: 15px;
 }
 
 .pfp {
@@ -31,4 +36,19 @@ body{
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+
+button{
+    background-color: #880b0b; /* Set the button background color */
+    color: white; /* Set the button text color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+/* Style for the submit button on hover */
+button:hover {
+    background-color: #d34f57;
 }

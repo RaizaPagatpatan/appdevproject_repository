@@ -12,6 +12,9 @@ body{
     color:#59181E;
 }
 
+.thing{
+    margin-top: 15vh;
+}
 #n-title{
     padding: 1.2em 0 0 1.5em;
     font-size: 1.7em;

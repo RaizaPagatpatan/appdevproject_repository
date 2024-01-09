@@ -1,19 +1,19 @@
-
-
 body{
     background-color: #FFD6D6;
-    margin-top: 50px;
+    margin: 0px;
+    margin-top: 20px;
     padding: 10px;
     display: block;
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-family: monospace;
     /*height: 50vh; /* Adjust the height as needed */
 }
 
 img.logo {
-    width: 1.5in;
-    height: 1.5in;
+    width: 1.3in;
+    height: 1.3in;
     border-radius: 50%;
     object-fit: cover; /* This property ensures the image covers the circular container */
     margin-bottom: 40px;
@@ -23,7 +23,7 @@ form input[type="text"],
 form input[type="password"] {
     width: 20%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 20px;

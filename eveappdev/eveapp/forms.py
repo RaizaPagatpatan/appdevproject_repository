@@ -11,16 +11,16 @@ Student = apps.get_model('CreateAccount', 'Student')
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput, label="Username")
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), label="Username")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), label="Password")
 
 
 class OrgRegisterForm(forms.ModelForm):
-    email = forms.CharField(widget=forms.TextInput, label="Email")
-    username = forms.CharField(widget=forms.TextInput, label="Username")
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
+    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email'}), label="Email")
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), label="Username")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), label="Password")
     user_type = forms.CharField(widget=forms.HiddenInput, initial='O')
-    organization_name = forms.CharField(widget=forms.TextInput, label="Organization Name")
+    organization_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Organization Name'}), label="Organization Name")
 
     class Meta:
         model = Organization
@@ -28,11 +28,11 @@ class OrgRegisterForm(forms.ModelForm):
 
 
 class StudentRegisterForm(forms.ModelForm):
-    email = forms.CharField(widget=forms.TextInput, label="Email")
-    username = forms.CharField(widget=forms.TextInput, label="Username")
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
-    first_name = forms.CharField(widget=forms.TextInput, label="Firstname")
-    last_name = forms.CharField(widget=forms.TextInput, label="Lastname")
+    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email'}), label="Email")
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), label="Username")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), label="Password")
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), label="Firstname")
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), label="Lastname")
     user_type = forms.CharField(widget=forms.HiddenInput, initial='S')
 
     class Meta:

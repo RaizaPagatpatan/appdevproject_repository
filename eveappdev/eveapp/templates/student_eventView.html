@@ -16,7 +16,7 @@
 </head>
 <body>
     {% block content %}
-
+    <div class="thing">
     <div class="filter">
         <h3> Filters: </h3>
         <form method="get" action="" class="filterform">
@@ -46,13 +46,14 @@
                 <p>Details: {{ event.details }}</p>
             </div>
             {% empty %}
-                <p><img src="{% static 'images/empty.png' %}" alt="Empty"></p>
+                <div class="grid-item"> </div>
+                <p><img class="emptyimg" src="{% static 'images/empty.png' %}" alt="Empty"></p>
             {% endfor %}
         </div>
     </section>
 
     {% include 'event_lightbox.html' %}
-
+    </div>
 {% endblock %}
 </body>
 

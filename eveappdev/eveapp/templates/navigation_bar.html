@@ -14,21 +14,19 @@
 
 </head>
 <body>
-
     <header class="navbar">
             <div> 
-                <img class="ic-menu" src="{% static 'images/menu_icon.png' %}" alt="Menu Icon" srcset="">
+<!--                <img class="ic-menu" src="{% static 'images/menu_icon.png' %}" alt="Menu Icon" srcset="">-->
                 <img class="logo" src="{% static 'images/evelogo.png' %}" alt="EvE Logo"> 
             </div>
         <div class="box-ul-nav">
-
             <nav>
                 <ul class="navigation">
                     <li><a href="{% url 'home_view' %}">Home</a></li>
-                    <li><a href="{% url 'services' %}">Services</a></li>
+                    <li><a href="{% url 'services' %}">About EvE</a></li>
+                    <li><a href="{% url 'aboutus' %}">About Us</a></li>
                     <li><a href="{% url 'pricing' %}">Pricing</a></li>
-                    <li><a href='#'>About</a></li>
-                    <li><a href='#'>Contact</a></li>
+
                 </ul>
                 <div class="user-links">
 
@@ -36,7 +34,6 @@
             </nav>
         </div>
     </header>
-
 
     {% block content %}
     {% endblock %}
