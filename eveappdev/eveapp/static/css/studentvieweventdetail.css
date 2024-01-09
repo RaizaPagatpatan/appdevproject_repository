@@ -11,11 +11,13 @@ body{
 }
 
 .event-contain {
-    margin: 1em 30% 1em 30%;
-    padding:1em;
-    overflow-y: auto; /* Enable vertical scrolling */
-    max-height: 80vh; /* Set a maximum height for the container */
+    margin: 10vh auto; /* Adjust the margin as needed */
+    width: 50%; /* Adjust the width as needed */
+    padding: 1em;
+    overflow-y: auto;
+    max-height: 80vh;
 }
+
 
 .inner-con{
     background-color:#FFE3E3;
