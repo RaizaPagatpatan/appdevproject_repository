@@ -34,7 +34,7 @@
                 <p>Details: {{ event.details }}</p>
 
                 <div class="action-btns">
-                    <div class="bookmark-contain">
+                    <div class="bookmark-container">
                         {%  if request.session.user_id|has_bookmarked:event.eventID %}
                             <form method="post" action="{% url 'remove_bookmark_event' event_id=event.eventID %}">
                                 {% csrf_token %}
@@ -110,8 +110,6 @@
                                 onclick="RSVPyes({{ event.eventID }},{{ event.organizer.user_id  }} , this)">
                                 <button id="gobtn">Going</button>
                             </div>
-
-                            <hr>
 
                             <div class="option
                                 {% if request.session.user_id|has_rsvped_not_going:event %}

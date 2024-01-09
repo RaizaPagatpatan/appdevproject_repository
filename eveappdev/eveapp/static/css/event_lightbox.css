@@ -1,27 +1,28 @@
-/**** -----------LIGHTBOX-------- ****/
-.thing{
-    max-height: 90vh;
-}
+
+/*!!!!!!!LIGHTBOX*/
+
+
 .lightbox {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%
+    width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.7);
 }
 
 .lightbox-content {
     position: absolute;
-    max-height: 90vh;
-    max-width: 90vw;
+    min-height: 30vh;
+    min-width: 30vw;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #f1acac;
     width: auto;
-    padding: 20px;
+    padding: 30px;
+    padding-left: 50px;
     text-align: center;
     border-radius: 5%;
 }
@@ -32,19 +33,38 @@
     border: 2px solid white; /* waito border */
 }
 
-button .close {
+/*.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}*/
 
+.lightbox .bkremove{
+    float: right;
+    margin: 0px 20px 0px 20px;
+}
+
+
+button .close {
     font-size: 20px;
     cursor: pointer;
 }
 
-.lightbox .action-btns{
-
+.lightbox .btnclose{
+    padding: 7px 10px 7px 10px;
+    border-radius: 50%;
+    width: fit-content;
+    margin: 10px;
+    margin-bottom: 20px;
 }
+
+
 .lightbox button{
-    margin: 0 auto;
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size:.9em;
     float: right;
     background-color: #880b0b; /* Set the button background color */
     color: white; /* Set the button text color */
@@ -60,26 +80,13 @@ button .close {
     background-color: #d34f57; /* Darker maroon on hover */
 }
 
-.lightbox .btnclose{
-    padding: 7px 10px 7px 10px;
-    border-radius: 50%;
-    width: fit-content;
-    margin: 10px;
-    margin-bottom: 20px;
-}
-
 /* LIGHTBOX: RSVP Buttons */
 
 .yesclass_txt button{
     background-color: #12ED7A; /* green-ish*/
     color: #116311; /* darker green*/
-
 }
 
-#rsvpButtonText{
-    float: left;
-    margin: 0px 20px 0px 20px;
-}
 .yesclass_txt button:hover {
     background-color: #63F3A8; /* green-ish*/
     color: #147714; /* darker green*/
@@ -104,10 +111,7 @@ button .close {
     color: #116311; /* darker green*/
 
 }
-.lightbox .bkremove{
-    float: right;
-    margin: 0px 20px 0px 20px;
-}
+
 .yesclass button:hover {
     background-color: #63F3A8; /* green-ish*/
     color: #147714; /* darker green*/
@@ -149,16 +153,15 @@ button .close {
     color: #59181E;
 }
 
-.deets{
-    word-wrap: break-word; /* This allows long words to break and wrap onto the next line */
-    overflow: hidden;     /* This hides any content that exceeds the dimensions of the container */
-    max-width: 90%;      /* Adjust as needed to limit the width of the text */
+.rsvpButtonText{
+    left:-10em;
 }
 
-/*LIGHTBOX: RSVP MENU*/
+/*********************/
 .options-container {
     width: 30%;
     max-width: 30%;
+    position: relative;
 }
 
 .dot {
@@ -169,16 +172,16 @@ button .close {
     border-radius: 50%;
 }
 
+
 .options-menu {
     display: none;
     position: absolute;
-    top: 65%;
-    left: -9.5em;
-    width: 8em;
+    top: -10em;
+    left: -3em;
+    width: 9em;
     text-align:center;
     padding:1em 1em .5em 1em;
     right: 0;
-    background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #59181E;
